@@ -2,16 +2,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { BellDot, ChevronDown } from "lucide-react";
+import ProfileMenu from '../profile/ProfileMenu';
+import ReactDOM from 'react-dom';
 
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState(pathname);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
 
   // Social media icons - filtered to only Twitter, LinkedIn, and Instagram
   const FILTERED_SOCIAL_ICONS = [
@@ -79,6 +84,37 @@ const Navbar = () => {
            (href === "/holdings/equity" && pathname.startsWith("/holdings/")) ||
            (href === "/order/queued" && pathname.startsWith("/order/"));
   };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setShowProfileMenu(false);
+      }
+    }
+    if (showProfileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showProfileMenu]);
+
+  // Calculate dropdown position when opening
+  useEffect(() => {
+    if (showProfileMenu && profileRef.current) {
+      const rect = profileRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + 8, // 8px below the icon
+        left: rect.right - 320, // align right edge, assuming menu width 320px
+      });
+    }
+  }, [showProfileMenu]);
 
   return (
     <>
@@ -151,7 +187,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Right Side Elements - 25% width */}
-            <div className="hidden lg:flex w-[25%] items-center justify-end">
+            <div className="hidden lg:flex w-[25%] items-center justify-end relative">
               <div className="px-[28px] flex items-center space-x-3">
                 {/* Notifications Bell Icon */}
                 <button className="text-gray-700">
@@ -159,10 +195,10 @@ const Navbar = () => {
                 </button>
 
                 {/* User Profile Avatar with Dropdown Arrow */}
-                <div className="flex items-center">
+                <div className="flex items-center relative" ref={profileRef}>
                   <div
                     className="h-6 w-6 cursor-pointer rounded-full overflow-hidden border border-gray-300"
-                    onClick={() => router.push("/profile")}
+                    onClick={() => setShowProfileMenu((v) => !v)}
                   >
                     <Image
                       src="/profile.svg"
@@ -175,7 +211,19 @@ const Navbar = () => {
                       }}
                     />
                   </div>
-                  <ChevronDown color="black" className="ml-1" size={16} />
+                  <span className="ml-1 cursor-pointer" onClick={() => setShowProfileMenu((v) => !v)}>
+                    <ChevronDown color="black" size={16} />
+                  </span>
+                  {/* ProfileMenu Dropdown (Portal, fixed position) */}
+                  {showProfileMenu && dropdownPosition && ReactDOM.createPortal(
+                    <div
+                      className="fixed z-[1050] shadow-xl"
+                      style={{ top: dropdownPosition.top, left: dropdownPosition.left, minWidth: 320 }}
+                    >
+                      <ProfileMenu />
+                    </div>,
+                    document.body
+                  )}
                 </div>
               </div>
             </div>
