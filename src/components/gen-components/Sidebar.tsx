@@ -4,6 +4,22 @@ import { Search, Filter, Plus, ChevronUp, ChevronDown, Edit2, Layers, Link, Tren
 import MarketDepth from './MarketDepth';
 import CreateWatchlistCategoryModals from './CreateWatchlistCategoryModals';
 import { initialWatchlistNames, initialCategories } from '../../constants/sidebar-data';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+  rectSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Stock {
   id: string;
@@ -61,6 +77,59 @@ const Sidebar: React.FC = () => {
         ? { ...cat, watchlists: [...cat.watchlists, { id: Date.now().toString(), name, symbol: name.toUpperCase(), exchange: 'NSE', price: 0, change: 0, changePercent: 0 }] }
         : cat
     ));
+  };
+
+  // Helper to reorder or move watchlists between categories
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    // Find source and target category and indices
+    let sourceCatIdx = -1, sourceIdx = -1, targetCatIdx = -1, targetIdx = -1;
+    categories.forEach((cat, catIdx) => {
+      const idx = cat.watchlists.findIndex(w => w.id === active.id);
+      if (idx !== -1) {
+        sourceCatIdx = catIdx;
+        sourceIdx = idx;
+      }
+      // Use over.data?.current?.categoryId for dnd-kit v6+
+      if (over.data?.current?.categoryId && cat.id === over.data.current.categoryId) {
+        targetCatIdx = catIdx;
+      }
+    });
+    // If dropped on a stock, get its category and index
+    if (targetCatIdx === -1) {
+      categories.forEach((cat, catIdx) => {
+        const idx = cat.watchlists.findIndex(w => w.id === over.id);
+        if (idx !== -1) {
+          targetCatIdx = catIdx;
+          targetIdx = idx;
+        }
+      });
+    } else {
+      // If dropped on category droppable area (not a stock), add to end
+      targetIdx = categories[targetCatIdx].watchlists.length;
+    }
+    if (sourceCatIdx === -1 || targetCatIdx === -1 || sourceIdx === -1) return;
+    // If same category, reorder
+    if (sourceCatIdx === targetCatIdx) {
+      setCategories(prev => prev.map((cat, idx) =>
+        idx === sourceCatIdx
+          ? { ...cat, watchlists: arrayMove(cat.watchlists, sourceIdx, targetIdx) }
+          : cat
+      ));
+    } else {
+      // Move between categories
+      setCategories(prev => {
+        const sourceCat = prev[sourceCatIdx];
+        const targetCat = prev[targetCatIdx];
+        const moved = sourceCat.watchlists[sourceIdx];
+        const newSource = { ...sourceCat, watchlists: sourceCat.watchlists.filter((_, i) => i !== sourceIdx) };
+        const newTarget = { ...targetCat, watchlists: [...targetCat.watchlists.slice(0, targetIdx), moved, ...targetCat.watchlists.slice(targetIdx)] };
+        return prev.map((cat, idx) =>
+          idx === sourceCatIdx ? newSource : idx === targetCatIdx ? newTarget : cat
+        );
+      });
+    }
   };
 
   // Calculate tooltip position based on button position
@@ -345,6 +414,23 @@ const Sidebar: React.FC = () => {
     );
   }
 
+  // Sortable StockItem for drag-and-drop
+  const SortableStockItem: React.FC<{ stock: Stock; categoryId: string }> = ({ stock, categoryId }) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: stock.id, data: { categoryId } });
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+      zIndex: isDragging ? 100 : 'auto',
+      background: isDragging ? '#f0f0f0' : undefined
+    };
+    return (
+      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <StockItem stock={stock} />
+      </div>
+    );
+  };
+
   return (
     <>
       {/* Sidebar and content */}
@@ -444,28 +530,40 @@ const Sidebar: React.FC = () => {
           )}
 
           {/* Scrollable Content Area */}
-          <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200">
-            {/* Dynamic Category Sections */}
-            {categories.map(category => (
-              <div className="border-none" key={category.id}>
-                <SectionHeader
-                  title={category.name}
-                  isExpanded={expandedCategories[category.id] ?? true}
-                  onToggle={() => setExpandedCategories(prev => ({ ...prev, [category.id]: !(prev[category.id] ?? true) }))}
-                />
-                {(expandedCategories[category.id] ?? true) && (
-                  <div className="divide-y divide-gray-100">
-                    {category.watchlists.map((stock) => [
-                      <StockItem key={stock.id} stock={stock} />,
-                      openDepthId === stock.id && (
-                        <div key={stock.id + '-depth'} className="w-full"><MarketDepth /></div>
-                      )
-                    ])}
+          <DndContext
+            sensors={useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200">
+              {/* Dynamic Category Sections */}
+              {categories.map(category => (
+                <SortableContext
+                  key={category.id}
+                  items={category.watchlists.map(w => w.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="border-none" key={category.id}>
+                    <SectionHeader
+                      title={category.name}
+                      isExpanded={expandedCategories[category.id] ?? true}
+                      onToggle={() => setExpandedCategories(prev => ({ ...prev, [category.id]: !(prev[category.id] ?? true) }))}
+                    />
+                    {(expandedCategories[category.id] ?? true) && (
+                      <div className="divide-y divide-gray-100" data-category-id={category.id}>
+                        {category.watchlists.map((stock) => [
+                          <SortableStockItem key={stock.id} stock={stock} categoryId={category.id} />,
+                          openDepthId === stock.id && (
+                            <div key={stock.id + '-depth'} className="w-full"><MarketDepth /></div>
+                          )
+                        ])}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                </SortableContext>
+              ))}
+            </div>
+          </DndContext>
 
           {/* Modals for Create Watchlist/Category */}
           <CreateWatchlistCategoryModals
