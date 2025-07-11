@@ -1,5 +1,17 @@
 "use client";
 import React, { useState } from 'react';
+import {
+  createWatchlist,
+  getAllWatchlists,
+  updateWatchlistPosition,
+  updateWatchlistName,
+  deleteWatchlist,
+  createCategory,
+  getAllCategories,
+  updateCategoryPosition,
+  updateCategoryName,
+  deleteCategory
+} from '../../utils/watchlistApi';
 import { Search, Filter, Plus, ChevronUp, ChevronDown, Edit2, Layers, Link, TrendingUp, Trash2, ChevronRight } from 'lucide-react';
 import MarketDepth from './MarketDepth';
 import CreateWatchlistCategoryModals from './CreateWatchlistCategoryModals';
@@ -48,42 +60,150 @@ const Sidebar: React.FC = () => {
   const [showWatchlistModal, setShowWatchlistModal] = useState(false);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  // Track a pending watchlist ID for immediate category creation after watchlist creation
+  const [pendingWatchlistId, setPendingWatchlistId] = useState<number | null>(null);
   const [hoveredPage, setHoveredPage] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
   const buttonRefs = React.useRef<{ [key: number]: HTMLButtonElement | null }>({});
   const overlayInputRef = React.useRef<HTMLInputElement>(null);
 
-  // Watchlist names mapping for tooltips - now state-based
-  const [watchlistNames, setWatchlistNames] = useState(initialWatchlistNames);
+  // Watchlist names and ids from API
+  const [watchlists, setWatchlists] = useState<{ id: number; name: string }[]>([]);
+  const [watchlistNames, setWatchlistNames] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  // Initial categories state
-  const [categories, setCategories] = useState<Category[]>(initialCategories);
-
-  // Helper to add a new category
-  const addCategory = (name: string) => {
-    setCategories(prev => [
-      ...prev,
-      { id: Date.now().toString(), name, watchlists: [] }
-    ]);
-  };
-
-  // Helper to add a new watchlist (stock) to the selected category
-  const addWatchlist = (name: string) => {
-    if (!selectedCategoryId && categories.length > 0) {
-      setSelectedCategoryId(categories[0].id);
+  // Helper to add a new category (API)
+  const addCategory = async (name: string, watchlistId?: number) => {
+    console.log('[Sidebar] addCategory invoked', {
+      name,
+      watchlistId,
+      currentWatchlistId,
+      pendingWatchlistId
+    });
+    if (!watchlists || watchlists.length === 0) {
+      alert('No watchlists exist. Please create a watchlist before adding a category.');
+      console.error('[Sidebar] addCategory error: No watchlists exist');
+      return;
     }
-    setCategories(prev => prev.map(cat =>
-      cat.id === (selectedCategoryId || categories[0].id)
-        ? { ...cat, watchlists: [...cat.watchlists, { id: Date.now().toString(), name, symbol: name.toUpperCase(), exchange: 'NSE', price: 0, change: 0, changePercent: 0 }] }
-        : cat
-    ));
+    let idToUse: number | undefined = undefined;
+    if (typeof watchlistId === 'number' && !isNaN(watchlistId)) {
+      idToUse = watchlistId;
+    } else if (typeof currentWatchlistId === 'number' && !isNaN(currentWatchlistId)) {
+      idToUse = currentWatchlistId;
+    }
+    console.log('[Sidebar] addCategory resolved idToUse', { idToUse });
+    if (idToUse === undefined || isNaN(idToUse)) {
+      alert('Please select a valid watchlist before creating a category.');
+      console.error('[Sidebar] addCategory error: Invalid idToUse', { idToUse, watchlistId, currentWatchlistId, pendingWatchlistId });
+      return;
+    }
+    try {
+      await createCategory(idToUse, name);
+      await fetchCategories(idToUse);
+      console.log('[Sidebar] addCategory success');
+    } catch (e) {
+      console.error('[Sidebar] addCategory error', e);
+    }
   };
 
-  // Helper to reorder or move watchlists between categories
-  const handleDragEnd = (event: DragEndEvent) => {
+  // Helper to add a new watchlist (API)
+  const addWatchlist = async (name: string): Promise<number | undefined> => {
+    console.log('[Sidebar] addWatchlist', { name });
+    try {
+      const newWatchlist = await createWatchlist(name);
+      await fetchWatchlists();
+      if (newWatchlist && newWatchlist.id) {
+        const idNum = Number(newWatchlist.id);
+        setCurrentWatchlistId(idNum);
+        await fetchCategories(idNum);
+        console.log('[Sidebar] addWatchlist success');
+        return idNum;
+      }
+    } catch (e) {
+      console.error('[Sidebar] addWatchlist error', e);
+    }
+    return undefined;
+  };
+
+  // Track current watchlistId (for category APIs)
+  const [currentWatchlistId, setCurrentWatchlistId] = useState<number | null>(null);
+
+  // Fetch all watchlists from API
+  const fetchWatchlists = async () => {
+    console.log('[Sidebar] fetchWatchlists');
+    try {
+      const response = await getAllWatchlists();
+      // If backend returns { message, data: [...] }
+      const data = response && response.data ? response.data : response;
+      console.log('[Sidebar] fetchWatchlists raw API data:', data);
+      if (!Array.isArray(data)) {
+        throw new Error('Watchlists response is not an array: ' + JSON.stringify(data));
+      }
+      // Map backend's watchlistId to id for UI compatibility
+      const mapped = data.map((w: any) => ({
+        id: Number(w.watchlistId),
+        name: w.name,
+        ...w
+      }));
+      setWatchlists(mapped);
+      setWatchlistNames(mapped.map((w: any) => w.name));
+      if ((!currentWatchlistId || isNaN(currentWatchlistId)) && mapped.length > 0) {
+        setCurrentWatchlistId(mapped[0].id);
+      }
+      console.log('[Sidebar] fetchWatchlists success', data);
+    } catch (e) {
+      console.error('[Sidebar] fetchWatchlists error', e);
+      setWatchlists([]);
+      setWatchlistNames([]);
+    }
+  };
+
+  // Fetch all categories for a watchlist from API
+  const fetchCategories = async (watchlistId: number) => {
+    if (watchlistId === undefined || watchlistId === null || isNaN(watchlistId)) {
+      console.error('[Sidebar] fetchCategories: watchlistId is not a valid number', watchlistId);
+      return;
+    }
+    console.log('[Sidebar] fetchCategories', { watchlistId });
+    try {
+      const response = await getAllCategories(watchlistId); // pass as number
+      console.log('[Sidebar] fetchCategories raw API data:', response);
+      // The API returns { message, data: [...] }
+      let data = response && response.data ? response.data : response;
+      // Map backend's category fields to UI Category type
+      // Each category: { id, categoryName, positionIndex }
+      // UI expects: { id: string, name: string, watchlists: Stock[] }
+      const mapped = Array.isArray(data)
+        ? data.map((cat: any) => ({
+            id: String(cat.id),
+            name: cat.categoryName || 'Uncategorized',
+            watchlists: cat.watchlists || []
+          }))
+        : [];
+      setCategories(mapped);
+      console.log('[Sidebar] fetchCategories success', mapped);
+    } catch (e) {
+      console.error('[Sidebar] fetchCategories error', e);
+    }
+  };
+
+  // Fetch watchlists on mount
+  React.useEffect(() => {
+    fetchWatchlists();
+  }, []);
+
+  // Fetch categories when currentWatchlistId changes
+  React.useEffect(() => {
+    if (typeof currentWatchlistId === 'number' && !isNaN(currentWatchlistId)) {
+      fetchCategories(currentWatchlistId);
+    }
+  }, [currentWatchlistId]);
+
+  // Helper to reorder or move watchlists between categories (API)
+  const handleDragEnd = async (event: DragEndEvent) => {
+    console.log('[Sidebar] handleDragEnd', event);
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    // Find source and target category and indices
     let sourceCatIdx = -1, sourceIdx = -1, targetCatIdx = -1, targetIdx = -1;
     categories.forEach((cat, catIdx) => {
       const idx = cat.watchlists.findIndex(w => w.id === active.id);
@@ -91,12 +211,10 @@ const Sidebar: React.FC = () => {
         sourceCatIdx = catIdx;
         sourceIdx = idx;
       }
-      // Use over.data?.current?.categoryId for dnd-kit v6+
       if (over.data?.current?.categoryId && cat.id === over.data.current.categoryId) {
         targetCatIdx = catIdx;
       }
     });
-    // If dropped on a stock, get its category and index
     if (targetCatIdx === -1) {
       categories.forEach((cat, catIdx) => {
         const idx = cat.watchlists.findIndex(w => w.id === over.id);
@@ -106,29 +224,25 @@ const Sidebar: React.FC = () => {
         }
       });
     } else {
-      // If dropped on category droppable area (not a stock), add to end
       targetIdx = categories[targetCatIdx].watchlists.length;
     }
+    console.log('[Sidebar] handleDragEnd indices', { sourceCatIdx, sourceIdx, targetCatIdx, targetIdx });
     if (sourceCatIdx === -1 || targetCatIdx === -1 || sourceIdx === -1) return;
-    // If same category, reorder
     if (sourceCatIdx === targetCatIdx) {
-      setCategories(prev => prev.map((cat, idx) =>
-        idx === sourceCatIdx
-          ? { ...cat, watchlists: arrayMove(cat.watchlists, sourceIdx, targetIdx) }
-          : cat
-      ));
+      try {
+        const cat = categories[sourceCatIdx];
+        const stock = cat.watchlists[sourceIdx];
+        await updateWatchlistPosition(stock.id, targetIdx);
+        await fetchCategories(currentWatchlistId!);
+        console.log('[Sidebar] handleDragEnd reorder success');
+      } catch (e) {
+        console.error('[Sidebar] handleDragEnd reorder error', e);
+      }
     } else {
-      // Move between categories
-      setCategories(prev => {
-        const sourceCat = prev[sourceCatIdx];
-        const targetCat = prev[targetCatIdx];
-        const moved = sourceCat.watchlists[sourceIdx];
-        const newSource = { ...sourceCat, watchlists: sourceCat.watchlists.filter((_, i) => i !== sourceIdx) };
-        const newTarget = { ...targetCat, watchlists: [...targetCat.watchlists.slice(0, targetIdx), moved, ...targetCat.watchlists.slice(targetIdx)] };
-        return prev.map((cat, idx) =>
-          idx === sourceCatIdx ? newSource : idx === targetCatIdx ? newTarget : cat
-        );
-      });
+      // Move between categories: update category and position if needed
+      // You may need a dedicated API for moving between categories if available
+      await fetchCategories(currentWatchlistId!);
+      console.log('[Sidebar] handleDragEnd move between categories');
     }
   };
 
@@ -232,7 +346,7 @@ const Sidebar: React.FC = () => {
 
         <div className="text-right">
           <div className="font-semibold text-medium text-gray-900 text-[14px] mb-[4px]">{stock.price.toFixed(2)}</div>
-          <div className={`text-[12px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`text-[12px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}> 
             {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.change >= 0 ? '+' : ''}{stock.changePercent.toFixed(1)}%)
           </div>
         </div>
@@ -266,23 +380,29 @@ const Sidebar: React.FC = () => {
     </div>
   );
 
-  const SectionHeader: React.FC<{ title: string; isExpanded: boolean; onToggle: () => void }> = ({
+  const SectionHeader: React.FC<{ title: string; isExpanded: boolean; onToggle: () => void; categoryId?: string }> = ({
     title,
     isExpanded,
-    onToggle
+    onToggle,
+    categoryId
   }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [savedTitle, setSavedTitle] = useState(title);
+    const [deleting, setDeleting] = useState(false);
 
     const handleTitleClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsEditing(true);
     };
 
-    const handleTitleSave = () => {
+    const handleTitleSave = async () => {
       setSavedTitle(editedTitle);
       setIsEditing(false);
+      if (categoryId && currentWatchlistId) {
+        await updateCategoryName(currentWatchlistId, categoryId, editedTitle);
+        await fetchCategories(currentWatchlistId);
+      }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -295,10 +415,24 @@ const Sidebar: React.FC = () => {
       }
     };
 
+    const handleDeleteCategory = async (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!categoryId || !currentWatchlistId) return;
+      if (!window.confirm('Are you sure you want to delete this category?')) return;
+      setDeleting(true);
+      try {
+        await deleteCategory(currentWatchlistId, categoryId, true);
+        await fetchCategories(currentWatchlistId);
+      } catch (err) {
+        // Optionally show error
+      }
+      setDeleting(false);
+    };
+
     return (
-      <button
-        onClick={onToggle}
+      <div
         className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-100 transition-colors border-b border-gray-200"
+        onClick={onToggle}
       >
         <div className="flex items-center space-x-2">
           {isEditing ? (
@@ -320,8 +454,18 @@ const Sidebar: React.FC = () => {
           <button
             onClick={handleTitleClick}
             className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+            tabIndex={-1}
           >
             <Edit2 className="w-3 h-3" />
+          </button>
+          <button
+            onClick={handleDeleteCategory}
+            className="text-gray-400 hover:text-red-600 transition-colors p-1"
+            tabIndex={-1}
+            disabled={deleting}
+            title="Delete Category"
+          >
+            <Trash2 className="w-3 h-3" />
           </button>
         </div>
         {isExpanded ? (
@@ -329,7 +473,7 @@ const Sidebar: React.FC = () => {
         ) : (
           <ChevronDown className="w-4 h-4 text-gray-400" />
         )}
-      </button>
+      </div>
     );
   };
 
@@ -356,14 +500,25 @@ const Sidebar: React.FC = () => {
   };
 
   // Modal handlers
-  const handleCreateCategory = (name: string) => {
-    addCategory(name);
+  const handleCreateCategory = async (name: string, watchlistId?: number) => {
+    // Use pendingWatchlistId if present, else use passed or current
+    const idToUse = (pendingWatchlistId ?? watchlistId ?? currentWatchlistId);
+    // Only pass idToUse if it's a number
+    const idToPass = typeof idToUse === 'number' && !isNaN(idToUse) ? idToUse : undefined;
+    console.log('[Sidebar] handleCreateCategory', name, idToPass);
+    await addCategory(name, idToPass);
     setShowCategoryModal(false);
+    setPendingWatchlistId(null); // Clear after use
   };
-  const handleCreateWatchlist = (name: string) => {
-    addWatchlist(name);
-    setWatchlistNames(prev => [...prev, name]);
+
+  const handleCreateWatchlist = async (name: string) => {
+    console.log('[Sidebar] handleCreateWatchlist', name);
+    const newId = await addWatchlist(name);
     setShowWatchlistModal(false);
+    if (typeof newId === 'number' && !isNaN(newId)) {
+      setPendingWatchlistId(newId);
+      setShowCategoryModal(true); // Auto-open category modal for new watchlist
+    }
   };
 
   React.useEffect(() => {
@@ -490,40 +645,64 @@ const Sidebar: React.FC = () => {
           <div className="py-3 flex-shrink-0">
             <div className="relative">
               <div className="flex items-center space-x-1 gap-3 overflow-x-auto hide-scrollbar pb-4">
-                {Array.from({ length: watchlistNames.length }, (_, i) => i + 1).map((page) => (
-                  <div key={page} className="relative">
-                    <button
-                      ref={(el) => { buttonRefs.current[page] = el; }}
-                      onClick={() => setCurrentPage(page)}
-                      onMouseEnter={() => {
-                        setHoveredPage(page);
-                        calculateTooltipPosition(page);
-                      }}
-                      onMouseLeave={() => setHoveredPage(null)}
-                      className={`px-3 h-8 rounded text-sm font-medium transition-colors border-[0.5px] ${currentPage === page
-                        ? 'bg-[#EEFFF2] text-green-700 border-green-200'
-                        : 'text-gray-600 bg-[#F4F4F9] border-[#E5E7EB]'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  </div>
-                ))}
+          {watchlists.map((watchlist, idx) => (
+            <div key={watchlist.id} className="relative group">
+              <button
+                ref={(el) => { buttonRefs.current[idx + 1] = el; }}
+                onClick={() => {
+                  setCurrentPage(idx + 1);
+                  setCurrentWatchlistId(watchlist.id);
+                  fetchCategories(watchlist.id);
+                }}
+                onMouseEnter={() => {
+                  setHoveredPage(idx + 1);
+                  calculateTooltipPosition(idx + 1);
+                }}
+                onMouseLeave={() => setHoveredPage(null)}
+                className={`px-3 h-8 rounded text-sm font-medium transition-colors border-[0.5px] ${currentPage === idx + 1
+                  ? 'bg-[#EEFFF2] text-green-700 border-green-200'
+                  : 'text-gray-600 bg-[#F4F4F9] border-[#E5E7EB]'
+                }`}
+                style={{ position: 'relative', zIndex: 2 }}
+              >
+                {idx + 1}
+              </button>
+              {/* Show delete cross on hover */}
+              <button
+                className="absolute -top-[2px] -right-2 w-4 h-4 rounded-full bg-white border border-gray-300 text-gray-400 hover:text-red-600 hover:border-red-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ fontSize: 10, lineHeight: 1, zIndex: 99999 }}
+                title="Delete Watchlist"
+                tabIndex={-1}
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  if (!window.confirm('Are you sure you want to delete this watchlist?')) return;
+                  try {
+                    await deleteWatchlist(String(watchlist.id));
+                    await fetchWatchlists();
+                  } catch (err) {
+                    // Optionally show error
+                  }
+                }}
+              >
+                <span style={{ fontWeight: 'bold', fontSize: 14, marginTop: -2 }}>×</span>
+              </button>
+            </div>
+          ))}
               </div>
             </div>
           </div>
 
-          {/* Dynamic Tooltip positioned above the hovered number */}
-          {hoveredPage && (
-            <div 
+          {/* Dynamic Tooltip positioned above the hovered number, clamped to sidebar top */}
+          {hoveredPage !== null && hoveredPage > 0 && (
+            <div
               className="fixed z-[999999] pointer-events-none"
-              style={{ 
-                left: `${tooltipPosition.left}px`, 
-                top: `${tooltipPosition.top}px`,
+              style={{
+                left: tooltipPosition.left + 'px',
+                top: Math.max(tooltipPosition.top, 8) + 'px', // Clamp to min 8px from top
                 transform: 'translateX(-50%)'
               }}
             >
-              <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap  border-[#d9d9d9] border-[1px]">
+              <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px] shadow">
                 {watchlistNames[hoveredPage - 1]}
               </div>
             </div>
@@ -548,6 +727,7 @@ const Sidebar: React.FC = () => {
                       title={category.name}
                       isExpanded={expandedCategories[category.id] ?? true}
                       onToggle={() => setExpandedCategories(prev => ({ ...prev, [category.id]: !(prev[category.id] ?? true) }))}
+                      categoryId={category.id}
                     />
                     {(expandedCategories[category.id] ?? true) && (
                       <div className="divide-y divide-gray-100" data-category-id={category.id}>
