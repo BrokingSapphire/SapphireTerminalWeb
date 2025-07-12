@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Switch } from '../ui/switch';
 
@@ -60,9 +62,8 @@ const DerivativeTrading: React.FC = () => {
 
   return (
     <div 
-      className="bg-[#F8F8FB] border border-gray-300"
+      className="bg-[#F8F8FB] border border-gray-300 w-full"
       style={{
-        width: '968px',
         height: '340px',
         borderRadius: '4px',
         borderWidth: '1px',
@@ -74,11 +75,10 @@ const DerivativeTrading: React.FC = () => {
       {derivatives.map((item, index) => (
         <div 
           key={item.id} 
-          className={`flex items-center justify-between ${
+          className={`flex items-center justify-between w-full ${
             index < derivatives.length - 1 ? 'border-b' : ''
           }`}
           style={{
-            width: '936px',
             height: '69px',
             justifyContent: 'space-between',
             opacity: 1,
