@@ -1,6 +1,6 @@
 "use client";
 
-import SessionManagement from '@/components/profile/SessionManagement';   
+import GiftStock from '@/components/profile/Gift Stock/GiftStock';   
 import React from 'react'
 import { ChevronLeft } from 'lucide-react';
 
@@ -24,7 +24,7 @@ const Home = () => {
               <ChevronLeft className="w-5 h-5 text-gray-600" />
             </button>
             <h1 className="text-lg font-medium text-gray-900">
-              Session Management
+              Gift Stock 
             </h1>
           </div>
         </div>
@@ -32,7 +32,7 @@ const Home = () => {
 
       {/* Main content with proper spacing */}
       <div className="px-1 py-4">
-        <SessionManagement />
+        <GiftStock />
       </div>
     </div>
   );

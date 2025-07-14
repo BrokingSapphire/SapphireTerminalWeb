@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface SessionData {
   id: string;
@@ -11,6 +12,7 @@ interface SessionData {
 }
 
 const CurrentSessions: React.FC = () => {
+  const router = useRouter();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [showOTPPopup, setShowOTPPopup] = useState(false);
   const [sessionToLogout, setSessionToLogout] = useState<SessionData | null>(
@@ -126,10 +128,15 @@ const CurrentSessions: React.FC = () => {
       // Handle OTP verification and logout logic here
       console.log("OTP verified:", otpValue);
       console.log("Logging out session:", sessionToLogout?.id);
+      
+      // Close popups and reset state
       setShowOTPPopup(false);
       setSessionToLogout(null);
       setOtp(["", "", "", "", "", ""]);
       setIsTimerActive(false);
+      
+      // Navigate to the specified route
+      router.push("/accounts/CurrentSession/SessionManagement");
     }
   };
 
@@ -147,10 +154,10 @@ const CurrentSessions: React.FC = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">
+              <h2 className="text-lg font-semibold text-gray-900 font-inter">
                 Current Sessions
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 font-inter">
                 Keep up with your available sessions logged in from your
                 account. Learn more.
               </p>
@@ -172,17 +179,17 @@ const CurrentSessions: React.FC = () => {
               <div className="flex items-center gap-3">
                 {getDeviceIcon(session.icon, session.device)}
                 <div>
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-sm font-medium text-gray-900 font-inter">
                     {session.device}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-500 font-inter">
                     {session.location} • {session.lastActive}
                   </div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <span
-                  className={`text-sm font-medium ${
+                  className={`text-sm font-medium font-inter ${
                     session.status === "current"
                       ? "text-green-600"
                       : "text-orange-500"
@@ -192,7 +199,7 @@ const CurrentSessions: React.FC = () => {
                 </span>
                 <button
                   onClick={() => handleLogoutClick(session)}
-                  className="text-red-600 hover:text-red-700 font-medium px-4 py-1.5 rounded-md border border-gray-300 hover:bg-red-50 transition-colors text-xs"
+                  className="text-red-600 hover:text-red-700 font-medium px-4 py-1.5 rounded-md border border-gray-300 hover:bg-red-50 transition-colors text-xs font-inter"
                 >
                   Log out
                 </button>
@@ -207,10 +214,8 @@ const CurrentSessions: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-3xl shadow-2xl p-6 max-w-sm w-full mx-4 text-center">
             <h3
-              className="text-gray-900 mb-3"
+              className="text-gray-900 mb-3 font-inter"
               style={{
-                fontFamily:
-                  "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                 fontWeight: 590,
                 fontSize: "21px",
                 lineHeight: "100%",
@@ -221,12 +226,12 @@ const CurrentSessions: React.FC = () => {
               Log out
             </h3>
 
-            <p className="text-gray-600 mb-5">Do you really want to log out?</p>
+            <p className="text-gray-600 mb-5 font-inter">Do you really want to log out?</p>
 
             <div className="space-y-4">
               <button
                 onClick={handleConfirmLogout}
-                className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-6 rounded-full transition-colors duration-200 flex items-center justify-center gap-2"
+                className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-6 rounded-full transition-colors duration-200 flex items-center justify-center gap-2 font-inter"
               >
                 <svg
                   className="w-5 h-5"
@@ -246,7 +251,7 @@ const CurrentSessions: React.FC = () => {
 
               <button
                 onClick={handleCancelLogout}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-full transition-colors duration-200"
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-full transition-colors duration-200 font-inter"
               >
                 Cancel
               </button>
@@ -385,7 +390,7 @@ const CurrentSessions: React.FC = () => {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="text-sm text-gray-600 font-medium">
+                  <span className="text-sm text-gray-600 font-medium font-inter">
                     {timer}sec
                   </span>
                 </div>
@@ -393,12 +398,10 @@ const CurrentSessions: React.FC = () => {
                 {timer === 0 && (
                   <button
                     onClick={handleResendOTP}
-                    className="text-green-600 hover:text-green-700 font-semibold"
+                    className="text-green-600 hover:text-green-700 font-semibold font-inter"
                     style={{
                       width: "90px",
                       height: "18px",
-                      fontFamily:
-                        "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                       fontWeight: 590,
                       fontSize: "15px",
                       lineHeight: "100%",
@@ -427,7 +430,7 @@ const CurrentSessions: React.FC = () => {
             >
               <button
                 onClick={handleOTPCancel}
-                className="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors font-medium text-sm"
+                className="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors font-medium text-sm font-inter"
                 style={{
                   width: "86px",
                   height: "33px",
@@ -443,7 +446,7 @@ const CurrentSessions: React.FC = () => {
               <button
                 onClick={handleOTPConfirm}
                 disabled={otp.join("").length !== 6}
-                className="text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                className="text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 font-inter"
                 style={{
                   width: "86px",
                   height: "33px",
