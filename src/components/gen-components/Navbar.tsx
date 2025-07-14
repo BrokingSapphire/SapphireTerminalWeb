@@ -16,6 +16,7 @@ const Navbar = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+  const portalRef = useRef<HTMLDivElement>(null); // NEW: ref for portal container
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
 
   // Social media icons - filtered to only Twitter, LinkedIn, and Instagram
@@ -88,9 +89,11 @@ const Navbar = () => {
   // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
       if (
         profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
+        !profileRef.current.contains(target) &&
+        (!portalRef.current || !portalRef.current.contains(target)) // NEW: check portal
       ) {
         setShowProfileMenu(false);
       }
@@ -219,6 +222,7 @@ const Navbar = () => {
                     <div
                       className="fixed z-[1050] shadow-xl"
                       style={{ top: dropdownPosition.top, left: dropdownPosition.left, minWidth: 320 }}
+                      ref={portalRef} // NEW: attach ref
                     >
                       <ProfileMenu />
                     </div>,
