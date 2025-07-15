@@ -22,20 +22,20 @@ export function GttOrderPopup() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex items-center bg-[#F4F4F9] dark:bg-gray-800 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] px-3 py-[10px] rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+        <button className="flex items-center bg-gray-100 dark:bg-[#121413] text-xs text-gray-700 dark:text-[#EBEEF5] px-3 py-[10px] rounded border border-gray-300 dark:border-[#2F2F2F] hover:bg-gray-200 dark:hover:bg-[#1a1a1a] transition-colors">
           <Plus size={18} className="mr-2" /> New GTT Order
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] p-0 rounded-lg bg-white dark:bg-black border-gray-200 dark:border-gray-700">
-        <DialogHeader className="flex bg-[#F4F4F9] dark:bg-gray-900 flex-row items-start justify-between p-3">
+      <DialogContent className="sm:max-w-[600px] p-0 rounded-lg bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F]">
+        <DialogHeader className="flex flex-row items-start justify-between p-3 bg-gray-50 dark:bg-[#121413]">
           <div className="flex-1">
-            <DialogTitle className="text-base font-medium flex items-center gap-1.5 text-gray-900 dark:text-[#EBEEF5]">
+            <DialogTitle className="text-base font-medium text-gray-900 dark:text-[#EBEEF5] flex items-center gap-1.5">
               Reliance Industries Ltd.
-              <span className="text-[11px] font-normal text-muted-foreground dark:text-[#C9CACC] bg-[#B8D8D9]/30 dark:bg-gray-700 px-1 rounded">
+              <span className="text-[11px] font-normal text-gray-600 dark:text-[#C9CACC] bg-gray-100 dark:bg-[#23232399] border border-gray-200 dark:border-[#2F2F2F] px-1 rounded">
                 NSE
               </span>
             </DialogTitle>
-            <DialogDescription className="mt-0.5 text-sm text-gray-700 dark:text-[#C9CACC]">
+            <DialogDescription className="mt-0.5 text-sm text-gray-600 dark:text-[#C9CACC]">
               1,687.45
               <span className="text-red-500 dark:text-red-400 text-xs"> -19.10 (-2.70%)</span>
             </DialogDescription>
@@ -48,8 +48,8 @@ export function GttOrderPopup() {
               onClick={() => setIsSell(false)}
               className={`h-7 px-3 rounded-md ${
                 !isSell
-                  ? "bg-[#00C853] hover:bg-[#00B84D] text-white dark:bg-[#00C853] dark:hover:bg-[#00B84D]"
-                  : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30 dark:text-[#00C853]/80 dark:hover:text-[#00B84D] dark:bg-[#00B84D]/20 dark:hover:bg-[#00B84D]/30"
+                  ? "bg-[#00C853] hover:bg-[#00B84D] text-white"
+                  : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30"
               }`}
             >
               BUY
@@ -57,14 +57,14 @@ export function GttOrderPopup() {
             <Switch
               checked={isSell}
               onCheckedChange={setIsSell}
-              className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853] dark:data-[state=checked]:bg-[#FF3B30] dark:data-[state=unchecked]:bg-[#00C853]"
+              className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853]"
             />
             <Button
               onClick={() => setIsSell(true)}
               className={`h-7 px-3 rounded-md ${
                 isSell
-                  ? "bg-[#FF3B30] hover:bg-[#E63529] text-white dark:bg-[#FF3B30] dark:hover:bg-[#E63529]"
-                  : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30 dark:text-[#FF3B30]/60 dark:hover:text-[#E63529] dark:bg-[#FF3B30]/10 dark:hover:bg-[#FF3B30]/30"
+                  ? "bg-[#FF3B30] hover:bg-[#E63529] text-white"
+                  : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30"
               }`}
             >
               SELL
@@ -75,7 +75,7 @@ export function GttOrderPopup() {
         <div className="px-3 pt-2 pb-3">
           {/* Trigger Type */}
           <div className="flex items-center gap-3 mb-[18px]">
-            <Label className="text-sm text-gray-600 dark:text-[#EBEEF5]">Trigger Type :</Label>
+            <Label className="text-sm text-gray-700 dark:text-[#EBEEF5]">Trigger Type :</Label>
             <RadioGroup
               defaultValue="single"
               className="flex items-center gap-4"
@@ -84,9 +84,9 @@ export function GttOrderPopup() {
                 <RadioGroupItem
                   value="single"
                   id="single"
-                  className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary"
+                  className="h-4 w-4 border-gray-300 dark:border-[#2F2F2F] text-primary"
                 />
-                <Label htmlFor="single" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
+                <Label htmlFor="single" className="text-sm font-normal text-gray-600 dark:text-[#C9CACC]">
                   Single
                 </Label>
               </div>
@@ -94,9 +94,9 @@ export function GttOrderPopup() {
                 <RadioGroupItem 
                   value="ocd" 
                   id="ocd" 
-                  className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary" 
+                  className="h-4 w-4 border-gray-300 dark:border-[#2F2F2F] text-primary"
                 />
-                <Label htmlFor="ocd" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
+                <Label htmlFor="ocd" className="text-sm font-normal text-gray-600 dark:text-[#C9CACC]">
                   OCD
                 </Label>
               </div>
@@ -118,7 +118,7 @@ export function GttOrderPopup() {
                   id="trigger-price"
                   type="number"
                   defaultValue="0"
-                  className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                  className="pl-5 h-9 border-gray-300 dark:border-[#2F2F2F] bg-white dark:bg-[#121413] text-gray-900 dark:text-[#C9CACC] focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                 />
               </div>
             </div>
@@ -138,7 +138,7 @@ export function GttOrderPopup() {
                 id="quantity"
                 type="number"
                 defaultValue="0"
-                className="h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                className="h-9 border-gray-300 dark:border-[#2F2F2F] bg-white dark:bg-[#121413] text-gray-900 dark:text-[#C9CACC] focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               />
             </div>
 
@@ -155,13 +155,13 @@ export function GttOrderPopup() {
                   id="price"
                   type="number"
                   defaultValue="0"
-                  className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                  className="pl-5 h-9 border-gray-300 dark:border-[#2F2F2F] bg-white dark:bg-[#121413] text-gray-900 dark:text-[#C9CACC] focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
                 />
                 <div className="absolute -bottom-8 right-30 flex items-center gap-1">
                   <input
                     type="text"
                     value="5"
-                    className="w-8 h-6 text-center text-xs border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC]"
+                    className="w-8 h-6 text-center text-xs border border-gray-300 dark:border-[#2F2F2F] rounded bg-white dark:bg-[#121413] text-gray-900 dark:text-[#C9CACC]"
                   />
                   <span className="text-xs text-gray-500 dark:text-[#C9CACC]">% of LTP</span>
                 </div>
@@ -170,16 +170,16 @@ export function GttOrderPopup() {
           </div>
         </div>
 
-        <DialogFooter className="flex !justify-start gap-2 border-t border-gray-200 dark:border-gray-700 p-3 mt-4">
+        <DialogFooter className="flex !justify-start gap-2 border-t border-gray-200 dark:border-[#2F2F2F] p-3 mt-4">
           <Button
             variant="secondary"
-            className="h-8 px-6 hover:bg-gray-100 dark:hover:bg-gray-800 border-none text-gray-700 dark:text-[#C9CACC] bg-gray-50 dark:bg-gray-900"
+            className="h-8 px-6 border-none bg-gray-100 dark:bg-[#23232399] text-gray-700 dark:text-[#C9CACC] hover:bg-gray-200 dark:hover:bg-[#1a1a1a]"
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] dark:bg-[#00C852] dark:hover:bg-[#00B84D] text-white"
+            className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] text-white"
           >
             Place
           </Button>

@@ -20,11 +20,16 @@ export default function RootLayout({
     <div className={inter.className}>
       <Navbar />
       <div className="flex w-full pt-[60px]">
-        <div className="w-[27%]">
+        <div className="hidden lg:block w-[27vw]">
           <Sidebar />
         </div>
-        <main className="w-[80%] p-8 bg-white dark:bg-[#121413]  pl-[28px] pr-[28px]">
-          <div className="bg-white dark:bg-[#121413] w-full">
+        <div
+          className="h-auto w-[0.5px] my-[28px] z-100 bg-gray-200 dark:bg-gray-700"
+          style={{ overflow: "hidden" }}
+        ></div>
+        <main className="w-full lg:w-[75%] p-[28px] bg-white dark:bg-[#121212]">
+          <div className="bg-white dark:bg-[#121212] w-full">
+            
             {children}
           </div>
         </main>

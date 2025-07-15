@@ -24,9 +24,9 @@ const GiftTransferPage: React.FC = () => {
   };
 
   return (
-    <div className="  flex items-center justify-center p-1 mr-28 mb-10">
+    <div className="bg-white dark:bg-[#121212] flex items-center justify-center p-1 mr-28 mb-10">
       <div 
-        className="bg-[#F8F8FB] rounded-xl flex shadow-sm"
+        className="bg-[#F8F8FB] dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl flex shadow-sm"
         style={{
           width: '959px',
           height: '475px',
@@ -70,24 +70,24 @@ const GiftTransferPage: React.FC = () => {
           </div>
 
           {/* Instructions */}
-          <div className="space-y-4 text-sm text-gray-600 font-inter">
-            <div className="flex items-start gap-2 ">
-              <span className="text-gray-500 mt-0.5">1.</span>
+          <div className="space-y-4 text-sm text-gray-600 dark:text-[#C9CACC] font-inter">
+            <div className="flex items-start gap-2">
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">1.</span>
               <p>Select the stocks or instruments you want to gift.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 mt-0.5 ">2.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">2.</span>
               <p>We notify the recipient to accept it via their Sapphire Broking account.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 mt-0.5">3.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">3.</span>
               <p>New to Sapphire? They can sign up and accept later.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 mt-0.5">4.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">4.</span>
               <p>You confirm, and we transfer the securities to their demat account.</p>
             </div>
           </div>
@@ -95,13 +95,13 @@ const GiftTransferPage: React.FC = () => {
 
         {/* Right Section - Form */}
         <div 
-          className="bg-white rounded-xl p-6 flex flex-col justify-between ml-6"
+          className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl p-6 flex flex-col justify-between ml-6"
           style={{ width: '601px', height: '475px' }}
         >
           <div className="space-y-[18px]">
             {/* Recipient's Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 font-inter">
+              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
                 Recipient's name
               </label>
               <input
@@ -110,13 +110,13 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientName}
                 onChange={handleInputChange}
                 placeholder="Name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-inter text-sm"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
               />
             </div>
 
             {/* Recipient's Mobile */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 font-inter">
+              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
                 Recipient's mobile
               </label>
               <input
@@ -125,13 +125,13 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientMobile}
                 onChange={handleInputChange}
                 placeholder="Mobile"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-inter text-sm"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
               />
             </div>
 
             {/* Recipient's Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 font-inter">
+              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
                 Recipient's e-mail (optional)
               </label>
               <input
@@ -140,13 +140,13 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientEmail}
                 onChange={handleInputChange}
                 placeholder="E-mail"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-inter text-sm"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
               />
             </div>
 
             {/* Gift Message */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 font-inter">
+              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
                 Gift message (Optional)
               </label>
               <textarea
@@ -155,7 +155,7 @@ const GiftTransferPage: React.FC = () => {
                 onChange={handleInputChange}
                 placeholder="Message"
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-inter text-sm"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent resize-none font-inter text-sm"
               />
             </div>
           </div>

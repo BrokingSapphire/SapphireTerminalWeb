@@ -65,8 +65,8 @@ const GttOrdersTable = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="w-full flex justify-center">
-      <div className="bg-white dark:bg-black max-w-[80vw] w-full mx-auto">
+    <div className="w-full flex justify-center bg-white dark:bg-[#121212]">
+      <div className="bg-white dark:bg-[#121212] max-w-[80vw] w-full mx-auto">
         <div className="flex justify-between items-center py-3">
           {/* Draggable GTT Order Flow Component */}
           <DraggableGttOrderFlow />
@@ -90,20 +90,23 @@ const GttOrdersTable = () => {
               onChange={e => setSearchValue(e.target.value)}
               onBlur={() => setSearchExpanded(false)}
               autoFocus={searchExpanded}
-              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-[#686868] dark:text-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 bg-white dark:bg-black ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#2F2F2F] rounded-lg text-sm text-gray-900 dark:text-[#C9CACC] bg-white dark:bg-[#121413] dark:placeholder-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              style={{ 
+                width: searchExpanded ? 192 : 32, 
+                minWidth: 0
+              }}
               placeholder="Search..."
-              style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
             />
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-md border border-[#D1D5DB] dark:border-gray-700">
+        <div className="overflow-hidden rounded-md border border-gray-200 dark:border-[#2F2F2F]">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-[#F4F4F9] dark:bg-gray-900 text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+              <tr className="bg-gray-50 dark:bg-[#121413] text-xs font-medium border-b border-gray-200 dark:border-[#2F2F2F]" style={{ height: "36px" }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Date</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Date</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -113,9 +116,9 @@ const GttOrdersTable = () => {
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Security</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Security</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -125,9 +128,9 @@ const GttOrdersTable = () => {
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Action</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Action</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -137,9 +140,9 @@ const GttOrdersTable = () => {
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Qty.</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Qty.</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -149,9 +152,9 @@ const GttOrdersTable = () => {
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Trigger Price</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Trigger Price</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -163,7 +166,7 @@ const GttOrdersTable = () => {
                 </th>
                 <th className="px-3 py-2 whitespace-nowrap">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">LTP</span>
+                    <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">LTP</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
@@ -175,26 +178,26 @@ const GttOrdersTable = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white dark:bg-[#121413]">
               {orders.map((order, index) => (
                 <tr
                   key={index}
-                  className={`border-t border-[#D1D5DB] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 ${
+                  className={`border-t border-gray-200 dark:border-[#2F2F2F] hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors ${
                     index === orders.length - 1
                       ? "rounded-b-md overflow-hidden"
                       : ""
                   }`}
                   style={{ height: "32px" }}
                 >
-                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex items-center">
                       <span>{order.date}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex items-center justify-between">
                       <span>{order.security}</span>
-                      <button className="text-[#515C7A] dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300">
+                      <button className="text-gray-400 dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300">
                         <Image
                           src="/three-dots.svg"
                           width={14}
@@ -205,25 +208,25 @@ const GttOrdersTable = () => {
                       </button>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex justify-center items-center">
                       <div
-                        className={`px-1.5 py-0.5 text-xs font-light rounded ${
+                        className={`px-1.5 py-0.5 text-xs font-light rounded border ${
                           order.action === "BUY"
-                            ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                            : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
+                            ? "bg-green-100 dark:bg-[#23232399] text-green-700 dark:text-green-400 border-green-200 dark:border-[#2F2F2F]"
+                            : "bg-red-100 dark:bg-[#23232399] text-red-700 dark:text-red-400 border-red-200 dark:border-[#2F2F2F]"
                         }`}
                       >
                         {order.action}
                       </div>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex justify-center items-center">
                       <span>{order.qty}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-1.5 text-xs border-r border-[#D1D5DB] dark:border-gray-700">
+                  <td className="px-3 py-1.5 text-xs border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex justify-center items-center">
                       <span className={order.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}>
                         {order.triggerPrice}
@@ -233,7 +236,7 @@ const GttOrdersTable = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC]">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC]">
                     <div className="flex justify-center items-center">
                       <span>{order.ltp}</span>
                     </div>

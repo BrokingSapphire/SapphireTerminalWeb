@@ -1,18 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { IoMdRefresh } from "react-icons/io";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowUpDown, Move, X } from "lucide-react";
-import Image from 'next/image';
+import { ArrowUpDown, X, RefreshCw, Search, Info } from "lucide-react";
 
 // Define proper interfaces for component props and data
 interface BasketDialogPopupProps {
@@ -36,12 +25,42 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
   basketName = "Basket1" 
 }) => {
   const [includeExisting, setIncludeExisting] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // For draggable functionality
   const dialogRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+
+  // System theme detection
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Theme colors
+  const theme = {
+    background: isDarkMode ? '#121413' : '#ffffff',
+    surface: isDarkMode ? '#23232399' : '#f8f9fa',
+    border: isDarkMode ? '#2F2F2F' : '#e1e5e9',
+    text: {
+      primary: isDarkMode ? '#EBEEF5' : '#1a1a1a',
+      secondary: isDarkMode ? '#C9CACC' : '#6b7280',
+    },
+    hover: isDarkMode ? '#1a1a1a' : '#f3f4f6',
+    input: {
+      background: isDarkMode ? '#121413' : '#ffffff',
+      border: isDarkMode ? '#2F2F2F' : '#d1d5db',
+    }
+  };
 
   // Center the dialog when first opened
   useEffect(() => {
@@ -121,22 +140,29 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
   return (
     <div 
       ref={dialogRef}
-      className={`fixed z-50 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 min-w-[850px] ${open ? 'block' : 'hidden'}`}
+      className={`fixed z-50 rounded-lg shadow-xl min-w-[850px] ${open ? 'block' : 'hidden'}`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
-        cursor: isDragging ? 'grabbing' : 'auto'
+        cursor: isDragging ? 'grabbing' : 'auto',
+        backgroundColor: theme.background,
+        border: `1px solid ${theme.border}`,
+        boxShadow: isDarkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
       }}
     >
       {/* Header */}
       <div 
-        className="flex items-center justify-between px-6 py-3 bg-[#EAF4F4] dark:bg-gray-900 cursor-grab rounded-t-lg"
+        className="flex items-center justify-between px-6 py-3 cursor-grab rounded-t-lg"
+        style={{
+          backgroundColor: theme.background
+        }}
         onMouseDown={startDrag}
       >
         <div className="flex items-center gap-2">
-          <span className="text-base text-gray-900 dark:text-[#EBEEF5]">{basketName}</span>
+          <span className="text-base" style={{ color: theme.text.primary }}>{basketName}</span>
           <svg
-            className="w-3.5 h-3.5 text-gray-500 dark:text-[#C9CACC]"
+            className="w-3.5 h-3.5"
+            style={{ color: theme.text.secondary }}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -146,144 +172,178 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
           </svg>
         </div>
         <button onClick={() => setOpen(false)}>
-        <X  size={28} className="text-gray-500 dark:text-[#C9CACC] hover:text-gray-700 dark:hover:text-gray-300" />
+        <X  size={28} className="hover:opacity-70" style={{ color: theme.text.secondary }} />
         </button>
        
       </div>
 
       <div className="px-6 pt-[18px] pb-[24px]">
         {/* Search with border below */}
-        <div className="flex justify-end mb-4 pb-4 border-b border-[#E5E7EB] dark:border-gray-700">
+        <div className="flex justify-end mb-4 pb-4 border-b" style={{ borderBottomColor: theme.border }}>
           <div className="relative w-64">
             <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
-              <svg
-                className="w-4 h-4 text-gray-400 dark:text-[#C9CACC]"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
+              <Search className="w-4 h-4" style={{ color: theme.text.secondary }} />
             </div>
             <Input
               placeholder="Search everything..."
-              className="pl-8 h-8 text-sm border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+              className="pl-8 h-8 text-sm focus:outline-none"
+              style={{
+                borderColor: theme.input.border,
+                backgroundColor: theme.input.background,
+                color: theme.text.secondary
+              }}
             />
           </div>
         </div>
 
         {/* Table */}
-        <div className="border border-[#E5E7EB] dark:border-gray-700 rounded">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-[#F4F4F9] dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-32 border-r border-gray-200 dark:border-gray-700">
+        <div className="border rounded" style={{ borderColor: theme.border }}>
+          <table className="w-full">
+            <thead>
+              <tr className="hover:bg-opacity-50 border-b" style={{ 
+                backgroundColor: theme.background,
+                borderBottomColor: theme.border
+              }}>
+                <th className="text-sm font-medium w-32 border-r p-3 text-left" style={{ 
+                  color: theme.text.primary,
+                  borderRightColor: theme.border
+                }}>
                   <div className="flex items-center justify-between">
                     <span>Product Type</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] border-r border-gray-200 dark:border-gray-700">
+                </th>
+                <th className="text-sm font-medium border-r p-3 text-left" style={{ 
+                  color: theme.text.primary,
+                  borderRightColor: theme.border
+                }}>
                   <div className="flex items-center justify-between">
                     <span>Security (3/50)</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-20 border-r border-gray-200 dark:border-gray-700">
+                </th>
+                <th className="text-sm font-medium w-20 border-r p-3 text-left" style={{ 
+                  color: theme.text.primary,
+                  borderRightColor: theme.border
+                }}>
                   <div className="flex items-center justify-between">
                     <span>Qty.</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-36 border-r border-gray-200 dark:border-gray-700">
+                </th>
+                <th className="text-sm font-medium w-36 border-r p-3 text-left" style={{ 
+                  color: theme.text.primary,
+                  borderRightColor: theme.border
+                }}>
                   <div className="flex items-center justify-between">
                     <span>Price</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-20 border-r border-gray-200 dark:border-gray-700">
+                </th>
+                <th className="text-sm font-medium w-20 border-r p-3 text-left" style={{ 
+                  color: theme.text.primary,
+                  borderRightColor: theme.border
+                }}>
                   <div className="flex items-center justify-between">
                     <span>Type</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-36">
+                </th>
+                <th className="text-sm font-medium w-36 p-3 text-left" style={{ color: theme.text.primary }}>
                   <div className="flex items-center justify-between">
                     <span>Margin Req</span>
-                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
+                    <ArrowUpDown size={14} style={{ color: theme.text.secondary }} />
                   </div>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+                </th>
+              </tr>
+            </thead>
+            <tbody style={{ backgroundColor: theme.background }}>
               {items.map((item, i) => (
-                <TableRow key={i} className="h-10 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-center text-[#515C7A] dark:text-[#C9CACC]">
+                <tr 
+                  key={i} 
+                  className="h-10 border-b" 
+                  style={{ 
+                    borderBottomColor: theme.border,
+                    backgroundColor: theme.background
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = theme.hover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = theme.background;
+                  }}
+                >
+                  <td className="text-sm border-r text-center p-3" style={{ 
+                    borderRightColor: theme.border,
+                    color: theme.text.secondary
+                  }}>
                     {item.type}
-                  </TableCell>
-                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700">
+                  </td>
+                  <td className="text-sm border-r p-3" style={{ borderRightColor: theme.border }}>
                     <div className="flex items-center justify-between">
-                      <span className="text-[#515C7A] dark:text-[#C9CACC]">{item.security}</span>
+                      <span style={{ color: theme.text.secondary }}>{item.security}</span>
                       <button>
-                        <svg className="w-4 h-4 text-gray-400 dark:text-[#C9CACC]" viewBox="0 0 24 24" fill="none">
+                        <svg className="w-4 h-4" style={{ color: theme.text.secondary }} viewBox="0 0 24 24" fill="none">
                           <circle cx="5" cy="12" r="1" fill="currentColor" />
                           <circle cx="12" cy="12" r="1" fill="currentColor" />
                           <circle cx="19" cy="12" r="1" fill="currentColor" />
                         </svg>
                       </button>
                     </div>
-                  </TableCell>
-                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-center text-[#515C7A] dark:text-[#C9CACC]">
+                  </td>
+                  <td className="text-sm border-r text-center p-3" style={{ 
+                    borderRightColor: theme.border,
+                    color: theme.text.secondary
+                  }}>
                     {item.qty}
-                  </TableCell>
-                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-right pr-8 text-[#515C7A] dark:text-[#C9CACC]">
+                  </td>
+                  <td className="text-sm border-r text-right pr-8 p-3" style={{ 
+                    borderRightColor: theme.border,
+                    color: theme.text.secondary
+                  }}>
                     ₹{item.price.toFixed(2)}
-                  </TableCell>
-                  <TableCell className="border-r border-gray-200 dark:border-gray-700 text-center">
-                    <span className="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 text-xs px-3 py-0.5 rounded">
+                  </td>
+                  <td className="border-r text-center p-3" style={{ borderRightColor: theme.border }}>
+                    <span className="text-xs px-3 py-0.5 rounded" style={{
+                      backgroundColor: theme.surface,
+                      color: '#22c55e',
+                      border: `1px solid ${theme.border}`
+                    }}>
                       BUY
                     </span>
-                  </TableCell>
-                  <TableCell className="text-sm text-right pr-8 text-[#515C7A] dark:text-[#C9CACC]">
+                  </td>
+                  <td className="text-sm text-right pr-8 p-3" style={{ color: theme.text.secondary }}>
                     ₹{item.margin.toFixed(2)}
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
+            </tbody>
+          </table>
         </div>
 
         {/* Footer - Border top and bottom */}
-        <div className="mt-6 pt-4 border-t border-[#E5E7EB] dark:border-gray-700">
+        <div className="mt-6 pt-4 border-t" style={{ borderTopColor: theme.border }}>
           <div className="flex justify-between">
             <div className="flex">
               {/* Margin Required */}
               <div className="mr-8">
-                <div className="text-sm text-gray-500 dark:text-[#C9CACC] mb-[6px]">Margin Required</div>
-                <div className="text-base font-medium text-gray-900 dark:text-[#EBEEF5]">₹5,908.00</div>
+                <div className="text-sm mb-[6px]" style={{ color: theme.text.secondary }}>Margin Required</div>
+                <div className="text-base font-medium" style={{ color: theme.text.primary }}>₹5,908.00</div>
               </div>
               
               {/* Final Margin with Checkbox Below */}
               <div>
                 <div>
                   <div className="flex items-center mb-[6px] gap-1">
-                    <div className="text-sm text-gray-500 dark:text-[#C9CACC]">Final Margin</div>
-                    <Image
-                      src="/info.svg"
-                      alt="Info Icon"
-                      width={16}
-                      height={16}
-                      className="text-gray-400 dark:invert"
-                    />
+                    <div className="text-sm" style={{ color: theme.text.secondary }}>Final Margin</div>
+                    <Info size={16} style={{ color: theme.text.secondary }} />
                   </div>
                   <div className="flex items-center gap-1">
-                    <div className="text-base font-medium text-green-500 dark:text-green-400">
+                    <div className="text-base font-medium text-green-400">
                       ₹5,90,478.00
                     </div>
-                    <button className="hover:text-gray-600 dark:hover:text-gray-300">
-                      <IoMdRefresh className="w-4 h-4 text-gray-500 dark:text-[#C9CACC]" />
+                    <button className="hover:opacity-70">
+                      <RefreshCw className="w-4 h-4" style={{ color: theme.text.secondary }} />
                     </button>
                   </div>
                 </div>
@@ -294,11 +354,13 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
                     id="include-positions"
                     checked={includeExisting}
                     onCheckedChange={(checked) => setIncludeExisting(!!checked)}
-                    className="w-4 h-4 rounded-sm border-gray-300 dark:border-gray-600 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                    className="w-4 h-4 rounded-sm data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                    style={{ borderColor: theme.border }}
                   />
                   <label
                     htmlFor="include-positions"
-                    className="text-xs text-gray-600 dark:text-[#C9CACC]"
+                    className="text-xs"
+                    style={{ color: theme.text.secondary }}
                   >
                     Include existing positions
                   </label>
@@ -309,13 +371,23 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
             <div className="flex gap-2 items-center">
               <button
                 onClick={() => setOpen(false)}
-                className="px-6 py-2 text-sm font-medium text-gray-600 dark:text-[#C9CACC] bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="px-6 py-2 text-sm font-medium rounded"
+                style={{
+                  backgroundColor: theme.surface,
+                  color: theme.text.secondary
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.hover;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.surface;
+                }}
               >
                 Cancel
               </button>
               <button
                 onClick={() => setOpen(false)}
-                className="px-6 py-2 text-sm font-medium text-white bg-green-500 dark:bg-green-600 rounded hover:bg-green-600 dark:hover:bg-green-700"
+                className="px-6 py-2 text-sm font-medium text-white bg-green-500 rounded hover:bg-green-600"
               >
                 Execute
               </button>

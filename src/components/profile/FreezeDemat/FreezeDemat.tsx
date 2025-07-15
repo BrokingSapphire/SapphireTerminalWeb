@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const FreezeDemat = () => {
   return (
-    <div className="w-full h-[205px] bg-[#F8F8FB] dark:bg-[#121212] rounded-lg p-6 flex justify-between items-start gap-6 opacity-100">
+    <div className="w-full h-[205px] bg-[#F8F8FB] dark:bg-[#121413] border-0 dark:border dark:border-[#2F2F2F] rounded-lg p-6 flex justify-between items-start gap-6 opacity-100">
       {/* Left side - Tree icon and freeze text */}
       <div className="w-[250px] h-[157px] flex flex-col items-center justify-center gap-7 opacity-100">
         {/* Tree/Snowflake icon */}
@@ -20,7 +20,8 @@ const FreezeDemat = () => {
         </div>
         {/* Freeze text */}
         <div className="text-center">
-          <p className="text-[15px] font-medium text-gray-900 dark:text-[#ebeef5] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
+          <p className="text-[15px] font-medium text-gray-900 dark:text-[#EBEEF5] leading-[100%] tracking-[-0.43px]"
+              style={{ fontFamily: 'Inter' }}>
             You can freeze your account if you<br />
             detect any suspicious activities.
           </p>
@@ -28,10 +29,11 @@ const FreezeDemat = () => {
       </div>
 
       {/* Right side - Gift stocks info with rounded border */}
-      <div className="flex-1 h-[148px] bg-[#FFFFFF] dark:bg-[#181A20] rounded-lg border border-gray-200 dark:border-[#2f2f2f] p-4 flex flex-col gap-[18px] opacity-100 relative">
+      <div className="flex-1 h-[148px] bg-white dark:bg-[#121413] rounded-lg border border-gray-200 dark:border-[#2F2F2F] p-4 flex flex-col gap-[18px] opacity-100 relative">
         {/* Header with gift icon */}
         <div className="flex items-center gap-3">
-          <h3 className="text-[14px] font-normal text-gray-900 dark:text-[#ebeef5] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'SF Pro' }}>
+          <h3 className="text-[14px] font-normal text-gray-900 dark:text-[#EBEEF5] leading-[100%] tracking-[-0.43px]"
+               style={{ fontFamily: 'SF Pro' }}>
             Gift Stocks, Mutual Funds & ETFs with Sapphire Broking
           </h3>
         </div>
@@ -40,7 +42,7 @@ const FreezeDemat = () => {
         <div className="flex flex-col gap-2">
           {/* Item 1 - Orange warning */}
           <div className="flex items-start gap-2">
-            <div className="w-4 h-4   flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
               <Image 
                 src="/warning/lock.png"
                 alt="Warning"
@@ -48,14 +50,15 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#C9CACC] leading-[100%] tracking-[-0.43px]"
+                style={{ fontFamily: 'Inter' }}>
               Anyone using your account will be logged out immediately
             </p>
           </div>
 
           {/* Item 2 - Brown/amber lock */}
           <div className="flex items-start gap-1">
-            <div className="w-4 h-5  flex items-center justify-center flex-shrink-0 mt-0.58">
+            <div className="w-4 h-5 flex items-center justify-center flex-shrink-0 mt-0.58">
               <Image 
                 src="/warning/securitylock.png"
                 alt="Lock"
@@ -63,14 +66,15 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#C9CACC] leading-[100%] tracking-[-0.43px]"
+                style={{ fontFamily: 'Inter' }}>
               You will not be able to place any trades while your account is frozen
             </p>
           </div>
 
           {/* Item 3 - Red error */}
           <div className="flex items-start gap-1">
-            <div className="w-4 h-5 flex items-center justify-center flex-shrink-0 mt-0.58 ">
+            <div className="w-4 h-5 flex items-center justify-center flex-shrink-0 mt-0.58">
               <Image 
                 src="/warning/cross.png"
                 alt="Error"
@@ -78,7 +82,8 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#C9CACC] leading-[100%] tracking-[-0.43px]"
+                style={{ fontFamily: 'Inter' }}>
               This is a temporary block. You can unfreeze your account at any time
             </p>
           </div>
@@ -96,7 +101,7 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <div className="bg-white dark:bg-[#121212]">
       {/* Main content with proper spacing */}
       <div className="px-1 py-3">
         <FreezeDemat />

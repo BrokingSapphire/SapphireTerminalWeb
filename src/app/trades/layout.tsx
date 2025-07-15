@@ -27,8 +27,8 @@ export default function RootLayout({
           className="h-auto w-[0.5px] my-[28px] z-100 bg-gray-200 dark:bg-gray-700"
           style={{ overflow: "hidden" }}
         ></div>
-        <main className="w-full lg:w-[75%] p-[28px] bg-white dark:bg-black">
-          <div className="bg-white dark:bg-black w-full">
+        <main className="w-full lg:w-[75%] p-[28px] bg-white dark:bg-[#121212]">
+          <div className="bg-white dark:bg-[#121212] w-full">
             <TradeSelector />
             {children}
           </div>

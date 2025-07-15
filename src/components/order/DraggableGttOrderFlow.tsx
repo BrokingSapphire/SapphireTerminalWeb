@@ -13,6 +13,7 @@ export function DraggableGttOrderFlow() {
   const [showGttDialog, setShowGttDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // For dragging
   const stockSearchDialogRef = useRef<HTMLDivElement>(null);
@@ -23,6 +24,35 @@ export function DraggableGttOrderFlow() {
   const [isDraggingStockSearch, setIsDraggingStockSearch] = useState(false);
   const [isDraggingGtt, setIsDraggingGtt] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+
+  // System theme detection
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Theme colors
+  const theme = {
+    background: isDarkMode ? '#121413' : '#ffffff',
+    surface: isDarkMode ? '#23232399' : '#f8f9fa',
+    border: isDarkMode ? '#2F2F2F' : '#e1e5e9',
+    text: {
+      primary: isDarkMode ? '#EBEEF5' : '#1a1a1a',
+      secondary: isDarkMode ? '#C9CACC' : '#6b7280',
+    },
+    hover: isDarkMode ? '#1a1a1a' : '#f3f4f6',
+    input: {
+      background: isDarkMode ? '#121413' : '#ffffff',
+      border: isDarkMode ? '#2F2F2F' : '#d1d5db',
+    }
+  };
 
   // Dummy stock data
   const stocksData = [
@@ -141,7 +171,18 @@ export function DraggableGttOrderFlow() {
     <>
       {/* Trigger Button */}
       <button 
-        className="flex items-center bg-[#F4F4F9] dark:bg-gray-800 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] px-3 py-[10px] rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        className="flex items-center text-xs px-3 py-[10px] rounded transition-colors"
+        style={{
+          backgroundColor: theme.background,
+          color: theme.text.primary,
+          border: `1px solid ${theme.border}`
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = theme.hover;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = theme.background;
+        }}
         onClick={() => setShowStockSearchDialog(true)}
       >
         <Plus size={18} className="mr-2" /> New GTT Order
@@ -151,24 +192,32 @@ export function DraggableGttOrderFlow() {
       {showStockSearchDialog && (
         <div 
           ref={stockSearchDialogRef}
-          className="fixed z-50 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-[500px]"
+          className="fixed z-50 rounded-lg shadow-xl w-[500px]"
           style={{
             left: `${stockSearchPosition.x}px`,
             top: `${stockSearchPosition.y}px`,
-            cursor: isDraggingStockSearch ? 'grabbing' : 'auto'
+            cursor: isDraggingStockSearch ? 'grabbing' : 'auto',
+            backgroundColor: theme.background,
+            border: `1px solid ${theme.border}`,
+            boxShadow: isDarkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }}
         >
           {/* Header with grab handle */}
           <div 
-            className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 cursor-grab bg-[#F4F4F9] dark:bg-gray-900 rounded-t-lg"
+            className="flex items-center justify-between p-4 border-b cursor-grab rounded-t-lg"
+            style={{
+              backgroundColor: theme.background,
+              borderBottomColor: theme.border
+            }}
             onMouseDown={startDragStockSearch}
           >
             <div className="flex items-center">
-              <h2 className="text-lg font-normal text-gray-900 dark:text-[#EBEEF5]">Select Stock</h2>
+              <h2 className="text-lg font-normal" style={{ color: theme.text.primary }}>Select Stock</h2>
             </div>
             <button 
               onClick={handleStockSearchCancel} 
-              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+              className="hover:opacity-70"
+              style={{ color: theme.text.secondary }}
             >
               <X size={20} />
             </button>
@@ -178,11 +227,16 @@ export function DraggableGttOrderFlow() {
           <div className="p-4">
             {/* Search Input */}
             <div className="relative mb-4">
-              <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#C9CACC] h-4 w-4" />
+              <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: theme.text.secondary }} />
               <Input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 h-10 text-base bg-white dark:bg-black border-gray-200 dark:border-gray-600 text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                className="pl-8 h-10 text-base focus:outline-none"
+                style={{
+                  backgroundColor: theme.input.background,
+                  borderColor: theme.input.border,
+                  color: theme.text.secondary
+                }}
                 placeholder="Search stocks..."
               />
             </div>
@@ -193,17 +247,30 @@ export function DraggableGttOrderFlow() {
                 <div 
                   key={index}
                   onClick={() => handleStockSelection(stock)}
-                  className="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer border-b border-gray-200 dark:border-gray-700"
+                  className="flex items-center justify-between p-3 cursor-pointer border-b"
+                  style={{
+                    borderBottomColor: theme.border
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = theme.hover;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-[#EBEEF5]">{stock.name}</p>
-                    <p className="text-sm text-gray-500 dark:text-[#C9CACC]">{stock.symbol}</p>
+                    <p className="font-medium" style={{ color: theme.text.primary }}>{stock.name}</p>
+                    <p className="text-sm" style={{ color: theme.text.secondary }}>{stock.symbol}</p>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-[#C9CACC] px-2 py-0.5 rounded mr-2">{stock.exchange}</span>
+                    <span className="text-sm px-2 py-0.5 rounded mr-2" style={{
+                      backgroundColor: theme.surface,
+                      color: theme.text.secondary,
+                      border: `1px solid ${theme.border}`
+                    }}>{stock.exchange}</span>
                     <div className="text-right">
-                      <p className="font-medium text-gray-900 dark:text-[#EBEEF5]">₹{stock.price.toFixed(2)}</p>
-                      <p className={`text-xs ${stock.change >= 0 ? 'text-green-500 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                      <p className="font-medium" style={{ color: theme.text.primary }}>₹{stock.price.toFixed(2)}</p>
+                      <p className={`text-xs ${stock.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                         {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.change >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%)
                       </p>
                     </div>
@@ -212,7 +279,7 @@ export function DraggableGttOrderFlow() {
               ))}
               
               {filteredStocks.length === 0 && (
-                <div className="p-4 text-center text-gray-500 dark:text-[#C9CACC]">
+                <div className="p-4 text-center" style={{ color: theme.text.secondary }}>
                   No stocks found matching "{searchQuery}"
                 </div>
               )}
@@ -225,30 +292,40 @@ export function DraggableGttOrderFlow() {
       {showGttDialog && selectedStock && (
         <div 
           ref={gttDialogRef}
-          className="fixed z-50 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-[600px]"
+          className="fixed z-50 rounded-lg shadow-xl w-[600px]"
           style={{
             left: `${gttPosition.x}px`,
             top: `${gttPosition.y}px`,
-            cursor: isDraggingGtt ? 'grabbing' : 'auto'
+            cursor: isDraggingGtt ? 'grabbing' : 'auto',
+            backgroundColor: theme.background,
+            border: `1px solid ${theme.border}`,
+            boxShadow: isDarkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }}
         >
           {/* Header with drag handle */}
           <div 
-            className="flex bg-[#F4F4F9] dark:bg-gray-900 flex-row items-center justify-between p-3 cursor-grab rounded-t-lg"
+            className="flex flex-row items-center justify-between p-3 cursor-grab rounded-t-lg"
+            style={{
+              backgroundColor: theme.background
+            }}
             onMouseDown={startDragGtt}
           >
             <div className="flex-1">
               <div className="flex items-center">
-                <div className="text-base font-medium flex items-center gap-1.5 text-gray-900 dark:text-[#EBEEF5]">
+                <div className="text-base font-medium flex items-center gap-1.5" style={{ color: theme.text.primary }}>
                   {selectedStock.name}
-                  <span className="text-[11px] font-normal text-muted-foreground dark:text-[#C9CACC] bg-[#B8D8D9]/30 dark:bg-gray-700 px-1 rounded">
+                  <span className="text-[11px] font-normal px-1 rounded" style={{
+                    color: theme.text.secondary,
+                    backgroundColor: theme.surface,
+                    border: `1px solid ${theme.border}`
+                  }}>
                     {selectedStock.exchange}
                   </span>
                 </div>
               </div>
-              <p className="mt-0.5 text-sm text-gray-700 dark:text-[#C9CACC]">
+              <p className="mt-0.5 text-sm" style={{ color: theme.text.secondary }}>
                 {selectedStock.price.toFixed(2)}
-                <span className={`text-xs ${selectedStock.change >= 0 ? 'text-green-500 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                <span className={`text-xs ${selectedStock.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {' '}{selectedStock.change >= 0 ? '+' : ''}{selectedStock.change.toFixed(2)} ({selectedStock.change >= 0 ? '+' : ''}{selectedStock.changePercent.toFixed(2)}%)
                 </span>
               </p>
@@ -261,8 +338,8 @@ export function DraggableGttOrderFlow() {
                 onClick={() => setIsSell(false)}
                 className={`h-7 px-3 rounded-md ${
                   !isSell
-                    ? "bg-[#00C853] hover:bg-[#00B84D] text-white dark:bg-[#00C853] dark:hover:bg-[#00B84D]"
-                    : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30 dark:text-[#00C853]/80 dark:hover:text-[#00B84D] dark:bg-[#00B84D]/20 dark:hover:bg-[#00B84D]/30"
+                    ? "bg-[#00C853] hover:bg-[#00B84D] text-white"
+                    : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30"
                 }`}
               >
                 BUY
@@ -270,14 +347,14 @@ export function DraggableGttOrderFlow() {
               <Switch
                 checked={isSell}
                 onCheckedChange={setIsSell}
-                className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853] dark:data-[state=checked]:bg-[#FF3B30] dark:data-[state=unchecked]:bg-[#00C853]"
+                className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853]"
               />
               <Button
                 onClick={() => setIsSell(true)}
                 className={`h-7 px-3 rounded-md ${
                   isSell
-                    ? "bg-[#FF3B30] hover:bg-[#E63529] text-white dark:bg-[#FF3B30] dark:hover:bg-[#E63529]"
-                    : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30 dark:text-[#FF3B30]/60 dark:hover:text-[#E63529] dark:bg-[#FF3B30]/10 dark:hover:bg-[#FF3B30]/30"
+                    ? "bg-[#FF3B30] hover:bg-[#E63529] text-white"
+                    : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30"
                 }`}
               >
                 SELL
@@ -286,7 +363,8 @@ export function DraggableGttOrderFlow() {
             
             <button 
               onClick={handleGttCancel} 
-              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 ml-2"
+              className="ml-2 hover:opacity-70"
+              style={{ color: theme.text.secondary }}
             >
               <X size={28} />
             </button>
@@ -295,7 +373,7 @@ export function DraggableGttOrderFlow() {
           <div className="px-3 pt-2 pb-3">
             {/* Trigger Type */}
             <div className="flex items-center gap-3 mb-[18px]">
-              <Label className="text-sm text-gray-600 dark:text-[#EBEEF5]">Trigger Type :</Label>
+              <Label className="text-sm" style={{ color: theme.text.primary }}>Trigger Type :</Label>
               <RadioGroup
                 defaultValue="single"
                 className="flex items-center gap-4"
@@ -304,9 +382,10 @@ export function DraggableGttOrderFlow() {
                   <RadioGroupItem
                     value="single"
                     id="single"
-                    className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary"
+                    className="h-4 w-4 text-primary"
+                    style={{ borderColor: theme.border }}
                   />
-                  <Label htmlFor="single" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
+                  <Label htmlFor="single" className="text-sm font-normal" style={{ color: theme.text.secondary }}>
                     Single
                   </Label>
                 </div>
@@ -314,9 +393,10 @@ export function DraggableGttOrderFlow() {
                   <RadioGroupItem 
                     value="ocd" 
                     id="ocd" 
-                    className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary" 
+                    className="h-4 w-4 text-primary"
+                    style={{ borderColor: theme.border }}
                   />
-                  <Label htmlFor="ocd" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
+                  <Label htmlFor="ocd" className="text-sm font-normal" style={{ color: theme.text.secondary }}>
                     OCD
                   </Label>
                 </div>
@@ -324,89 +404,122 @@ export function DraggableGttOrderFlow() {
             </div>
 
             {/* Stock Info Display */}
-            <div className="mb-4 text-sm border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-2 rounded-md">
-              <span className="font-medium text-gray-900 dark:text-[#EBEEF5]">Stock:</span> 
-              <span className="text-gray-700 dark:text-[#C9CACC]"> {selectedStock.symbol} ({selectedStock.exchange})</span>
+            <div className="mb-4 text-sm border p-2 rounded-md" style={{
+              borderColor: theme.border,
+              backgroundColor: theme.surface
+            }}>
+              <span className="font-medium" style={{ color: theme.text.primary }}>Stock:</span> 
+              <span style={{ color: theme.text.secondary }}> {selectedStock.symbol} ({selectedStock.exchange})</span>
             </div>
 
             {/* Inputs Grid */}
             <div className="grid grid-cols-[1.2fr,auto,1fr,1.2fr] items-end gap-3">
               {/* Trigger Price */}
               <div>
-                <Label htmlFor="trigger-price" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
+                <Label htmlFor="trigger-price" className="text-sm mb-1.5 block" style={{ color: theme.text.primary }}>
                   Trigger Price
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#C9CACC]">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2" style={{ color: theme.text.secondary }}>
                     ₹
                   </span>
                   <Input
                     id="trigger-price"
                     type="number"
                     defaultValue="0"
-                    className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                    className="pl-5 h-9 focus:outline-none"
+                    style={{
+                      borderColor: theme.input.border,
+                      backgroundColor: theme.input.background,
+                      color: theme.text.secondary
+                    }}
                   />
                 </div>
               </div>
 
               {/* Places Order Arrow */}
-              <div className="flex items-center text-xs text-gray-500 dark:text-[#C9CACC] mb-[9px] whitespace-nowrap">
+              <div className="flex items-center text-xs mb-[9px] whitespace-nowrap" style={{ color: theme.text.secondary }}>
                 Places Order
                 <ArrowRight className="h-3 w-3 ml-0.5 stroke-[1.5]" />
               </div>
 
               {/* Quantity */}
               <div>
-                <Label htmlFor="quantity" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
+                <Label htmlFor="quantity" className="text-sm mb-1.5 block" style={{ color: theme.text.primary }}>
                   Quantity
                 </Label>
                 <Input
                   id="quantity"
                   type="number"
                   defaultValue="0"
-                  className="h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                  className="h-9 focus:outline-none"
+                  style={{
+                    borderColor: theme.input.border,
+                    backgroundColor: theme.input.background,
+                    color: theme.text.secondary
+                  }}
                 />
               </div>
 
               {/* Price */}
               <div>
-                <Label htmlFor="price" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
+                <Label htmlFor="price" className="text-sm mb-1.5 block" style={{ color: theme.text.primary }}>
                   Price
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#C9CACC]">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2" style={{ color: theme.text.secondary }}>
                     ₹
                   </span>
                   <Input
                     id="price"
                     type="number"
                     defaultValue="0"
-                    className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
+                    className="pl-5 h-9 focus:outline-none"
+                    style={{
+                      borderColor: theme.input.border,
+                      backgroundColor: theme.input.background,
+                      color: theme.text.secondary
+                    }}
                   />
                   <div className="absolute -bottom-8 right-0 flex items-center gap-1">
                     <input
                       type="text"
-                      value="5"
-                      className="w-8 h-6 text-center text-xs border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC]"
+                      defaultValue="5"
+                      className="w-8 h-6 text-center text-xs border rounded"
+                      style={{
+                        borderColor: theme.input.border,
+                        backgroundColor: theme.input.background,
+                        color: theme.text.secondary
+                      }}
                     />
-                    <span className="text-xs text-gray-500 dark:text-[#C9CACC]">% of LTP</span>
+                    <span className="text-xs" style={{ color: theme.text.secondary }}>% of LTP</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex gap-2 border-t border-gray-200 dark:border-gray-700 p-3 mt-4">
+          <div className="flex gap-2 border-t p-3 mt-4" style={{ borderTopColor: theme.border }}>
             <Button
               variant="secondary"
               onClick={handleGttCancel}
-              className="h-8 px-6 hover:bg-gray-100 dark:hover:bg-gray-800 border-none text-gray-700 dark:text-[#C9CACC] bg-gray-50 dark:bg-gray-900"
+              className="h-8 px-6 border-none"
+              style={{
+                backgroundColor: theme.surface,
+                color: theme.text.secondary
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = theme.hover;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = theme.surface;
+              }}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] dark:bg-[#00C852] dark:hover:bg-[#00B84D] text-white"
+              className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] text-white"
             >
               Place
             </Button>

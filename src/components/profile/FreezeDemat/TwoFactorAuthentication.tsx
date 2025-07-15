@@ -79,8 +79,8 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
   return (
     <>
-      <div className={`w-[959px]  p-2 ${className}`}>
-        <div className="bg-gray-50 dark:bg-[#121212] rounded-lg p-6 flex">
+      <div className={`w-[959px] p-2 ${className}`}>
+        <div className="bg-gray-50 dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-lg p-6 flex">
           {/* Shield Section */}
           <div className="flex flex-col items-center mr-4 text-center min-w-[280px]">
             <div className="mb-4">
@@ -96,7 +96,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
             <div className="space-y-6">
               <h2
-                className="text-gray-900 dark:text-[#ebeef5]"
+                className="text-gray-900 dark:text-[#EBEEF5]"
                 style={{
                   fontFamily: "Inter",
                   fontWeight: 500,
@@ -109,7 +109,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 Protect your account
               </h2>
               <p
-                className="leading-relaxed max-w-[250px] text-gray-600 dark:text-[#c9cacc]"
+                className="text-[#666666] dark:text-[#C9CACC] leading-relaxed max-w-[250px]"
                 style={{
                   fontFamily: "Inter",
                   fontWeight: 400,
@@ -128,7 +128,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
           {/* Verification Options Section */}
           <div className="flex-1 min-w-[400px]">
             <h2
-              className="text-gray-900 dark:text-[#ebeef5] mb-6"
+              className="text-gray-900 dark:text-[#EBEEF5] mb-6"
               style={{
                 fontFamily: "Inter",
                 fontWeight: 500,
@@ -140,16 +140,16 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
               Pick your Verification Method
             </h2>
 
-            <div className="bg-white dark:bg-[#181A20] border border-gray-200 dark:border-[#2f2f2f] rounded-lg overflow-hidden">
+            <div className="bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded-lg overflow-hidden">
               {/* Text Option */}
               <div
-                className="p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#181A20] border-b border-gray-200 dark:border-[#2f2f2f]"
+                className="p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] border-b border-gray-200 dark:border-[#2F2F2F]"
                 onClick={() => handleMethodClick("text")}
               >
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-gray-900 dark:text-[#ebeef5]"
+                      className="text-[#1A1A1A] dark:text-[#EBEEF5]"
                       style={{
                         fontFamily: "Inter",
                         fontWeight: 400,
@@ -171,7 +171,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     )}
                   </div>
                   <span
-                    className="text-gray-600 dark:text-[#c9cacc]"
+                    className="text-[#666666] dark:text-[#C9CACC]"
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 300,
@@ -185,7 +185,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 </div>
                 <div className="flex items-center">
                   <svg
-                    className="w-5 h-5 text-gray-400 dark:text-[#c9cacc]"
+                    className="w-5 h-5 text-gray-400 dark:text-[#C9CACC]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -202,13 +202,13 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
               {/* Authentication App Option */}
               <div
-                className="p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#181A20]"
+                className="p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
                 onClick={() => handleMethodClick("app")}
               >
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-gray-900 dark:text-[#ebeef5]"
+                      className="text-[#1A1A1A] dark:text-[#EBEEF5]"
                       style={{
                         fontFamily: "Inter",
                         fontWeight: 400,
@@ -230,7 +230,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     )}
                   </div>
                   <span
-                    className="text-gray-600 dark:text-[#c9cacc]"
+                    className="text-[#666666] dark:text-[#C9CACC]"
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 300,
@@ -244,7 +244,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 </div>
                 <div className="flex items-center">
                   <svg
-                    className="w-5 h-5 text-gray-400 dark:text-[#c9cacc]"
+                    className="w-5 h-5 text-gray-400 dark:text-[#C9CACC]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -265,11 +265,12 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
       {/* Text Verification Popup */}
       {showTextPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#181A20] shadow-2xl flex flex-col border border-gray-200 dark:border-[#2f2f2f]"
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50">
+          <div
+            className="bg-white dark:bg-[#121413] shadow-2xl flex flex-col border border-gray-200 dark:border-[#2F2F2F]"
             style={{
               width: "500px",
-              minHeight: "275px", // Changed from fixed height to minHeight
+              minHeight: "275px",
               borderTopLeftRadius: "4px",
               borderTopRightRadius: "4px",
               borderTopWidth: "1px",
@@ -279,12 +280,21 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-4 px-4 pt-4">
-              <h2 className="text-gray-900 dark:text-[#ebeef5]" style={{ fontFamily: "Inter", fontWeight: 600, fontSize: "16px", lineHeight: "100%", letterSpacing: "0%" }}>
+              <h2
+                className="text-[#1A1A1A] dark:text-[#EBEEF5]"
+                style={{
+                  fontFamily: "Inter",
+                  fontWeight: 600,
+                  fontSize: "16px",
+                  lineHeight: "100%",
+                  letterSpacing: "0%",
+                }}
+              >
                 Setup Two-Factor Authentication
               </h2>
               <button
                 onClick={() => setShowTextPopup(false)}
-                className="text-gray-400 dark:text-[#c9cacc] hover:text-gray-600 dark:hover:text-[#ebeef5] transition-colors"
+                className="text-gray-400 dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -307,9 +317,9 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
               <div className="space-y-6">
                 {/* Description */}
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-gray-100 dark:bg-[#121212] rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-gray-100 dark:bg-[#23232399] dark:border dark:border-[#2F2F2F] rounded-full flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-gray-600 dark:text-[#c9cacc]"
+                      className="w-5 h-5 text-gray-600 dark:text-[#C9CACC]"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -317,7 +327,16 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-600 dark:text-[#c9cacc]" style={{ fontFamily: "Inter", fontWeight: 400, fontSize: "14px", lineHeight: "100%", letterSpacing: "0%" }}>
+                    <p
+                      className="text-[#6B7280] dark:text-[#C9CACC]"
+                      style={{
+                        fontFamily: "Inter",
+                        fontWeight: 400,
+                        fontSize: "14px",
+                        lineHeight: "100%",
+                        letterSpacing: "0%",
+                      }}
+                    >
                       Each time you log in, in addition to your password, you'll
                       use get an otp on you registered email and mobile number
                       to login into your account
@@ -327,7 +346,16 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
                 {/* OTP Input Section */}
                 <div className="space-y-3">
-                  <p className="text-gray-900 dark:text-[#ebeef5]" style={{ fontFamily: "Inter", fontWeight: 400, fontSize: "14px", lineHeight: "100%", letterSpacing: "0%" }}>
+                  <p
+                    className="text-[#1A1A1A] dark:text-[#EBEEF5]"
+                    style={{
+                      fontFamily: "Inter",
+                      fontWeight: 400,
+                      fontSize: "14px",
+                      lineHeight: "100%",
+                      letterSpacing: "0%",
+                    }}
+                  >
                     Enter OTP sent to ******5678
                   </p>
 
@@ -342,7 +370,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                           handleTextCodeChange(index, e.target.value)
                         }
                         onKeyDown={(e) => handleTextKeyDown(index, e)}
-                        className="w-10 h-10 text-center border-2 border-gray-300 dark:border-[#2f2f2f] rounded focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-[#181A20] text-base font-medium dark:text-[#ebeef5]"
+                        className="w-10 h-10 text-center border-2 border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#EBEEF5] rounded focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-blue-400 text-base font-medium"
                         maxLength={1}
                       />
                     ))}
@@ -352,10 +380,10 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
             </div>
 
             {/* Footer Buttons */}
-            <div className="flex justify-end bg-[#F8F8FB] dark:bg-[#121212] gap-3 px-4 py-2.5 border-t border-gray-200 dark:border-[#2f2f2f]">
+            <div className="flex justify-end bg-[#F8F8FB] dark:bg-[#23232399] gap-3 px-4 py-2.5 border-t border-gray-200 dark:border-[#2F2F2F]">
               <button
                 onClick={() => setShowTextPopup(false)}
-                className="px-4 py-2 text-gray-700 dark:text-[#c9cacc] bg-white dark:bg-[#181A20] border border-gray-300 dark:border-[#2f2f2f] rounded hover:bg-gray-50 dark:hover:bg-[#23242a] transition-colors font-medium"
+                className="px-4 py-2 text-gray-700 dark:text-[#C9CACC] bg-white dark:bg-[#121413] border border-gray-300 dark:border-[#2F2F2F] rounded hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors font-medium"
               >
                 Cancel
               </button>
@@ -371,16 +399,16 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
       )}
       {/* Authenticator App Popup */}
       {showAuthenticatorPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#181A20] rounded-lg shadow-2xl w-[500px] h-[550px] flex flex-col border border-gray-200 dark:border-[#2f2f2f]">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-black dark:bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded-lg shadow-2xl w-[500px] h-[550px] flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-[#2f2f2f]">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-[#ebeef5]">
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-200 dark:border-[#2F2F2F]">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-[#EBEEF5]">
                 Setup Authenticator App
               </h2>
               <button
                 onClick={() => setShowAuthenticatorPopup(false)}
-                className="text-gray-400 dark:text-[#c9cacc] hover:text-gray-600 dark:hover:text-[#ebeef5] transition-colors"
+                className="text-gray-400 dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
                 <svg
                   className="w-6 h-6"
@@ -401,7 +429,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
             {/* Content */}
             <div className="flex-1 px-4 py-2.5 space-y-3">
               {/* Description */}
-              <p className="text-gray-600 dark:text-[#c9cacc] text-sm leading-tight">
+              <p className="text-gray-600 dark:text-[#C9CACC] text-sm leading-tight">
                 Each time you log in, in addition to your password, you'll use
                 an authenticator app to generate a one-time code
               </p>
@@ -410,7 +438,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
               <div className="space-y-2.5">
                 <div className="flex items-center gap-3">
                   <div
-                    className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#c9cacc] bg-[#F8F8FB] dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-full"
+                    className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#C9CACC] bg-[#F8F8FB] dark:bg-[#23232399] border border-gray-300 dark:border-[#2F2F2F] rounded-full"
                     style={{
                       width: "52px",
                       height: "23px",
@@ -422,23 +450,23 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                   >
                     Step 1
                   </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-[#ebeef5] text-sm">
+                  <h3 className="font-semibold text-gray-900 dark:text-[#EBEEF5] text-sm">
                     Scan QR code
                   </h3>
                 </div>
 
-                <p className="text-gray-600 dark:text-[#c9cacc] text-sm leading-tight">
+                <p className="text-gray-600 dark:text-[#C9CACC] text-sm leading-tight">
                   Scan the QR below or manually enter the secret key into your
                   authenticator app.
                 </p>
 
                 {/* Gray container for QR section */}
-                <div className="bg-[#F8F8FB] dark:bg-[#121212] rounded-lg p-2.5">
+                <div className="bg-[#F8F8FB] dark:bg-[#23232399] dark:border dark:border-[#2F2F2F] rounded-lg p-2.5">
                   <div className="flex items-start gap-3">
                     {/* QR Code */}
                     <div className="flex-shrink-0">
                       <div
-                        className="bg-white dark:bg-[#181A20] border border-gray-300 dark:border-[#2f2f2f] rounded flex items-center justify-center"
+                        className="bg-white dark:bg-[#121413] border border-gray-300 dark:border-[#2F2F2F] rounded flex items-center justify-center"
                         style={{
                           width: "120px",
                           height: "120px",
@@ -446,13 +474,14 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                         }}
                       >
                         <svg className="w-28 h-28" viewBox="0 0 100 100">
-                          <rect width="100" height="100" fill="white" />
+                          <rect width="100" height="100" fill="white" className="dark:fill-[#121413]" />
                           <rect
                             x="0"
                             y="0"
                             width="20"
                             height="20"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="80"
@@ -460,6 +489,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="20"
                             height="20"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="0"
@@ -467,6 +497,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="20"
                             height="20"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="30"
@@ -474,6 +505,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="50"
@@ -481,6 +513,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="70"
@@ -488,6 +521,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="10"
@@ -495,6 +529,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="40"
@@ -502,6 +537,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="60"
@@ -509,6 +545,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="20"
@@ -516,6 +553,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="15"
@@ -523,6 +561,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="75"
@@ -530,6 +569,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="15"
@@ -537,6 +577,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="45"
@@ -544,6 +585,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="10"
                             height="10"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="25"
@@ -551,6 +593,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="5"
                             height="5"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="65"
@@ -558,6 +601,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="5"
                             height="5"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="35"
@@ -565,6 +609,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="5"
                             height="5"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="55"
@@ -572,6 +617,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="5"
                             height="5"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                           <rect
                             x="75"
@@ -579,6 +625,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                             width="5"
                             height="5"
                             fill="black"
+                            className="dark:fill-[#EBEEF5]"
                           />
                         </svg>
                       </div>
@@ -586,22 +633,22 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
                     {/* Can't Scan Section */}
                     <div className="flex-1 space-y-2">
-                      <p className="text-gray-900 dark:text-[#ebeef5] font-medium text-sm">
+                      <p className="text-gray-900 dark:text-[#EBEEF5] font-medium text-sm">
                         Can't scan QR code?
                       </p>
-                      <p className="text-gray-600 dark:text-[#c9cacc] text-sm">
+                      <p className="text-gray-600 dark:text-[#C9CACC] text-sm">
                         Enter this secret code instead:
                       </p>
 
-                      <div className="bg-[#F1F1FF] border border-gray-200 rounded p-2">
-                        <code className="text-sm font-mono text-gray-800">
+                      <div className="bg-[#F1F1FF] dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded p-2">
+                        <code className="text-sm font-mono text-gray-800 dark:text-[#EBEEF5]">
                           GGG-789-HJI-D34-879-FTH
                         </code>
                       </div>
 
                       <button
                         onClick={copyToClipboard}
-                        className="inline-flex items-center gap-1 text-[#1A1A1A] hover:text-blue-700 transition-colors"
+                        className="inline-flex items-center gap-1 text-[#1A1A1A] dark:text-[#EBEEF5] hover:text-blue-700 dark:hover:text-blue-400 transition-colors bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded-md"
                         style={{
                           width: "111px",
                           height: "27px",
@@ -609,10 +656,6 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                           paddingRight: "12px",
                           paddingBottom: "6px",
                           paddingLeft: "12px",
-                          borderRadius: "6px",
-                          borderWidth: "1px",
-                          borderColor: "#e5e7eb",
-                          backgroundColor: "#ffffff",
                           fontFamily: "Inter, sans-serif",
                           fontWeight: "500",
                           fontSize: "12px",
@@ -643,7 +686,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
               <div className="space-y-2.5">
                 <div className="flex items-center gap-3">
                   <div
-                    className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#c9cacc] bg-[#F8F8FB] dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-full"
+                    className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#C9CACC] bg-[#F8F8FB] dark:bg-[#23232399] border border-gray-300 dark:border-[#2F2F2F] rounded-full"
                     style={{
                       width: "55px",
                       height: "23px",
@@ -655,17 +698,17 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                   >
                     Step 2
                   </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-[#ebeef5] text-sm">
+                  <h3 className="font-semibold text-gray-900 dark:text-[#EBEEF5] text-sm">
                     Get verification code
                   </h3>
                 </div>
 
-                <p className="text-gray-600 dark:text-[#c9cacc] text-sm leading-tight">
+                <p className="text-gray-600 dark:text-[#C9CACC] text-sm leading-tight">
                   Enter 6-digit code you see in your authenticator app.
                 </p>
 
                 <div>
-                  <p className="text-gray-900 dark:text-[#ebeef5] font-medium text-sm mb-2">
+                  <p className="text-gray-900 dark:text-[#EBEEF5] font-medium text-sm mb-2">
                     Enter code here
                   </p>
                   <div className="flex gap-2">
@@ -679,7 +722,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                           handleCodeChange(index, e.target.value)
                         }
                         onKeyDown={(e) => handleKeyDown(index, e)}
-                        className="w-10 h-10 text-center border-2 border-gray-300 dark:border-[#2f2f2f] rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base font-medium dark:bg-[#181A20] dark:text-[#ebeef5]"
+                        className="w-10 h-10 text-center border-2 border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#EBEEF5] rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400 text-base font-medium"
                         maxLength={1}
                       />
                     ))}
@@ -689,10 +732,10 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
             </div>
 
             {/* Footer */}
-            <div className="flex justify-end bg-[#F8F8FB] dark:bg-[#121212] gap-3 px-4 py-2.5 border-t border-gray-200 dark:border-[#2f2f2f]">
+            <div className="flex justify-end bg-[#F8F8FB] dark:bg-[#23232399] gap-3 px-4 py-2.5 border-t border-gray-200 dark:border-[#2F2F2F]">
               <button
                 onClick={() => setShowAuthenticatorPopup(false)}
-                className="px-4 py-2 text-gray-700 dark:text-[#c9cacc] bg-white dark:bg-[#181A20] border border-gray-300 dark:border-[#2f2f2f] rounded hover:bg-gray-50 dark:hover:bg-[#23242a] transition-colors font-medium"
+                className="px-4 py-2 text-gray-700 dark:text-[#C9CACC] bg-white dark:bg-[#121413] border border-gray-300 dark:border-[#2F2F2F] rounded hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors font-medium"
               >
                 Cancel
               </button>
