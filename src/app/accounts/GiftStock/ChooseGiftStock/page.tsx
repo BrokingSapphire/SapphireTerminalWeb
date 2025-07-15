@@ -1,6 +1,6 @@
 "use client";
 
-import GiftStock from '@/components/profile/Gift Stock/ChooseGiftStock';   
+import ChooseGiftStockUI from '@/components/profile/Gift Stock/ChooseGiftStockUI';   
 import React from 'react'
 import { ChevronLeft } from 'lucide-react';
 
@@ -32,7 +32,7 @@ const Home = () => {
 
       {/* Main content with proper spacing */}
       <div className="px-1 py-4">
-        <GiftStock />
+        <ChooseGiftStockUI />
       </div>
     </div>
   );
