@@ -43,7 +43,7 @@ const TradeCard: React.FC<TradeCardProps> = ({
   const [showGainInfo, setShowGainInfo] = React.useState(false);
 
   return (
-    <div className="border border-border dark:border-dark-border rounded-lg p-4 sm:p-6 bg-surface dark:bg-dark-cardbg">
+    <div className="border border-border dark:border-dark-border rounded-lg p-4 sm:p-6 bg-surface dark:bg-[#121413]">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-[26px]">
         <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -147,7 +147,7 @@ const TradeCard: React.FC<TradeCardProps> = ({
       {/* Button Section */}
       <div className="flex items-center gap-10 pt-3">
         <button
-          className="bg-white text-center rounded border border-border text-text dark:text-[#6B7280] py-2 flex-1 text-sm"
+          className="bg-white dark:bg-[#23232399] text-center rounded border border-border dark:border-dark-border text-text dark:text-[#6B7280] py-2 flex-1 text-sm"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           About Trade
