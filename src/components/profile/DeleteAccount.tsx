@@ -14,7 +14,7 @@ const Checkbox = ({ checked, onCheckedChange, id }: {
     id={id}
     checked={checked}
     onChange={onCheckedChange}
-    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-[#2f2f2f] dark:bg-[#181A20]"
   />
 );
 
@@ -78,9 +78,8 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
       <div style={{ position: 'relative' }}>
         {/* Main popup container */}
         <div 
+          className="bg-white dark:bg-[#121413] border border-gray-300 dark:border-[#2f2f2f]"
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1px solid #D1D5DB',
             borderRadius: '4px 4px 0 0',
             borderBottom: 'none',
             padding: '15px',
@@ -109,26 +108,13 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
                 gap: '4px'
               }}
             >
-              <h2 style={{
-                fontSize: '18px',
-                fontWeight: '600',
-                color: '#111827',
-                margin: 0,
-                fontFamily: 'inter'
-              }}>
+              <h2 className="text-[#111827] dark:text-[#ebeef5]" style={{ fontSize: '18px', fontWeight: '600', margin: 0, fontFamily: 'inter' }}>
                 Delete Account
               </h2>
-              <p style={{
-                fontSize: '14px',
-                color: '#6B7280',
-                margin: 0,
-                lineHeight: '1.4',
-                fontFamily: 'inter'
-              }}>
+              <p className="text-[#6B7280] dark:text-[#c9cacc]" style={{ fontSize: '14px', margin: 0, lineHeight: '1.4', fontFamily: 'inter' }}>
                 Let us know why you are leaving, so we can improve our app for all investors
               </p>
             </div>
-
             {/* Checkbox section */}
             <div 
               style={{
@@ -149,13 +135,13 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
                   <label
                     htmlFor={checkbox.id}
                     onClick={() => handleCheckboxChange(checkbox.id)}
+                    className="text-[#6B7280] dark:text-[#c9cacc]"
                     style={{  
                       fontSize: '14px',
                       lineHeight: '1.4',
                       cursor: 'pointer',
                       flex: 1,
                       fontWeight:'400',
-                      color: '#6B7280',
                       fontFamily: 'inter'
                     }}
                   >
@@ -166,12 +152,10 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
             </div>
           </div>
         </div>
-
         {/* Button container */}
         <div 
+          className="bg-[#F8F8FB] dark:bg-[#181A20] border border-gray-300 dark:border-[#2f2f2f]"
           style={{
-            backgroundColor: '#F8F8FB',
-            border: '1px solid #D1D5DB',
             borderTop: 'none',
             borderRadius: '0 0 4px 4px',
             padding: '12px',
@@ -189,10 +173,8 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
         >
           <button
             onClick={handleCancel}
+            className="border border-[#D1D5DB] dark:border-[#2f2f2f] text-[#374151] dark:text-[#c9cacc] bg-transparent dark:bg-[#181A20]"
             style={{
-              backgroundColor: 'transparent',
-              border: '1px solid #D1D5DB',
-              color: '#374151',
               padding: '8px 16px',
               borderRadius: '4px',
               fontSize: '14px',
@@ -205,10 +187,8 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
           </button>
           <button
             onClick={handleDelete}
+            className="bg-[#E53935] border border-[#E53935] text-white dark:bg-[#E53935] dark:border-[#E53935] dark:text-white"
             style={{
-              backgroundColor: '#E53935',
-              border: '1px solid #E53935',
-              color: '#FFFFFF',
               padding: '8px 16px',
               borderRadius: '4px',
               fontSize: '14px',
@@ -259,17 +239,15 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
   return (
     <>
       <div 
-        className="w-full"
+        className="w-full bg-white dark:bg-[#121413] border border-gray-300 dark:border-[#2f2f2f]"
         style={{
           height: '430px',
           borderRadius: '4px',
-          border: '0.5px solid #D1D5DB',
           boxShadow: '0px 4px 16px 0px #0000000F, 0px 0px 4px 0px #0000000A',
           transform: 'rotate(0deg)',
           opacity: 1,
           padding: '16px',
-          backgroundColor: '#FFFFFF',
-          fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif',
           boxSizing: 'border-box'
         }}
       >
@@ -307,7 +285,6 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               }}
             />
           </div>
-
           {/* Title Section */}
           <div 
             className="w-full"
@@ -325,36 +302,16 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               justifyContent: 'center'
             }}
           >
-            <h2 
-              style={{
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#1A1A1A',
-                textAlign: 'center',
-                margin: 0,
-                lineHeight: '1.2',
-                fontFamily: 'inter'
-              }}
-            >
+            <h2 className="text-[#1A1A1A] dark:text-[#ebeef5]" style={{ fontSize: '16px', fontWeight: '600', textAlign: 'center', margin: 0, lineHeight: '1.2', fontFamily: 'inter' }}>
               Your about to delete your account
             </h2>
-            <p 
-              style={{
-                fontSize: '14px',
-                color: '#6B7280',
-                textAlign: 'center',
-                margin: 0,
-                lineHeight: '1.4',
-                fontFamily: 'inherit'
-              }}
-            >
+            <p className="text-[#6B7280] dark:text-[#c9cacc]" style={{ fontSize: '14px', textAlign: 'center', margin: 0, lineHeight: '1.4', fontFamily: 'inherit' }}>
               This action cannot be undone
             </p>
           </div>
-
           {/* Warning Box */}
           <div 
-            className="w-full"
+            className="w-full bg-[#FEF7EC] dark:bg-[#181A20] border dark:border-[#2f2f2f]"
             style={{
               height: '73px',
               borderRadius: '6px',
@@ -365,7 +322,6 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               position: 'absolute',
               top: '140px',
               left: '0px',
-              backgroundColor: '#FEF7EC',
               display: 'flex',
               alignItems: 'flex-start',
               boxSizing: 'border-box'
@@ -389,37 +345,16 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
                 }}
               />
             </div>
-
             {/* Warning Text */}
             <div style={{ marginLeft: '1px' }}>
-              <p 
-                style={{
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  color: '#C73C0D',
-                  marginBottom: '4px',
-                  lineHeight: '1.4',
-                  fontFamily: 'inter',
-                  margin: 0
-                }}
-              >
+              <p className="text-[#C73C0D] dark:text-[#ffb380]" style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px', lineHeight: '1.4', fontFamily: 'inter', margin: 0 }}>
                 This is extremely important
               </p>
-              <p 
-                style={{
-                  fontSize: '12px',
-                  color: '#AD411C',
-                  lineHeight: '1.4',
-                  fontFamily: 'Inter, sans-serif',
-                  fontWeight: '400',
-                  margin: 0
-                }}
-              >
+              <p className="text-[#AD411C] dark:text-[#ffb380]" style={{ fontSize: '12px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif', fontWeight: '400', margin: 0 }}>
                 Deleting your account will permanently remove your profile, linked bank accounts, and all trading history. However, your past trades, statements, and tax documents may still be retained for regulatory purposes.
               </p>
             </div>
           </div>
-
           {/* Chat Support Section */}
           <div 
             className="w-full"
@@ -436,27 +371,17 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               justifyContent: 'space-between'
             }}
           >
-            <span 
-              style={{
-                fontSize: '16px',
-                color: '#1A1A1A',
-                fontWeight: '500',
-                fontFamily: 'Inter, sans-serif'
-              }}
-            >
+            <span className="text-[#1A1A1A] dark:text-[#ebeef5]" style={{ fontSize: '16px', fontWeight: '500', fontFamily: 'Inter, sans-serif' }}>
               Need help? Chat with us now!
             </span>
-            
             {/* Custom Chat Button */}
             <ChatButton onClick={onChatClick} />
           </div>
-
           {/* Partition Line */}
           <div 
-            className="w-full"
+            className="w-full border border-[#D1D5DB] dark:border-[#2f2f2f]"
             style={{
               height: '0px',
-              border: '1px solid #D1D5DB',
               transform: 'rotate(0deg)',
               opacity: 1,
               position: 'absolute',
@@ -464,7 +389,6 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               left: '0px'
             }}
           />
-
           {/* Note Section */}
           <div 
             className="w-full"
@@ -478,35 +402,16 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               left: '0px'
             }}
           >
-            <p 
-              style={{
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#111827',
-                gap: '4px',
-                fontFamily: 'inter',
-                margin: 0
-              }}
-            >
+            <p className="text-[#111827] dark:text-[#ebeef5]" style={{ fontSize: '16px', fontWeight: '600', gap: '4px', fontFamily: 'inter', margin: 0 }}>
               Note:
             </p>
-            <p 
-              style={{
-                fontSize: '14px',
-                color: '#6B7280',
-                lineHeight: '1.4',
-                margin: 0,
-                fontWeight: '400',
-                fontFamily: 'inter'
-              }}
-            >
+            <p className="text-[#6B7280] dark:text-[#c9cacc]" style={{ fontSize: '14px', lineHeight: '1.4', margin: 0, fontWeight: '400', fontFamily: 'inter' }}>
               Once your account is successfully deleted, you will not be able to create a new account using the same details for the next 180 days.
             </p>
           </div>
-
           {/* Delete Button Section */}
           <div 
-            className="w-full"
+            className="w-full flex justify-end items-center"
             style={{
               height: '41px',
               gap: '184px',
@@ -514,31 +419,15 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
               opacity: 1,
               position: 'absolute',
               top: '360px',
-              left: '0px',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center'
+              left: '0px'
             }}
           >
             <button
               onClick={handleDeleteClick}
+              className="bg-[#E53935] text-white dark:bg-[#E53935] dark:text-white rounded-[6px] px-5 py-2 text-[14px] font-medium hover:bg-[#DC2626] transition-colors"
               style={{
-                backgroundColor: '#E53935',
-                color: '#FFFFFF',
                 border: 'none',
-                borderRadius: '6px',
-                padding: '10px 20px',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
                 fontFamily: 'inter'
-              }}
-              onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                (e.target as HTMLButtonElement).style.backgroundColor = '#DC2626';
-              }}
-              onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                (e.target as HTMLButtonElement).style.backgroundColor = '#E53935';
               }}
             >
               Delete account
@@ -546,7 +435,6 @@ const AccountDeletionDialog: React.FC<AccountDeletionDialogProps> = ({
           </div>
         </div>
       </div>
-
       {/* Delete Account Popup */}
       {showDeletePopup && (
         <DeleteAccountPopup 

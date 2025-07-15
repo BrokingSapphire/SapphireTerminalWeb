@@ -149,15 +149,15 @@ const CurrentSessions: React.FC = () => {
 
   return (
     <>
-      <div className="w-full max-w-full bg-white border border-gray-300 rounded-lg p-6 shadow-lg">
+      <div className="w-full max-w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-6 shadow-lg">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 font-inter">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-[#F4F4F9] font-inter">
                 Current Sessions
               </h2>
-              <p className="text-sm text-gray-500 font-inter">
+              <p className="text-sm text-gray-500 dark:text-[#c9cacc] font-inter">
                 Keep up with your available sessions logged in from your
                 account. Learn more.
               </p>
@@ -166,7 +166,7 @@ const CurrentSessions: React.FC = () => {
         </div>
 
         {/* Sessions Container */}
-        <div className="w-full bg-white border border-gray-300 rounded-lg p-4 shadow-sm">
+        <div className="w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
           {sessions.map((session, index) => (
             <div
               key={session.id}
@@ -179,10 +179,10 @@ const CurrentSessions: React.FC = () => {
               <div className="flex items-center gap-3">
                 {getDeviceIcon(session.icon, session.device)}
                 <div>
-                  <div className="text-sm font-medium text-gray-900 font-inter">
+                  <div className="text-sm font-medium text-gray-900 dark:text-[#F4F4F9] font-inter">
                     {session.device}
                   </div>
-                  <div className="text-xs text-gray-500 font-inter">
+                  <div className="text-xs text-gray-500 dark:text-[#c9cacc] font-inter">
                     {session.location} • {session.lastActive}
                   </div>
                 </div>
@@ -191,15 +191,15 @@ const CurrentSessions: React.FC = () => {
                 <span
                   className={`text-sm font-medium font-inter ${
                     session.status === "current"
-                      ? "text-green-600"
-                      : "text-orange-500"
+                      ? "text-green-600 dark:text-green-400"
+                      : "text-orange-500 dark:text-orange-300"
                   }`}
                 >
                   {session.status === "current" ? "Current" : "Inactive"}
                 </span>
                 <button
                   onClick={() => handleLogoutClick(session)}
-                  className="text-red-600 hover:text-red-700 font-medium px-4 py-1.5 rounded-md border border-gray-300 hover:bg-red-50 transition-colors text-xs font-inter"
+                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium px-4 py-1.5 rounded-md border border-gray-300 dark:border-[#2f2f2f] hover:bg-red-50 dark:hover:bg-[#23272F] transition-colors text-xs font-inter"
                 >
                   Log out
                 </button>

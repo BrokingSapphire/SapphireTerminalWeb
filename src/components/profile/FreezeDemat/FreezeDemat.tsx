@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const FreezeDemat = () => {
   return (
-    <div className="w-full h-[205px] bg-[#F8F8FB] rounded-lg p-6 flex justify-between items-start gap-6 opacity-100">
+    <div className="w-full h-[205px] bg-[#F8F8FB] dark:bg-[#121212] rounded-lg p-6 flex justify-between items-start gap-6 opacity-100">
       {/* Left side - Tree icon and freeze text */}
       <div className="w-[250px] h-[157px] flex flex-col items-center justify-center gap-7 opacity-100">
         {/* Tree/Snowflake icon */}
@@ -20,8 +20,7 @@ const FreezeDemat = () => {
         </div>
         {/* Freeze text */}
         <div className="text-center">
-          <p className="text-[15px] font-medium text-gray-900 leading-[100%] tracking-[-0.43px]"
-              style={{ fontFamily: 'Inter' }}>
+          <p className="text-[15px] font-medium text-gray-900 dark:text-[#ebeef5] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
             You can freeze your account if you<br />
             detect any suspicious activities.
           </p>
@@ -29,11 +28,10 @@ const FreezeDemat = () => {
       </div>
 
       {/* Right side - Gift stocks info with rounded border */}
-      <div className="flex-1 h-[148px] bg-[#FFFFFF] rounded-lg border border-gray-200 p-4 flex flex-col gap-[18px] opacity-100 relative">
+      <div className="flex-1 h-[148px] bg-[#FFFFFF] dark:bg-[#181A20] rounded-lg border border-gray-200 dark:border-[#2f2f2f] p-4 flex flex-col gap-[18px] opacity-100 relative">
         {/* Header with gift icon */}
         <div className="flex items-center gap-3">
-          <h3 className="text-[14px] font-normal text-gray-900 leading-[100%] tracking-[-0.43px]"
-               style={{ fontFamily: 'SF Pro' }}>
+          <h3 className="text-[14px] font-normal text-gray-900 dark:text-[#ebeef5] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'SF Pro' }}>
             Gift Stocks, Mutual Funds & ETFs with Sapphire Broking
           </h3>
         </div>
@@ -50,8 +48,7 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 leading-[100%] tracking-[-0.43px]"
-                style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
               Anyone using your account will be logged out immediately
             </p>
           </div>
@@ -66,8 +63,7 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 leading-[100%] tracking-[-0.43px]"
-                style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
               You will not be able to place any trades while your account is frozen
             </p>
           </div>
@@ -82,8 +78,7 @@ const FreezeDemat = () => {
                 height={12}
               />
             </div>
-            <p className="text-[14px] font-normal text-gray-700 leading-[100%] tracking-[-0.43px]"
-                style={{ fontFamily: 'Inter' }}>
+            <p className="text-[14px] font-normal text-gray-700 dark:text-[#c9cacc] leading-[100%] tracking-[-0.43px]" style={{ fontFamily: 'Inter' }}>
               This is a temporary block. You can unfreeze your account at any time
             </p>
           </div>

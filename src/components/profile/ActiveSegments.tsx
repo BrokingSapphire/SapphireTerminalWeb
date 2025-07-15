@@ -62,7 +62,7 @@ const DerivativeTrading: React.FC = () => {
 
   return (
     <div 
-      className="bg-[#F8F8FB] border border-gray-300 w-full"
+      className="bg-[#F8F8FB] dark:bg-[#121413] border border-gray-300 w-full"
       style={{
         height: '340px',
         borderRadius: '4px',
@@ -90,14 +90,15 @@ const DerivativeTrading: React.FC = () => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h3 
-                className="font-normal text-gray-900 truncate"
+                className="font-normal text-gray-900 dark:text-white truncate"
                 style={{
                   fontSize: '16px',
                   lineHeight: '100%',
                   color: '#1A1A1A',
                   fontWeight: 400,
                   letterSpacing: '-0.43px',
-                  fontFamily: 'Inter'
+                  fontFamily: 'Inter',
+                  ...(typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? { color: '#c9cacc' } : {})
                 }}
               >
                 {item.title}
@@ -129,7 +130,7 @@ const DerivativeTrading: React.FC = () => {
               )}
             </div>
             <p 
-              className="text-gray-500"
+              className="text-gray-500 dark:text-[#c9cacc]"
               style={{
                 fontSize: '12px',
                 lineHeight: '100%',

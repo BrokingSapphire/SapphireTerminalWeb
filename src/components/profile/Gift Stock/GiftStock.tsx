@@ -8,10 +8,10 @@ const GiftStocksPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white w-full flex items-center justify-center mr-28 mb-5">
+    <div className="bg-white dark:bg-[#121212] w-full flex items-center justify-center mr-28 mb-5">
       {/* Main Container */}
       <div 
-        className="flex justify-between items-center bg-[#F8F8FB] rounded-lg  p-6 w-full"
+        className="flex justify-between items-center bg-[#F8F8FB] dark:bg-[#121212] rounded-lg  p-6 w-full"
         style={{ height: '269px' }}
       >
         {/* Left Side - Gift Box and Text */}
@@ -30,7 +30,7 @@ const GiftStocksPage: React.FC = () => {
           
           {/* Text */}
           <div 
-            className="text-center text-gray-800"
+            className="text-center text-gray-800 dark:text-[#ebeef5]"
             style={{ 
               width: '250px', 
               height: '57px',
@@ -52,7 +52,7 @@ const GiftStocksPage: React.FC = () => {
         >
           {/* Features List with Header */}
           <div 
-            className="border border-gray-200 bg-white rounded-lg p-3 flex flex-col gap-3 w-full"
+            className="border border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#181A20] rounded-lg p-3 flex flex-col gap-3 w-full"
             style={{ 
               height: '186px',
               paddingTop: '12px',
@@ -63,7 +63,7 @@ const GiftStocksPage: React.FC = () => {
           >
             {/* Header inside the box */}
             <div 
-              className="text-gray-800 mb-1"
+              className="text-gray-800 dark:text-[#ebeef5] mb-1"
               style={{
                 fontFamily: 'Inter',
                 fontWeight: 400,
@@ -82,9 +82,9 @@ const GiftStocksPage: React.FC = () => {
               }}
             >
               <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#6B7280]" />
+                <Check className="w-4 h-4 text-[#6B7280] dark:text-[#c9cacc]" />
                 <span 
-                  className="text-[#6B7280]"
+                  className="text-[#6B7280] dark:text-[#c9cacc]"
                   style={{
                     fontFamily: 'Inter',
                     fontWeight: 400,
@@ -98,9 +98,9 @@ const GiftStocksPage: React.FC = () => {
               </div>
               
               <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#6B7280]" />
+                <Check className="w-4 h-4 text-[#6B7280] dark:text-[#c9cacc]" />
                 <span 
-                  className="text-[#6B7280]"
+                  className="text-[#6B7280] dark:text-[#c9cacc]"
                   style={{
                     fontFamily: 'Inter',
                     fontWeight: 400,
@@ -114,9 +114,9 @@ const GiftStocksPage: React.FC = () => {
               </div>
               
               <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#6B7280]" />
+                <Check className="w-4 h-4 text-[#6B7280] dark:text-[#c9cacc]" />
                 <span 
-                  className="text-[#6B7280]"
+                  className="text-[#6B7280] dark:text-[#c9cacc]"
                   style={{
                     fontFamily: 'Inter',
                     fontWeight: 400,
@@ -130,9 +130,9 @@ const GiftStocksPage: React.FC = () => {
               </div>
               
               <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-[#6B7280]" />
+                <Check className="w-4 h-4 text-[#6B7280] dark:text-[#c9cacc]" />
                 <span 
-                  className="text-[#6B7280]"
+                  className="text-[#6B7280] dark:text-[#c9cacc]"
                   style={{
                     fontFamily: 'Inter',
                     fontWeight: 400,
@@ -142,7 +142,7 @@ const GiftStocksPage: React.FC = () => {
                   }}
                 >
                   Once accepted, you'll confirm the transfer to their demat account{' '}
-                  <a href="#" className="text-black underline">Learn more</a>
+                  <a href="#" className="text-black dark:text-[#ebeef5] underline">Learn more</a>
                 </span>
               </div>
             </div>

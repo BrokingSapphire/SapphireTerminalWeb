@@ -442,7 +442,7 @@ const Sidebar: React.FC = () => {
               onChange={(e) => setEditedTitle(e.target.value)}
               onBlur={handleTitleSave}
               onKeyDown={handleKeyPress}
-              className="text-xs font-semibold text-gray-600 uppercase tracking-wide bg-transparent border-none outline-none focus:ring-0 p-0"
+              className="text-xs font-semibold text-gray-600 uppercase tracking-wide bg-transparent dark:bg-[#121413] border-none outline-none focus:ring-0 p-0 dark:text-[#F4F4F9]"
               autoFocus
               onClick={(e) => e.stopPropagation()}
             />
@@ -547,7 +547,7 @@ const Sidebar: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                className="w-full pl-9 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#23272F]"
+                className="w-full pl-9 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121413]"
               />
             </div>
           </div>
@@ -608,7 +608,7 @@ const Sidebar: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={handleSearchClick}
                   onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                  className="w-full pl-9 pr-10 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868]"
+                  className="w-full pl-9 pr-10 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121212]"
                 />
                 <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1">
                   <Filter className="w-4 h-4 text-[#686868]" />

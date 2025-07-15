@@ -28,16 +28,16 @@ const Home = () => {
   return (
     <div className=" ">
       {/* Header with back arrow and title */}
-      <div className="bg-white ">
+      <div className="bg-white dark:bg-[#121413]">
         <div className="px- py-2">
           <div className="flex items-center gap-1">
             <button
               onClick={handleGoBack}
-              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100 dark:hover:bg-transparent"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
+              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-[#ebeef5]" />
             </button>
-            <h1 className="text-lg font-medium text-gray-900">
+            <h1 className="text-lg font-medium text-gray-900 dark:text-[#ebeef5]">
               Freeze Demat Account
             </h1>
           </div>
@@ -52,7 +52,7 @@ const Home = () => {
         <div className="flex justify-end gap-4 mt-8 mr-5">
           <button
             onClick={handleDontFreeze}
-            className="w-[156px] h-[41px] bg-[#F8F8FB] rounded-md px-4 py-3 text-[14px] font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            className="w-[156px] h-[41px] dark:bg-[#ebeef5] rounded-md px-4 py-3 text-[14px] font-medium text-gray-700 hover:bg-gray-100 transition-colors"
           >
             No, Don't Freeze
           </button>
