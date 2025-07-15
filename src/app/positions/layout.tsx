@@ -23,7 +23,7 @@ export default function RootLayout({
           <Sidebar />
         </div>
         <main className="w-[80%] p-7 bg-white dark:bg-[#121212]">
-          <div className="bg-white w-full">
+          <div className="bg-white dark:bg-[#121212] w-full">
             {children}
           </div>
         </main>

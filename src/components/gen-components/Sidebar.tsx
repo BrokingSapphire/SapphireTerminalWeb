@@ -295,7 +295,7 @@ const Sidebar: React.FC = () => {
         <div className="flex items-center space-x-3">
           <div>
             <div
-              className="font-medium text-gray-900 text-sm mb-[4px]"
+              className="font-medium text-gray-900 dark:text-[#F4F4F9] text-sm mb-[4px]"
               style={{
                 width: '156px',
                 whiteSpace: 'normal',
@@ -306,8 +306,8 @@ const Sidebar: React.FC = () => {
             >
               {stock.name}
             </div>
-            <div className="text-xs text-gray-500">
-              {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              {stock.symbol} • <span className='bg-[#F4F4F9] dark:bg-[#23272F] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
             </div>
           </div>
         </div>
@@ -315,7 +315,7 @@ const Sidebar: React.FC = () => {
         {/* Hover Action Buttons */}
         {isHovered && (
           <div
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#F4F4F9] flex flex-col items-center z-10 rounded-[3px] min-w-[120px] w-auto px-[6px] py-[6px] border border-gray-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#F4F4F9] dark:bg-[#23272F] flex flex-col items-center z-10 rounded-[3px] min-w-[120px] w-auto px-[6px] py-[6px] border border-gray-200 dark:border-[#23272F]"
           >
             <div className="flex items-center space-x-1">
               <button className="w-6 h-6 hover:bg-[#04B94E] text-white rounded flex items-center justify-center transition-colors shadow-sm bg-[#00CA52]">
@@ -358,11 +358,11 @@ const Sidebar: React.FC = () => {
     <div className="flex items-center justify-between py-3 hover:bg-gray-50 transition-colors border-b border-gray-100">
       <div className="flex items-center space-x-3 flex-1">
         <div className="flex-1">
-          <div className="font-medium text-gray-900 text-sm mb-[4px]">
+          <div className="font-medium text-gray-900 dark:text-[#F4F4F9] text-sm mb-[4px]">
             {stock.name}
           </div>
-          <div className="text-xs text-gray-500">
-            {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            {stock.symbol} • <span className='bg-[#F4F4F9] dark:bg-[#23272F] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
           </div>
         </div>
       </div>
@@ -431,7 +431,7 @@ const Sidebar: React.FC = () => {
 
     return (
       <div
-        className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-100 transition-colors border-b border-gray-200"
+        className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-100 transition-colors border-b border-gray-200 dark:border-[#23272F]"
         onClick={onToggle}
       >
         <div className="flex items-center space-x-2">
@@ -481,15 +481,15 @@ const Sidebar: React.FC = () => {
     const [activeTab, setActiveTab] = useState(0);
     
     return (
-      <div className="flex items-center border-b border-gray-200 mb-[6px]">
+      <div className="flex items-center border-b border-gray-200 dark:border-[#23272F] mb-[6px]">
         {['All', 'Cash', 'Future', 'Option', 'MF'].map((tab, index) => (
           <button
             key={tab}
             onClick={() => setActiveTab(index)}
             className={`text-sm font-medium p-[10px] border-b-[2px] transition-colors w-16 ${
               activeTab === index 
-                ? 'text-green-600 border-green-500' 
-                : 'text-gray-500 border-transparent hover:text-gray-700'
+                ? 'text-green-600 dark:text-green-400 border-green-500 dark:border-green-400' 
+                : 'text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-200'
             }`}
           >
             {tab}
@@ -529,7 +529,7 @@ const Sidebar: React.FC = () => {
 
   if (showSearchResults) {
     return (
-      <div className="fixed top-20 left-0 w-[320px] h-[calc(100vh-64px)] bg-white ml-[18px] mt-[18px] flex flex-col overflow-hidden z-30">
+      <div className="fixed top-20 left-0 w-[320px] h-[calc(100vh-64px)] bg-white dark:bg-[#181A20] ml-[18px] mt-[18px] flex flex-col overflow-hidden z-30">
         {/* Search Bar - Fixed */}
         <div className="mt-[18px] border-gray-200 flex-shrink-0 mb-2">
           <div className="flex items-center space-x-2">
@@ -547,7 +547,7 @@ const Sidebar: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                className="w-full pl-9 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none text-[#686868]"
+                className="w-full pl-9 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#23272F]"
               />
             </div>
           </div>
@@ -590,7 +590,7 @@ const Sidebar: React.FC = () => {
     <>
       {/* Sidebar and content */}
       <div className="fixed flex top-16 mt-[28px] left-0 h-[calc(100vh-60px)] pl-[18px] z-30">
-        <div className="w-[24vw] bg-white flex flex-col overflow-hidden sidebar-container">
+        <div className="w-[24vw] bg-white dark:bg-[#181A20] flex flex-col overflow-hidden sidebar-container">
           {/* Search Bar - Fixed */}
           <div className="border-gray-200 flex-shrink-0">
             <div className="flex items-center space-x-2">
@@ -622,7 +622,7 @@ const Sidebar: React.FC = () => {
                   <Plus className="w-5 h-5 text-[#686868]" />
                 </button>
                 {showPopover && (
-                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50 flex flex-col py-2">
+                  <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#181A20] rounded-lg shadow-lg border border-gray-100 dark:border-[#23272F] z-50 flex flex-col py-2">
                     <button
                       className="px-4 py-2 text-left text-sm hover:bg-gray-100 text-gray-800"
                       onClick={() => { setShowWatchlistModal(true); setShowPopover(false); }}
@@ -702,7 +702,7 @@ const Sidebar: React.FC = () => {
                 transform: 'translateX(-50%)'
               }}
             >
-              <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px] shadow">
+              <div className="px-3 py-2 bg-white dark:bg-[#23272F] text-black dark:text-white text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] dark:border-[#23272F] border-[1px] shadow">
                 {watchlistNames[hoveredPage - 1]}
               </div>
             </div>
@@ -714,7 +714,7 @@ const Sidebar: React.FC = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200">
+            <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200 dark:border-[#23272F]">
               {/* Dynamic Category Sections */}
               {categories.map(category => (
                 <SortableContext
@@ -722,7 +722,7 @@ const Sidebar: React.FC = () => {
                   items={category.watchlists.map(w => w.id)}
                   strategy={verticalListSortingStrategy}
                 >
-                  <div className="border-none" key={category.id}>
+                  <div className="border-none bg-white dark:bg-[#181A20]" key={category.id}>
                     <SectionHeader
                       title={category.name}
                       isExpanded={expandedCategories[category.id] ?? true}
@@ -730,7 +730,7 @@ const Sidebar: React.FC = () => {
                       categoryId={category.id}
                     />
                     {(expandedCategories[category.id] ?? true) && (
-                      <div className="divide-y divide-gray-100" data-category-id={category.id}>
+                      <div className="divide-y divide-gray-100 dark:divide-[#23272F]" data-category-id={category.id}>
                         {category.watchlists.map((stock) => [
                           <SortableStockItem key={stock.id} stock={stock} categoryId={category.id} />,
                           openDepthId === stock.id && (
@@ -801,7 +801,7 @@ const TooltipPositioner: React.FC<{ tooltipPosition: { left: number; top: number
         transform: style.transform,
       }}
     >
-      <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px]">
+      <div className="px-3 py-2 bg-white dark:bg-[#23272F] text-black dark:text-white text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] dark:border-[#23272F] border-[1px]">
         {watchlistName}
       </div>
     </div>

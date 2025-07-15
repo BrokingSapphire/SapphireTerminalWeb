@@ -8,6 +8,7 @@ import { FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { BellDot, ChevronDown } from "lucide-react";
 import ProfileMenu from '../profile/ProfileMenu';
 import ReactDOM from 'react-dom';
+import { useTheme } from '@/context/ThemeContext';
 
 const Navbar = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const Navbar = () => {
   const profileRef = useRef<HTMLDivElement>(null);
   const portalRef = useRef<HTMLDivElement>(null); // NEW: ref for portal container
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
+  const { isDarkMode } = useTheme();
 
   // Social media icons - filtered to only Twitter, LinkedIn, and Instagram
   const FILTERED_SOCIAL_ICONS = [
@@ -121,7 +123,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed font-poppins w-full top-0 z-50 bg-white border-b-[2px] border-gray-200 px-[28px]">
+      <nav className="fixed font-poppins w-full top-0 z-50 bg-white dark:bg-[#181A20] border-b-[2px] border-gray-200 dark:border-[#23272F] px-[28px]">
         <div className="w-full mx-auto flex items-center justify-between h-[56px]">
           {/* Main single-row layout */}
           <div className="w-full  flex items-center justify-between">
@@ -132,24 +134,22 @@ const Navbar = () => {
                 <div className="flex items-center space-x-6 w-full">
                   <div className="flex pr-2 border-r flex-col">
                     <div className="flex items-center ">
-                      <span className="text-xs font-medium">Nifty 50</span>
-                      <span className="ml-2 bg-red-100 p-1 rounded-sm text-[8px] text-red-500">
+                      <span className="text-xs font-medium text-black dark:text-white">Nifty 50</span>
+                      <span className="ml-2 bg-red-100 dark:bg-red-900 p-1 rounded-sm text-[8px] text-red-500 dark:text-red-300">
                         Expiry Today
                       </span>
                     </div>
                     <div className="flex items-center mt-0.5">
-                      <span className="text-[10px] font-semibold">21,754.29</span>
-                      <span className="ml-1 text-[8px] font-semibold text-[#22F07D]">
+                      <span className="text-[10px] font-semibold text-[#22F07D] dark:text-green-400">
                         +37.02 (+0.17%)
                       </span>
                     </div>
                   </div>
 
                   <div className="flex flex-col">
-                    <span className="text-xs font-medium">Sensex</span>
+                    <span className="text-xs font-medium text-black dark:text-white">Sensex</span>
                     <div className="flex items-center mt-0.5">
-                      <span className="text-[10px] font-medium">71,715.96</span>
-                      <span className="ml-1 text-[8px]  text-red-500">
+                      <span className="text-[10px] font-medium text-red-500 dark:text-red-400">
                         -27.43 (-0.38%)
                       </span>
                     </div>
@@ -190,10 +190,10 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Right Side Elements - 25% width */}
-            <div className="hidden lg:flex w-[25%] items-center justify-end relative">
+            <div className="hidden lg:flex w-[25%] items-center justify-end relative dark:text-white">
               <div className="px-[28px] flex items-center space-x-3">
                 {/* Notifications Bell Icon */}
-                <button className="text-gray-700">
+                <button className="text-gray-700 dark:text-gray-200">
                   <BellDot color="black" size={18} />
                 </button>
 
@@ -215,7 +215,7 @@ const Navbar = () => {
                     />
                   </div>
                   <span className="ml-1 cursor-pointer" onClick={() => setShowProfileMenu((v) => !v)}>
-                    <ChevronDown color="black" size={16} />
+                    <ChevronDown color={isDarkMode ? 'white' : 'black'} size={16} />
                   </span>
                   {/* ProfileMenu Dropdown (Portal, fixed position) */}
                   {showProfileMenu && dropdownPosition && ReactDOM.createPortal(
@@ -268,7 +268,7 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full bg-gradient-to-br from-white to-gray-50 z-50 shadow-xl transform transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-0 right-0 h-full w-full bg-gradient-to-br from-white to-gray-50 dark:from-[#181A20] dark:to-[#23272F] z-50 shadow-xl transform transition-transform duration-300 ease-in-out lg:hidden ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -282,7 +282,7 @@ const Navbar = () => {
                 height={80}
                 className="w-8 h-8"
               />
-              <p className="font-semibold text-xl text-black">Sapphire</p>
+              <p className="font-semibold text-xl text-black dark:text-white">Sapphire</p>
             </div>
             <button
               onClick={toggleSidebar}
@@ -307,16 +307,16 @@ const Navbar = () => {
           </div>
 
           {/* Stock Information for mobile */}
-          <div className="mt-3 border-b border-gray-200 pb-3">
+          <div className="mt-3 border-b border-gray-200 dark:border-[#23272F] pb-3">
             <div className="flex justify-between">
               {/* Nifty 50 */}
               <div className="flex flex-col">
-                <span className="font-bold text-xs">Nifty 50</span>
+                <span className="font-bold text-xs text-black dark:text-white">Nifty 50</span>
                 <div className="flex items-center mt-1">
-                  <span className="text-[10px] text-white bg-red-500 px-1 py-0.5 rounded-sm">
+                  <span className="text-[10px] text-white bg-red-500 dark:bg-red-900 px-1 py-0.5 rounded-sm">
                     Expiry Today
                   </span>
-                  <span className="ml-1 text-green-500 text-[10px]">
+                  <span className="ml-1 text-green-500 dark:text-green-400 text-[10px]">
                     +87.10 (0.10%)
                   </span>
                 </div>
@@ -324,8 +324,8 @@ const Navbar = () => {
 
               {/* Sensex */}
               <div className="flex flex-col">
-                <span className="font-bold text-xs">Sensex</span>
-                <span className="text-red-500 text-[10px] mt-1">
+                <span className="font-bold text-xs text-black dark:text-white">Sensex</span>
+                <span className="text-red-500 dark:text-red-400 text-[10px] mt-1">
                   -87.10 (-0.10%)
                 </span>
               </div>
@@ -338,11 +338,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-base font-medium py-2 border-l-3 pl-3 transition-colors duration-200 ${
-                  isRouteActive(link.href)
-                    ? "border-[#1DB954] text-[#1DB954]"
-                    : "border-transparent hover:border-gray-300 hover:text-[#1DB954]"
-                }`}
+                className={`text-base font-medium py-2 border-l-3 pl-3 transition-colors duration-200 ${isRouteActive(link.href) ? "border-[#1DB954] text-[#1DB954] dark:text-[#22F07D] dark:border-[#22F07D]" : "border-transparent hover:border-gray-300 hover:text-[#1DB954] dark:hover:text-[#22F07D] dark:hover:border-[#22F07D]"}`}
                 onClick={() => {
                   setActiveLink(link.href);
                   setSidebarOpen(false);
@@ -354,7 +350,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Profile Section */}
-          <div className="mt-auto border-t border-gray-200 pt-5 flex items-center">
+          <div className="mt-auto border-t border-gray-200 dark:border-[#23272F] pt-5 flex items-center">
             <div className="h-8 w-8 rounded-full overflow-hidden border border-gray-300">
               <Image
                 src="/profile.svg"
@@ -368,8 +364,8 @@ const Navbar = () => {
               />
             </div>
             <div className="ml-2">
-              <p className="font-medium text-xs">John Doe</p>
-              <p className="text-[10px] text-gray-500">ID: SA12345</p>
+              <p className="font-medium text-xs text-black dark:text-white">John Doe</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-300">ID: SA12345</p>
             </div>
           </div>
 
@@ -381,7 +377,7 @@ const Navbar = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-[#1DB954] transition-colors duration-300"
+                className="text-gray-500 hover:text-[#1DB954] dark:text-gray-300 dark:hover:text-[#22F07D] transition-colors duration-300"
                 aria-label={`Visit our ${Icon.name.replace("Fa", "")}`}
               >
                 <Icon className="w-5 h-5" />
