@@ -299,7 +299,7 @@ const Positions: React.FC = () => {
 
     return (
       <th
-        className={`px-2.5 py-0 text-left text-xs font-normal border-r cursor-pointer hover:bg-gray-100 dark:hover:bg-[#23272F] ${className} ${isActive ? "bg-[#E8E8F0] dark:bg-[#23272F]" : "bg-[#F4F4F9] dark:bg-[#181A20]"}`}
+        className={`px-2.5 py-0 text-left text-xs font-normal border-r border-gray-200 dark:border-[#2f2f2f] border-b ${className} ${isActive ? 'bg-[#E8E8F0] dark:bg-[#1c1c1c]' : 'bg-[#F4F4F9] dark:bg-[#1c1c1c]'}`}
         onClick={() => handleSort(field)}
         onMouseEnter={() => setHoveredHeader(field)}
         onMouseLeave={() => setHoveredHeader(null)}
@@ -320,10 +320,10 @@ const Positions: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="w-full max-w-[80vw] mx-auto bg-white dark:bg-[#181A20] text-[#23272F] dark:text-[#F4F4F9]">
+    <div className="w-full max-w-[80vw] mx-auto bg-white dark:bg-[#121212] text-[#23272F] dark:text-[#F4F4F9]">
       {/* Positions Section Header */}
       <div className="flex justify-between items-center mb-2">
-        <h2 className="text-base font-normal text-[#23272F] dark:text-[#F4F4F9]">Positions (5)</h2>
+        <h2 className="text-base font-normal text-[#23272F] dark:text-[#ebeef5]">Positions (5)</h2>
         <div className="flex items-center gap-2">
           <div
             className={`relative flex items-center transition-all duration-200 overflow-hidden`}
@@ -344,7 +344,7 @@ const Positions: React.FC = () => {
               onChange={e => setSearchValue(e.target.value)}
               onBlur={() => setSearchExpanded(false)}
               autoFocus={searchExpanded}
-              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm text-[#686868] dark:text-[#C9CACC] focus:outline-none focus:border-blue-500 transition-all duration-200 bg-white dark:bg-[#181A20] ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm text-[#686868] dark:text-[#c9cacc] focus:outline-none focus:border-blue-500 transition-all duration-200 bg-white dark:bg-[#181A20] ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
               placeholder="Search..."
               style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
             />
@@ -354,10 +354,10 @@ const Positions: React.FC = () => {
       </div>
 
       {/* Positions Table */}
-      <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#23272F] bg-white dark:bg-[#23272F]">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-[#23272F] bg-white dark:bg-[#23272F]">
-          <thead className="bg-[#F4F4F9] dark:bg-[#181A20]">
-            <tr className="bg-[#F4F4F9] dark:bg-[#181A20]" style={{ height: "42px" }}>
+      <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212]">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212]">
+          <thead className="bg-[#F4F4F9] dark:bg-[#1c1c1c] divide-x divide-gray-200 dark:divide-[#2f2f2f] border-b border-gray-200 dark:border-[#2f2f2f]" style={{ height: "42px" }}>
+            <tr className="bg-[#F4F4F9] dark:bg-[#1c1c1c] border-b border-gray-200 dark:border-[#2f2f2f]" style={{ height: "42px" }}>
               <HeaderCell
                 field="security"
                 label="Security"
@@ -379,16 +379,16 @@ const Positions: React.FC = () => {
               />
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-[#23272F] divide-y divide-gray-200 dark:divide-[#23272F]">
+          <tbody className="bg-white dark:bg-[#121212] divide-y divide-gray-200 dark:divide-[#2f2f2f]">
             {sortedPositions.map((position, index) => (
               <tr 
                 key={index} 
-                className={`relative ${position.isClosed ? 'bg-[#E8E8E8] dark:bg-[#181A20] bg-opacity-40' : 'bg-white dark:bg-[#23272F]'}`}
+                className={`relative ${position.isClosed ? 'bg-[#E8E8E8] dark:bg-[#242424] bg-opacity-40' : 'bg-white dark:bg-[#121212]'}`}
                 style={{ height: "38px" }}
                 onMouseEnter={() => setHoveredRow(index)}
                 onMouseLeave={() => setHoveredRow(null)}
               >
-                <td className="px-2.5 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#23272F]">
+                <td className="px-2.5 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]">
                   <div className="flex items-center justify-between">
                     <span
                       className={position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}
@@ -399,25 +399,25 @@ const Positions: React.FC = () => {
                   </div>
                 </td>
                 <td
-                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#23272F] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
+                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
                   style={{ fontSize: "12px" }}
                 >
                   {position.quantity}
                 </td>
                 <td
-                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#23272F] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
+                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
                   style={{ fontSize: "12px" }}
                 >
                   {formatCurrency(position.avgPrice)}
                 </td>
                 <td
-                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#23272F] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
+                  className={`px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] ${position.isClosed ? "text-[#9E9E9E] dark:text-[#4B5563]" : "text-[#6B7280] dark:text-[#A0AEC0]"}`}
                   style={{ fontSize: "12px" }}
                 >
                   {formatCurrency(position.ltp)}
                 </td>
                 <td
-                  className="px-2.5 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#23272F]"
+                  className="px-2.5 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "12px" }}
                 >
                   <div className="flex items-center justify-center ">
@@ -455,7 +455,7 @@ const Positions: React.FC = () => {
                   </div>
                 </td>
                 <td
-                  className="px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#23272F]"
+                  className="px-2.5 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "12px" }}
                 >
                   <span
@@ -474,7 +474,7 @@ const Positions: React.FC = () => {
                   </span>
                 </td>
                 <td
-                  className="px-2.5 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#23272F]"
+                  className="px-2.5 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "12px" }}
                 >
                   <span
@@ -568,20 +568,20 @@ const Positions: React.FC = () => {
 
               </tr>
             ))}
-            <tr className="bg-[#F4F4F9] dark:bg-[#181A20] font-medium" style={{ height: "38px" }}>
+            <tr className="bg-[#F4F4F9] dark:bg-[#121212] font-medium border-t border-gray-200 dark:border-[#2f2f2f]" style={{ height: "38px" }}>
               <td
                 colSpan={5}
-                className="px-2.5 py-0 whitespace-nowrap text-xs text-center border-r border-gray-200 dark:border-[#23272F] bg-[#F4F4F9] dark:bg-[#181A20]"
+                className="px-2.5 py-0 whitespace-nowrap text-xs text-center border-r border-gray-200 dark:border-[#2f2f2f] bg-[#F4F4F9] dark:bg-[#121212]"
               >
                 Total
               </td>
-              <td className="px-2.5 py-0 whitespace-nowrap text-center text-xs border-r border-gray-200 dark:border-[#23272F] bg-[#F4F4F9] dark:bg-[#181A20]">
+              <td className="px-2.5 py-0 whitespace-nowrap text-center text-xs border-r border-gray-200 dark:border-[#2f2f2f] bg-[#F4F4F9] dark:bg-[#121212]">
                 <span className="text-[#22A06B] dark:text-[#4ADE80]">
                   {formatCurrency(totalNetPL.value)}{" "}
                   {formatPercentage(totalNetPL.percentage)}
                 </span>
               </td>
-              <td className="px-2.5 py-0 whitespace-nowrap text-center text-xs bg-[#F4F4F9] dark:bg-[#181A20]">
+              <td className="px-2.5 py-0 whitespace-nowrap text-center text-xs bg-[#F4F4F9] dark:bg-[#121212]">
                 <span className="text-[#22A06B] dark:text-[#4ADE80]">
                   {formatCurrency(totalDailyPL.value)}{" "}
                   {formatPercentage(totalDailyPL.percentage)}
