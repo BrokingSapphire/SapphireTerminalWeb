@@ -23,7 +23,7 @@ export default function RootLayout({
         <script src="charting_library/charting_library.standalone.js"></script>
         <script src="datafeeds/udf/dist/bundle.js"></script>
       </head>
-      <body className={inter.className}>
+      <body className="bg-white dark:bg-[#121212]">
         <ThemeProvider>
           {children}
           <Toaster 

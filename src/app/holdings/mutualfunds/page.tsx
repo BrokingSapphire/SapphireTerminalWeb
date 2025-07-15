@@ -189,8 +189,7 @@ const MutualFundsTable = () => {
 
     return (
       <th
-        className={`px-2 py-0 text-left text-xs font-normal border-r cursor-pointer hover:bg-gray-100 ${className} 
-          ${isActive ? "bg-[#E8E8F0]" : "bg-[#F4F4F9]"}`}
+        className={`px-2 py-0 text-left text-xs font-normal border-r border-gray-200 dark:border-[#2f2f2f] text-black dark:text-[#F4F4F9] dark:bg-[#1c1c1c] ${className}`}
         onClick={() => handleSort(field)}
         onMouseEnter={() => setHoveredHeader(field)}
         onMouseLeave={() => setHoveredHeader(null)}
@@ -212,52 +211,52 @@ const MutualFundsTable = () => {
     <div className="w-full">
       <HoldingSelector />
       {/* Header Summary */}
-      <div className="grid grid-cols-5 bg-[#F4F4F9] mb-2 h-16 overflow-hidden">
+      <div className="grid grid-cols-5 bg-[#F4F4F9] dark:bg-[#1c1c1c] mb-2 h-16 overflow-hidden border dark:border-[#2f2f2f] rounded-md">
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
-          <div className="text-xs text-gray-600 text-center">
+          <div className="text-xs text-gray-600 dark:text-[#c9cacc] text-center">
             Invested Value
           </div>
-          <div className="font-normal text-sm text-center">
+          <div className="font-normal text-sm text-center text-black dark:text-[#ebeef5]">
             {formatCurrency(summaryData.investedValue)}
           </div>
-          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB]"></div>
+          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB] dark:bg-[#2f2f2f]"></div>
         </div>
 
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
-          <div className="text-xs text-gray-600 text-center">
+          <div className="text-xs text-gray-600 dark:text-[#c9cacc] text-center">
             Current Value
           </div>
-          <div className="font-normal text-sm text-center">
+          <div className="font-normal text-sm text-center text-black dark:text-[#ebeef5]">
             {formatCurrency(summaryData.currentValue)}
           </div>
-          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB]"></div>
+          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB] dark:bg-[#2f2f2f]"></div>
         </div>
 
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
-          <div className="text-xs text-gray-600 text-center">Daily P&L</div>
-          <div className="font-normal text-sm text-center text-[#22A06B]">
+          <div className="text-xs text-gray-600 dark:text-[#c9cacc] text-center">Daily P&L</div>
+          <div className="font-normal text-sm text-center text-[#22A06B] dark:text-[#ebeef5]">
             {formatCurrency(summaryData.dailyPL.value)}{" "}
             <span className="text-[#22A06B] text-xs">
               {formatPercentage(summaryData.dailyPL.percentage)}
             </span>
           </div>
-          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB]"></div>
+          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB] dark:bg-[#2f2f2f]"></div>
         </div>
 
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
-          <div className="text-xs text-gray-600 text-center">Net P&L</div>
-          <div className="font-normal text-sm text-center text-red-500">
+          <div className="text-xs text-gray-600 dark:text-[#c9cacc] text-center">Net P&L</div>
+          <div className="font-normal text-sm text-center text-red-500 dark:text-[#ebeef5]">
             {formatCurrency(summaryData.netPL.value)}{" "}
             <span className="text-red-500 text-xs">
               {formatPercentage(summaryData.netPL.percentage)}
             </span>
           </div>
-          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB]"></div>
+          <div className="absolute right-0 top-2 h-4/5 w-px bg-[#D1D5DB] dark:bg-[#2f2f2f]"></div>
         </div>
 
         <div className="flex flex-col justify-center h-full px-1.5 text-center">
-          <div className="text-xs text-gray-600 text-center">% XIRR</div>
-          <div className="font-normal text-sm text-center text-[#22A06B]">
+          <div className="text-xs text-gray-600 dark:text-[#c9cacc] text-center">% XIRR</div>
+          <div className="font-normal text-sm text-center text-[#22A06B] dark:text-[#ebeef5]">
             +{summaryData.xirr}%
           </div>
         </div>
@@ -265,7 +264,7 @@ const MutualFundsTable = () => {
 
       {/* Mutual Funds Section Header */}
       <div className="flex justify-between items-center mt-4 mb-3">
-        <h2 className="text-sm font-normal">Mutual Funds (5)</h2>
+        <h2 className="text-sm text-black dark:text-[#ebeef5] font-normal">Mutual Funds (5)</h2>
         <div className="flex items-center gap-2">
           <div
             className={`relative flex items-center transition-all duration-200 overflow-hidden`}
@@ -296,58 +295,65 @@ const MutualFundsTable = () => {
       </div>
 
       {/* Mutual Funds Table */}
-      <div className="overflow-x-auto border rounded-md">
-        <table className="min-w-full divide-y divide-gray-200 table-fixed">
-          <thead className="bg-[#F4F4F9]">
-            <tr className="bg-[#F4F4F9]" style={{ height: "36px" }}>
+      <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212]">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212]">
+          <thead className="bg-[#F4F4F9] dark:bg-[#1c1c1c] divide-x divide-gray-200 dark:divide-[#2f2f2f]">
+            <tr className="bg-[#F4F4F9] dark:bg-[#1c1c1c]" style={{ height: '42px' }}>
               <HeaderCell
                 field="security"
                 label="Security"
                 width="180px"
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell 
                 field="units" 
                 label="Qty" 
                 width="80px" 
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell 
                 field="avgNav" 
                 label="Avg. NAV" 
                 width="100px" 
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell
                 field="marketNav"
                 label="Market NAV"
                 width="100px"
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell
                 field="investmentValue"
                 label="Investment Value"
                 width="130px"
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell 
                 field="netPL" 
                 label="Net P&L" 
                 width="120px" 
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
               <HeaderCell
                 field="dailyPL"
                 label="Daily P&L"
                 width="120px"
+                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
               />
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-[#121212] divide-y divide-gray-200 dark:divide-[#2f2f2f]">
             {sortedHoldings.map((holding, index) => (
               <tr 
                 key={index} 
                 style={{ height: "32px" }}
-                className="hover:bg-[#FAFAFA] transition-colors duration-150"
+                className=""
               >
-                <td className="px-2 py-0 whitespace-nowrap border-r">
+                <td className="px-2 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]">
                   <div className="flex items-center justify-between">
                     <span
-                      className="text-[#6B7280]"
+                      className="text-[#6B7280] dark:text-[#bcbdbf]"
                       style={{ fontSize: "11px" }}
                     >
                       {holding.security}
@@ -359,38 +365,38 @@ const MutualFundsTable = () => {
                   </div>
                 </td>
                 <td
-                  className="px-2 py-0 text-center text-[#6B7280] whitespace-nowrap border-r"
+                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "11px" }}
                 >
                   {holding.units}
                 </td>
                 <td
-                  className="px-2 py-0 text-center text-[#6B7280] whitespace-nowrap border-r"
+                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "11px" }}
                 >
                   {formatCurrency(holding.avgNav)}
                 </td>
                 <td
-                  className="px-2 py-0 text-center text-[#6B7280] whitespace-nowrap border-r"
+                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "11px" }}
                 >
                   {formatCurrency(holding.marketNav)}
                 </td>
                 <td
-                  className="px-2 py-0 text-center text-[#6B7280] border-r"
+                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] border-r border-gray-200 dark:border-[#2f2f2f]"
                   style={{ fontSize: "11px" }}
                 >
                   {formatCurrency(holding.investmentValue)}
                 </td>
                 <td
-                  className="px-2 py-0 text-center whitespace-nowrap border-r"
+                  className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
                   style={{ fontSize: "11px" }}
                 >
                   <span
                     className={
                       holding.netPL.value < 0
-                        ? "text-red-500"
-                        : "text-[#22A06B]"
+                        ? "text-red-500 dark:text-[#e53935]"
+                        : "text-[#22A06B] dark:text-[#22a06b]"
                     }
                   >
                     {formatCurrency(holding.netPL.value)}{" "}
@@ -398,14 +404,14 @@ const MutualFundsTable = () => {
                   </span>
                 </td>
                 <td
-                  className="px-2 py-0 text-center whitespace-nowrap"
+                  className="px-2 py-0 text-center whitespace-nowrap dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
                   style={{ fontSize: "11px" }}
                 >
                   <span
                     className={
                       holding.dailyPL.value < 0
-                        ? "text-red-500"
-                        : "text-[#22A06B]"
+                        ? "text-red-500 dark:text-[#e53935]"
+                        : "text-[#22A06B] dark:text-[#22a06b]"
                     }
                   >
                     {formatCurrency(holding.dailyPL.value)}{" "}
@@ -416,34 +422,34 @@ const MutualFundsTable = () => {
             ))}
           </tbody>
           <tfoot>
-            <tr className="bg-[#F4F4F9] font-medium" style={{ height: "32px" }}>
+            <tr className="bg-[#F4F4F9] dark:bg-[#121212] font-medium border-t border-gray-200 dark:border-[#2f2f2f]" style={{ height: '32px' }}>
               <td
                 colSpan={4}
-                className="px-2 py-0 text-center whitespace-nowrap border-r"
+                className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
                 style={{ fontSize: "11px" }}
               >
                 Total
               </td>
               <td
-                className="px-2 py-0 text-center text-[#6B7280] whitespace-nowrap border-r"
+                className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
                 style={{ fontSize: "11px" }}
               >
                 {formatCurrency(totalInvestmentValue)}
               </td>
               <td
-                className="px-2 py-0 text-center whitespace-nowrap border-r"
+                className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
                 style={{ fontSize: "11px" }}
               >
-                <span className="text-red-500">
+                <span className="text-red-500 dark:text-[#e53935]">
                   {formatCurrency(totalNetPL.value)}{" "}
                   {formatPercentage(totalNetPL.percentage)}
                 </span>
               </td>
               <td
-                className="px-2 py-0 text-center whitespace-nowrap"
+                className="px-2 py-0 text-center whitespace-nowrap dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
                 style={{ fontSize: "11px" }}
               >
-                <span className="text-[#22A06B]">
+                <span className="text-[#22A06B] dark:text-[#22a06b]">
                   {formatCurrency(totalDailyPL.value)}{" "}
                   {formatPercentage(totalDailyPL.percentage)}
                 </span>

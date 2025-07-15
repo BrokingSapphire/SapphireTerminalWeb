@@ -123,7 +123,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed font-poppins w-full top-0 z-50 bg-white dark:bg-[#181A20] border-b-[2px] border-gray-200 dark:border-[#23272F] px-[28px]">
+      <nav className="fixed font-poppins w-full top-0 z-50 bg-white border-b-[2px] border-gray-200 dark:border-[#2f2f2f] px-[28px] dark:bg-[#121212]">
         <div className="w-full mx-auto flex items-center justify-between h-[56px]">
           {/* Main single-row layout */}
           <div className="w-full  flex items-center justify-between">
@@ -135,7 +135,7 @@ const Navbar = () => {
                   <div className="flex pr-2 border-r flex-col">
                     <div className="flex items-center ">
                       <span className="text-xs font-medium text-black dark:text-white">Nifty 50</span>
-                      <span className="ml-2 bg-red-100 dark:bg-red-900 p-1 rounded-sm text-[8px] text-red-500 dark:text-red-300">
+                      <span className="ml-2 bg-red-100 p-1 rounded-sm text-[8px] text-red-500 dark:bg-red-900 dark:text-red-300">
                         Expiry Today
                       </span>
                     </div>
@@ -170,15 +170,15 @@ const Navbar = () => {
                 <Link 
                 href={link.href} 
                 className={`relative group text-sm font-normal py-1 transition-all duration-300 ${ 
-                isActive ? "text-[#1DB954]" : "" 
-                } group-hover:text-[#1DB954]`} 
+                isActive ? "text-[#1DB954] dark:text-[#22F07D]" : "text-gray-700 dark:text-white" 
+                } group-hover:text-[#1DB954] dark:group-hover:text-[#22F07D]`} 
                 onClick={() => setActiveLink(link.href)} 
                 > 
                 {link.label} 
                 
                 {/* Green underline animation - consistent for both hover & active states */} 
                 <span 
-                className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 h-[2px] bg-[#1DB954] transition-all duration-300 w-0 
+                className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 h-[2px] bg-[#1DB954] dark:bg-[#22F07D] transition-all duration-300 w-0 
                 ${isActive ? "w-[140%]" : ""} 
                 group-hover:w-[140%]`} 
                 ></span> 
@@ -193,7 +193,7 @@ const Navbar = () => {
             <div className="hidden lg:flex w-[25%] items-center justify-end relative dark:text-white">
               <div className="px-[28px] flex items-center space-x-3">
                 {/* Notifications Bell Icon */}
-                <button className="text-gray-700 dark:text-gray-200">
+                <button className="text-gray-700 dark:text-white">
                   <BellDot color="black" size={18} />
                 </button>
 
@@ -313,10 +313,10 @@ const Navbar = () => {
               <div className="flex flex-col">
                 <span className="font-bold text-xs text-black dark:text-white">Nifty 50</span>
                 <div className="flex items-center mt-1">
-                  <span className="text-[10px] text-white bg-red-500 dark:bg-red-900 px-1 py-0.5 rounded-sm">
+                  <span className="text-[10px] text-white bg-red-500 px-1 py-0.5 rounded-sm dark:bg-red-900">
                     Expiry Today
                   </span>
-                  <span className="ml-1 text-green-500 dark:text-green-400 text-[10px]">
+                  <span className="ml-1 text-green-500 text-[10px] dark:text-green-400">
                     +87.10 (0.10%)
                   </span>
                 </div>
@@ -325,9 +325,7 @@ const Navbar = () => {
               {/* Sensex */}
               <div className="flex flex-col">
                 <span className="font-bold text-xs text-black dark:text-white">Sensex</span>
-                <span className="text-red-500 dark:text-red-400 text-[10px] mt-1">
-                  -87.10 (-0.10%)
-                </span>
+                <span className="text-red-500 text-[10px] mt-1 dark:text-red-400">-87.10 (-0.10%)</span>
               </div>
             </div>
           </div>
@@ -338,7 +336,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-base font-medium py-2 border-l-3 pl-3 transition-colors duration-200 ${isRouteActive(link.href) ? "border-[#1DB954] text-[#1DB954] dark:text-[#22F07D] dark:border-[#22F07D]" : "border-transparent hover:border-gray-300 hover:text-[#1DB954] dark:hover:text-[#22F07D] dark:hover:border-[#22F07D]"}`}
+                className={`text-base font-medium py-2 border-l-3 pl-3 transition-colors duration-200 ${isRouteActive(link.href) ? "border-[#1DB954] text-[#1DB954] dark:text-[#22F07D] dark:border-[#22F07D]" : "border-transparent hover:border-gray-300 hover:text-[#1DB954] text-gray-700 dark:text-white dark:hover:text-[#22F07D] dark:hover:border-[#22F07D]"}`}
                 onClick={() => {
                   setActiveLink(link.href);
                   setSidebarOpen(false);
@@ -377,7 +375,7 @@ const Navbar = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-[#1DB954] dark:text-gray-300 dark:hover:text-[#22F07D] transition-colors duration-300"
+                className="text-gray-500 hover:text-[#1DB954] transition-colors duration-300 dark:text-gray-300 dark:hover:text-[#22F07D]"
                 aria-label={`Visit our ${Icon.name.replace("Fa", "")}`}
               >
                 <Icon className="w-5 h-5" />
