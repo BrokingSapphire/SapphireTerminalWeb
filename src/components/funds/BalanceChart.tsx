@@ -24,8 +24,8 @@ const BalanceChart: React.FC<BalanceChartProps> = ({ data }) => {
 
   return (
     // Nikhil
-    <div className='border border-gray-200 mt-3 rounded-md max-w-[80vw] mx-auto text-xs'>
-      <h2 className="text-lg border-b border-gray-200 font-medium p-3">Total Balance Breakup</h2>
+    <div className='border border-gray-200 dark:border-[#2f2f2f] mt-3 rounded-md max-w-[80vw] mx-auto text-xs'>
+      <h2 className="text-lg border-b border-gray-200 dark:border-[#2f2f2f] dark:text-[#ebeef5] font-medium p-3">Total Balance Breakup</h2>
       
       <div className="p-4">
         <div className="flex">
@@ -37,8 +37,8 @@ const BalanceChart: React.FC<BalanceChartProps> = ({ data }) => {
                 <div className="w-36 h-20 absolute top-0 left-0">
                   <div className="w-36 h-36 border-[24px] border-[#FBBC05] rounded-full"></div>
                 </div>
-                <div className="w-[88px] h-[88px] bg-white rounded-full absolute top-[24px] left-[24px]"></div>
-                <div className="w-36 h-18 bg-white absolute bottom-0"></div>
+                <div className="w-[88px] h-[88px] bg-white dark:bg-[#121212] rounded-full absolute top-[24px] left-[24px]"></div>
+                <div className="w-36 h-18 bg-white dark:bg-[#121212] absolute bottom-0"></div>
               </div>
               
               {/* Margin Utilised text below gauge */}
