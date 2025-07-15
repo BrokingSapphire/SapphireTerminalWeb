@@ -121,7 +121,7 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
   return (
     <div 
       ref={dialogRef}
-      className={`fixed z-50 bg-white rounded-lg shadow-xl min-w-[850px] ${open ? 'block' : 'hidden'}`}
+      className={`fixed z-50 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 min-w-[850px] ${open ? 'block' : 'hidden'}`}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -130,13 +130,13 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
     >
       {/* Header */}
       <div 
-        className="flex items-center justify-between px-6 py-3  bg-[#EAF4F4] cursor-grab rounded-t-lg"
+        className="flex items-center justify-between px-6 py-3 bg-[#EAF4F4] dark:bg-gray-900 cursor-grab rounded-t-lg"
         onMouseDown={startDrag}
       >
         <div className="flex items-center gap-2">
-          <span className="text-base">{basketName}</span>
+          <span className="text-base text-gray-900 dark:text-[#EBEEF5]">{basketName}</span>
           <svg
-            className="w-3.5 h-3.5 text-gray-500"
+            className="w-3.5 h-3.5 text-gray-500 dark:text-[#C9CACC]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -146,18 +146,18 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
           </svg>
         </div>
         <button onClick={() => setOpen(false)}>
-        <X  size={28} color='gray' />
+        <X  size={28} className="text-gray-500 dark:text-[#C9CACC] hover:text-gray-700 dark:hover:text-gray-300" />
         </button>
        
       </div>
 
       <div className="px-6 pt-[18px] pb-[24px]">
         {/* Search with border below */}
-        <div className="flex justify-end mb-4 pb-4 border-b border-[#E5E7EB]">
+        <div className="flex justify-end mb-4 pb-4 border-b border-[#E5E7EB] dark:border-gray-700">
           <div className="relative w-64">
             <div className="absolute inset-y-0 left-2 flex items-center pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-400"
+                className="w-4 h-4 text-gray-400 dark:text-[#C9CACC]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -169,65 +169,65 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
             </div>
             <Input
               placeholder="Search everything..."
-              className="pl-8 h-8 text-sm border-gray-200"
+              className="pl-8 h-8 text-sm border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
             />
           </div>
         </div>
 
         {/* Table */}
-        <div className="border border-[#E5E7EB] rounded">
+        <div className="border border-[#E5E7EB] dark:border-gray-700 rounded">
           <Table>
             <TableHeader>
-              <TableRow className="bg-[#F4F4F9] hover:bg-gray-50">
-                <TableHead className="text-sm font-medium text-[#424242] w-32 border-r">
+              <TableRow className="bg-[#F4F4F9] dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-32 border-r border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <span>Product Type</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] border-r">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] border-r border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <span>Security (3/50)</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] w-20 border-r">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-20 border-r border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <span>Qty.</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] w-36 border-r">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-36 border-r border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <span>Price</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] w-20 border-r">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-20 border-r border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <span>Type</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
-                <TableHead className="text-sm font-medium text-[#424242] w-36">
+                <TableHead className="text-sm font-medium text-[#424242] dark:text-[#EBEEF5] w-36">
                   <div className="flex items-center justify-between">
                     <span>Margin Req</span>
-                    <span className="text-xs"><ArrowUpDown size={14} /></span>
+                    <span className="text-xs"><ArrowUpDown size={14} className="dark:text-[#C9CACC]" /></span>
                   </div>
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {items.map((item, i) => (
-                <TableRow key={i} className="h-10 hover:bg-gray-50">
-                  <TableCell className="text-sm border-r text-center text-[#515C7A]">
+                <TableRow key={i} className="h-10 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-center text-[#515C7A] dark:text-[#C9CACC]">
                     {item.type}
                   </TableCell>
-                  <TableCell className="text-sm border-r">
+                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700">
                     <div className="flex items-center justify-between">
-                      <span className="text-[#515C7A]">{item.security}</span>
+                      <span className="text-[#515C7A] dark:text-[#C9CACC]">{item.security}</span>
                       <button>
-                        <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none">
+                        <svg className="w-4 h-4 text-gray-400 dark:text-[#C9CACC]" viewBox="0 0 24 24" fill="none">
                           <circle cx="5" cy="12" r="1" fill="currentColor" />
                           <circle cx="12" cy="12" r="1" fill="currentColor" />
                           <circle cx="19" cy="12" r="1" fill="currentColor" />
@@ -235,18 +235,18 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
                       </button>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm border-r text-center text-[#515C7A]">
+                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-center text-[#515C7A] dark:text-[#C9CACC]">
                     {item.qty}
                   </TableCell>
-                  <TableCell className="text-sm border-r text-right pr-8">
+                  <TableCell className="text-sm border-r border-gray-200 dark:border-gray-700 text-right pr-8 text-[#515C7A] dark:text-[#C9CACC]">
                     ₹{item.price.toFixed(2)}
                   </TableCell>
-                  <TableCell className="border-r text-center">
-                    <span className="bg-green-100 text-green-600 text-xs px-3 py-0.5 rounded">
+                  <TableCell className="border-r border-gray-200 dark:border-gray-700 text-center">
+                    <span className="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 text-xs px-3 py-0.5 rounded">
                       BUY
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm text-right pr-8 text-[#515C7A]">
+                  <TableCell className="text-sm text-right pr-8 text-[#515C7A] dark:text-[#C9CACC]">
                     ₹{item.margin.toFixed(2)}
                   </TableCell>
                 </TableRow>
@@ -256,34 +256,34 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
         </div>
 
         {/* Footer - Border top and bottom */}
-        <div className="mt-6 pt-4  border-t border-[#E5E7EB]">
+        <div className="mt-6 pt-4 border-t border-[#E5E7EB] dark:border-gray-700">
           <div className="flex justify-between">
             <div className="flex">
               {/* Margin Required */}
               <div className="mr-8">
-                <div className="text-sm text-gray-500 mb-[6px]">Margin Required</div>
-                <div className="text-base font-medium">₹5,908.00</div>
+                <div className="text-sm text-gray-500 dark:text-[#C9CACC] mb-[6px]">Margin Required</div>
+                <div className="text-base font-medium text-gray-900 dark:text-[#EBEEF5]">₹5,908.00</div>
               </div>
               
               {/* Final Margin with Checkbox Below */}
               <div>
                 <div>
                   <div className="flex items-center mb-[6px] gap-1">
-                    <div className="text-sm text-gray-500">Final Margin</div>
+                    <div className="text-sm text-gray-500 dark:text-[#C9CACC]">Final Margin</div>
                     <Image
                       src="/info.svg"
                       alt="Info Icon"
                       width={16}
                       height={16}
-                      className="text-gray-400"
+                      className="text-gray-400 dark:invert"
                     />
                   </div>
                   <div className="flex items-center gap-1">
-                    <div className="text-base font-medium text-green-500">
+                    <div className="text-base font-medium text-green-500 dark:text-green-400">
                       ₹5,90,478.00
                     </div>
-                    <button className="hover:text-gray-600">
-                      <IoMdRefresh className="w-4 h-4" />
+                    <button className="hover:text-gray-600 dark:hover:text-gray-300">
+                      <IoMdRefresh className="w-4 h-4 text-gray-500 dark:text-[#C9CACC]" />
                     </button>
                   </div>
                 </div>
@@ -294,11 +294,11 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
                     id="include-positions"
                     checked={includeExisting}
                     onCheckedChange={(checked) => setIncludeExisting(!!checked)}
-                    className="w-4 h-4 rounded-sm border-gray-300"
+                    className="w-4 h-4 rounded-sm border-gray-300 dark:border-gray-600 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                   />
                   <label
                     htmlFor="include-positions"
-                    className="text-xs text-gray-600"
+                    className="text-xs text-gray-600 dark:text-[#C9CACC]"
                   >
                     Include existing positions
                   </label>
@@ -309,13 +309,13 @@ const BasketDialogPopup: React.FC<BasketDialogPopupProps> = ({
             <div className="flex gap-2 items-center">
               <button
                 onClick={() => setOpen(false)}
-                className="px-6 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded hover:bg-gray-200"
+                className="px-6 py-2 text-sm font-medium text-gray-600 dark:text-[#C9CACC] bg-gray-100 dark:bg-gray-800 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
               <button
                 onClick={() => setOpen(false)}
-                className="px-6 py-2 text-sm font-medium text-white bg-green-500 rounded hover:bg-green-600"
+                className="px-6 py-2 text-sm font-medium text-white bg-green-500 dark:bg-green-600 rounded hover:bg-green-600 dark:hover:bg-green-700"
               >
                 Execute
               </button>

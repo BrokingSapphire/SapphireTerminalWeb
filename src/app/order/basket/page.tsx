@@ -95,7 +95,7 @@ const BasketNameInput: React.FC<BasketNameInputProps> = ({ show, onClose, onConf
   return (
     <div 
       ref={dialogRef}
-      className="fixed z-50 bg-white rounded-lg shadow-xl w-[320px]"
+      className="fixed z-50 bg-white dark:bg-black rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-[320px]"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -104,15 +104,15 @@ const BasketNameInput: React.FC<BasketNameInputProps> = ({ show, onClose, onConf
     >
       {/* Header with grab handle */}
       <div 
-        className="flex items-center justify-between p-3 border-b cursor-grab bg-[#F4F4F9] rounded-t-lg"
+        className="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700 cursor-grab bg-[#F4F4F9] dark:bg-gray-900 rounded-t-lg"
         onMouseDown={startDrag}
       >
         <div className="flex items-center">
-          <h2 className="text-sm font-medium">Create New Basket</h2>
+          <h2 className="text-sm font-medium text-gray-900 dark:text-[#EBEEF5]">Create New Basket</h2>
         </div>
         <button 
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
+          className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
         >
           <X size={20} />
         </button>
@@ -121,21 +121,21 @@ const BasketNameInput: React.FC<BasketNameInputProps> = ({ show, onClose, onConf
       {/* Content */}
       <div className="p-4">
         <div className="mb-4">
-          <label htmlFor="basket-name" className="text-sm mb-1 block">
+          <label htmlFor="basket-name" className="text-sm mb-1 block text-gray-700 dark:text-[#EBEEF5]">
             Enter Basket Name
           </label>
           <Input
             id="basket-name"
             value={basketName}
             onChange={(e) => setBasketName(e.target.value)}
-            className="h-9 text-sm"
+            className="h-9 text-sm bg-white dark:bg-black border-gray-200 dark:border-gray-600 text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
             placeholder=""
           />
         </div>
 
         <Button
           onClick={handleConfirm}
-          className="w-full h-9 bg-[#00C852] hover:bg-[#00B84D] text-white text-sm"
+          className="w-full h-9 bg-[#00C852] hover:bg-[#00B84D] dark:bg-[#00C852] dark:hover:bg-[#00B84D] text-white text-sm"
         >
           Create
         </Button>
@@ -187,10 +187,10 @@ export default function Page() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="bg-white max-w-[80vw] w-full">
+      <div className="bg-white dark:bg-black max-w-[80vw] w-full">
         <div className="py-3 flex justify-between items-center">
           <button 
-            className="flex items-center bg-[#F4F4F9] text-xs text-[#1A1A1A] px-2 py-2 rounded"
+            className="flex items-center bg-[#F4F4F9] dark:bg-gray-800 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             onClick={() => {
               setShowBasketNameInput(true);
             }}
@@ -216,38 +216,38 @@ export default function Page() {
               onChange={e => setSearchValue(e.target.value)}
               onBlur={() => setSearchExpanded(false)}
               autoFocus={searchExpanded}
-              className={`pl-9 pr-2 py-2 border border-gray-300 rounded-lg text-sm text-[#686868] focus:outline-none focus:border-blue-500 transition-all duration-200 bg-white ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-[#686868] dark:text-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 bg-white dark:bg-black ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
               placeholder="Search..."
               style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
             />
           </div>
         </div>
-        <div className="overflow-hidden rounded-md border border-[#D1D5DB]">
+        <div className="overflow-hidden rounded-md border border-[#D1D5DB] dark:border-gray-700">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-[#F4F4F9] text-xs font-medium text-gray-600 border-b border-[#D1D5DB]" style={{ height: "36px" }}>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+              <tr className="bg-[#F4F4F9] dark:bg-gray-900 text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Date</span>
-                    <ArrowUpDown size={12}/>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Date</span>
+                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]"/>
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Basket ID</span>
-                    <ArrowUpDown size={12}/>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Basket ID</span>
+                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]"/>
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Basket Name</span>
-                    <ArrowUpDown size={12}/>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Basket Name</span>
+                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]"/>
                   </div>
                 </th>
                 <th className="px-3 py-2 whitespace-nowrap">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Items</span>
-                    <ArrowUpDown size={12}/>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Items</span>
+                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]"/>
                   </div>
                 </th>
               </tr>
@@ -256,34 +256,34 @@ export default function Page() {
               {baskets.map((basket, index) => (
                 <tr
                   key={basket.id}
-                  className={`border-t border-[#D1D5DB] hover:bg-gray-50 cursor-pointer ${
+                  className={`border-t border-[#D1D5DB] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 cursor-pointer ${
                     index === baskets.length - 1 ? "rounded-b-md overflow-hidden" : ""
                   }`}
                   onClick={() => handleBasketClick(basket)}
                   style={{ height: "32px" }}
                 >
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex items-center">
                       <span>{basket.date}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex items-center justify-between">
                       <span>{basket.id}</span>
-                      <button className="text-[#515C7A] hover:text-gray-600">
+                      <button className="text-[#515C7A] dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300">
                         <MoreVertical size={12}/>
                       </button>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex items-center justify-between">
                       <span>{basket.name}</span>
-                      <button className="text-[#515C7A] hover:text-gray-600">
+                      <button className="text-[#515C7A] dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300">
                         <MoreVertical size={12}/>
                       </button>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] text-right">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] text-right">
                     <div className="flex justify-end items-center">
                       <span>₹{basket.items}</span>
                     </div>

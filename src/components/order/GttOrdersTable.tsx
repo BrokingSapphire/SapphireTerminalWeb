@@ -66,7 +66,7 @@ const GttOrdersTable = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="bg-white max-w-[80vw] w-full mx-auto">
+      <div className="bg-white dark:bg-black max-w-[80vw] w-full mx-auto">
         <div className="flex justify-between items-center py-3">
           {/* Draggable GTT Order Flow Component */}
           <DraggableGttOrderFlow />
@@ -90,80 +90,86 @@ const GttOrdersTable = () => {
               onChange={e => setSearchValue(e.target.value)}
               onBlur={() => setSearchExpanded(false)}
               autoFocus={searchExpanded}
-              className={`pl-9 pr-2 py-2 border border-gray-300 rounded-lg text-sm text-[#686868] focus:outline-none focus:border-blue-500 transition-all duration-200 bg-white ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-[#686868] dark:text-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 bg-white dark:bg-black ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
               placeholder="Search..."
               style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
             />
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-md border border-[#D1D5DB]">
+        <div className="overflow-hidden rounded-md border border-[#D1D5DB] dark:border-gray-700">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-[#F4F4F9] text-xs font-medium text-gray-600 border-b border-[#D1D5DB]" style={{ height: "36px" }}>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+              <tr className="bg-[#F4F4F9] dark:bg-gray-900 text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Date</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Date</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Security</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Security</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Action</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Action</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Qty.</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Qty.</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB]">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">Trigger Price</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Trigger Price</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
                 <th className="px-3 py-2 whitespace-nowrap">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] font-[400]">LTP</span>
+                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">LTP</span>
                     <Image
                       src="/sort-icon.svg"
                       alt="Sort Icon"
                       width={12}
                       height={12}
+                      className="dark:invert"
                     />
                   </div>
                 </th>
@@ -173,60 +179,61 @@ const GttOrdersTable = () => {
               {orders.map((order, index) => (
                 <tr
                   key={index}
-                  className={`border-t border-[#D1D5DB] hover:bg-gray-50 ${
+                  className={`border-t border-[#D1D5DB] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 ${
                     index === orders.length - 1
                       ? "rounded-b-md overflow-hidden"
                       : ""
                   }`}
                   style={{ height: "32px" }}
                 >
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex items-center">
                       <span>{order.date}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex items-center justify-between">
                       <span>{order.security}</span>
-                      <button className="text-[#515C7A] hover:text-gray-600">
+                      <button className="text-[#515C7A] dark:text-[#C9CACC] hover:text-gray-600 dark:hover:text-gray-300">
                         <Image
                           src="/three-dots.svg"
                           width={14}
                           height={14}
                           alt="Three Dots"
+                          className="dark:invert"
                         />
                       </button>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex justify-center items-center">
                       <div
                         className={`px-1.5 py-0.5 text-xs font-light rounded ${
                           order.action === "BUY"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
+                            ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                            : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
                         }`}
                       >
                         {order.action}
                       </div>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A] border-r border-[#D1D5DB]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC] border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex justify-center items-center">
                       <span>{order.qty}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-1.5 text-xs border-r border-[#D1D5DB]">
+                  <td className="px-3 py-1.5 text-xs border-r border-[#D1D5DB] dark:border-gray-700">
                     <div className="flex justify-center items-center">
-                      <span className={order.isPositive ? "text-green-600" : "text-red-600"}>
+                      <span className={order.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}>
                         {order.triggerPrice}
                       </span>
-                      <span className={`ml-1 ${order.isPositive ? "text-green-600" : "text-red-600"}`}>
+                      <span className={`ml-1 ${order.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                         {order.triggerPercentage}
                       </span>
                     </div>
                   </td>
-                  <td className="px-3 py-2 text-xs text-[#515C7A]">
+                  <td className="px-3 py-2 text-xs text-[#515C7A] dark:text-[#C9CACC]">
                     <div className="flex justify-center items-center">
                       <span>{order.ltp}</span>
                     </div>

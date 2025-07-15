@@ -22,20 +22,22 @@ export function GttOrderPopup() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex items-center bg-[#F4F4F9] text-xs text-[#1A1A1A] px-3 py-[10px] rounded"><Plus size={18} className="mr-2" /> New GTT Order</button>
+        <button className="flex items-center bg-[#F4F4F9] dark:bg-gray-800 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] px-3 py-[10px] rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <Plus size={18} className="mr-2" /> New GTT Order
+        </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] p-0 rounded-lg">
-        <DialogHeader className="flex bg-[#F4F4F9] flex-row items-start justify-between p-3">
+      <DialogContent className="sm:max-w-[600px] p-0 rounded-lg bg-white dark:bg-black border-gray-200 dark:border-gray-700">
+        <DialogHeader className="flex bg-[#F4F4F9] dark:bg-gray-900 flex-row items-start justify-between p-3">
           <div className="flex-1">
-            <DialogTitle className="text-base font-medium flex items-center gap-1.5">
+            <DialogTitle className="text-base font-medium flex items-center gap-1.5 text-gray-900 dark:text-[#EBEEF5]">
               Reliance Industries Ltd.
-              <span className="text-[11px] font-normal text-muted-foreground bg-[#B8D8D9]/30 px-1 rounded">
+              <span className="text-[11px] font-normal text-muted-foreground dark:text-[#C9CACC] bg-[#B8D8D9]/30 dark:bg-gray-700 px-1 rounded">
                 NSE
               </span>
             </DialogTitle>
-            <DialogDescription className="mt-0.5 text-sm">
+            <DialogDescription className="mt-0.5 text-sm text-gray-700 dark:text-[#C9CACC]">
               1,687.45
-              <span className="text-red-500 text-xs"> -19.10 (-2.70%)</span>
+              <span className="text-red-500 dark:text-red-400 text-xs"> -19.10 (-2.70%)</span>
             </DialogDescription>
           </div>
 
@@ -46,8 +48,8 @@ export function GttOrderPopup() {
               onClick={() => setIsSell(false)}
               className={`h-7 px-3 rounded-md ${
                 !isSell
-                  ? "bg-[#00C853] hover:bg-[#00B84D] text-white"
-                  : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30"
+                  ? "bg-[#00C853] hover:bg-[#00B84D] text-white dark:bg-[#00C853] dark:hover:bg-[#00B84D]"
+                  : "text-[#00C853]/60 hover:text-[#00B84D] bg-[#00B84D]/20 hover:bg-[#00B84D]/30 dark:text-[#00C853]/80 dark:hover:text-[#00B84D] dark:bg-[#00B84D]/20 dark:hover:bg-[#00B84D]/30"
               }`}
             >
               BUY
@@ -55,14 +57,14 @@ export function GttOrderPopup() {
             <Switch
               checked={isSell}
               onCheckedChange={setIsSell}
-              className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853]"
+              className="data-[state=checked]:bg-[#FF3B30] mx-1 data-[state=unchecked]:bg-[#00C853] dark:data-[state=checked]:bg-[#FF3B30] dark:data-[state=unchecked]:bg-[#00C853]"
             />
             <Button
               onClick={() => setIsSell(true)}
               className={`h-7 px-3 rounded-md ${
                 isSell
-                  ? "bg-[#FF3B30] hover:bg-[#E63529] text-white"
-                  : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30"
+                  ? "bg-[#FF3B30] hover:bg-[#E63529] text-white dark:bg-[#FF3B30] dark:hover:bg-[#E63529]"
+                  : "text-[#FF3B30]/40 hover:text-[#E63529] bg-[#FF3B30]/10 hover:bg-[#FF3B30]/30 dark:text-[#FF3B30]/60 dark:hover:text-[#E63529] dark:bg-[#FF3B30]/10 dark:hover:bg-[#FF3B30]/30"
               }`}
             >
               SELL
@@ -73,7 +75,7 @@ export function GttOrderPopup() {
         <div className="px-3 pt-2 pb-3">
           {/* Trigger Type */}
           <div className="flex items-center gap-3 mb-[18px]">
-            <Label className="text-sm text-gray-600">Trigger Type :</Label>
+            <Label className="text-sm text-gray-600 dark:text-[#EBEEF5]">Trigger Type :</Label>
             <RadioGroup
               defaultValue="single"
               className="flex items-center gap-4"
@@ -82,15 +84,19 @@ export function GttOrderPopup() {
                 <RadioGroupItem
                   value="single"
                   id="single"
-                  className="h-4 w-4"
+                  className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary"
                 />
-                <Label htmlFor="single" className="text-sm font-normal">
+                <Label htmlFor="single" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
                   Single
                 </Label>
               </div>
               <div className="flex items-center gap-1.5">
-                <RadioGroupItem value="ocd" id="ocd" className="h-4 w-4" />
-                <Label htmlFor="ocd" className="text-sm font-normal">
+                <RadioGroupItem 
+                  value="ocd" 
+                  id="ocd" 
+                  className="h-4 w-4 border-gray-300 dark:border-gray-600 text-primary dark:text-primary" 
+                />
+                <Label htmlFor="ocd" className="text-sm font-normal text-gray-700 dark:text-[#C9CACC]">
                   OCD
                 </Label>
               </div>
@@ -101,80 +107,79 @@ export function GttOrderPopup() {
           <div className="grid grid-cols-[1.2fr,auto,1fr,1.2fr] items-end gap-3">
             {/* Trigger Price */}
             <div>
-              <Label htmlFor="trigger-price" className="text-sm mb-1.5 block">
+              <Label htmlFor="trigger-price" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
                 Trigger Price
               </Label>
               <div className="relative">
-                <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500">
+                <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#C9CACC]">
                   ₹
                 </span>
                 <Input
                   id="trigger-price"
                   type="number"
                   defaultValue="0"
-                  className="pl-5 h-9 border-gray-200"
+                  className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
                 />
               </div>
             </div>
 
             {/* Places Order Arrow */}
-            <div className="flex items-center text-xs text-gray-500 mb-[9px] whitespace-nowrap">
+            <div className="flex items-center text-xs text-gray-500 dark:text-[#C9CACC] mb-[9px] whitespace-nowrap">
               Places Order
               <ArrowRight className="h-3 w-3 ml-0.5 stroke-[1.5]" />
             </div>
 
             {/* Quantity */}
             <div>
-              <Label htmlFor="quantity" className="text-sm mb-1.5 block">
+              <Label htmlFor="quantity" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
                 Quantity
               </Label>
               <Input
                 id="quantity"
                 type="number"
                 defaultValue="0"
-                className="h-9 border-gray-200"
+                className="h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
               />
             </div>
 
             {/* Price */}
             <div>
-              <Label htmlFor="price" className="text-sm mb-1.5 block">
+              <Label htmlFor="price" className="text-sm mb-1.5 block text-gray-700 dark:text-[#EBEEF5]">
                 Price
               </Label>
               <div className="relative">
-                <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500">
+                <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#C9CACC]">
                   ₹
                 </span>
                 <Input
                   id="price"
                   type="number"
                   defaultValue="0"
-                  className="pl-5 h-9 border-gray-200"
+                  className="pl-5 h-9 border-gray-200 dark:border-gray-600 bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC] focus:border-blue-500 dark:focus:border-blue-400"
                 />
                 <div className="absolute -bottom-8 right-30 flex items-center gap-1">
                   <input
                     type="text"
                     value="5"
-                    className="w-8 h-6 text-center text-xs border border-gray-200 rounded"
-                    
+                    className="w-8 h-6 text-center text-xs border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-black text-gray-900 dark:text-[#C9CACC]"
                   />
-                  <span className="text-xs text-gray-500">% of LTP</span>
+                  <span className="text-xs text-gray-500 dark:text-[#C9CACC]">% of LTP</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <DialogFooter className="flex !justify-start gap-2 border-t p-3 mt-4">
+        <DialogFooter className="flex !justify-start gap-2 border-t border-gray-200 dark:border-gray-700 p-3 mt-4">
           <Button
             variant="secondary"
-            className="h-8 px-6 hover:bg-gray-100 border-none text-gray-700"
+            className="h-8 px-6 hover:bg-gray-100 dark:hover:bg-gray-800 border-none text-gray-700 dark:text-[#C9CACC] bg-gray-50 dark:bg-gray-900"
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] text-white"
+            className="h-8 px-6 bg-[#00C852] hover:bg-[#00B84D] dark:bg-[#00C852] dark:hover:bg-[#00B84D] text-white"
           >
             Place
           </Button>
