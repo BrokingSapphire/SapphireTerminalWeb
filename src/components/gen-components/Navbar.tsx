@@ -194,7 +194,7 @@ const Navbar = () => {
               <div className="px-[28px] flex items-center space-x-3">
                 {/* Notifications Bell Icon */}
                 <button className="text-gray-700 dark:text-white">
-                  <BellDot color="black" size={18} />
+                  <BellDot color={isDarkMode ? '#9CA3AF' : 'black'} size={18} />
                 </button>
 
                 {/* User Profile Avatar with Dropdown Arrow */}
