@@ -1,6 +1,6 @@
 "use client";
 
-import ChooseGiftStockUI from '@/components/profile/Gift Stock/ChooseGiftStockUI';
+import ChooseGiftStockUI from '@/components/profile/Gift Stock/GiftStock';
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
 
