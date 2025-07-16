@@ -1,8 +1,37 @@
 "use client";
 import React, { useState } from 'react';
+import {
+  createWatchlist,
+  getAllWatchlists,
+  updateWatchlistPosition,
+  updateWatchlistName,
+  deleteWatchlist,
+  createCategory,
+  getAllCategories,
+  updateCategoryPosition,
+  updateCategoryName,
+  deleteCategory
+} from '../../utils/watchlistApi';
 import { Search, Filter, Plus, ChevronUp, ChevronDown, Edit2, Layers, Link, TrendingUp, Trash2, ChevronRight } from 'lucide-react';
 import MarketDepth from './MarketDepth';
 import CreateWatchlistCategoryModals from './CreateWatchlistCategoryModals';
+import { initialWatchlistNames, initialCategories } from '../../constants/sidebar-data';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+  rectSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Stock {
   id: string;
@@ -31,369 +60,238 @@ const Sidebar: React.FC = () => {
   const [showWatchlistModal, setShowWatchlistModal] = useState(false);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  // Track a pending watchlist ID for immediate category creation after watchlist creation
+  const [pendingWatchlistId, setPendingWatchlistId] = useState<number | null>(null);
   const [hoveredPage, setHoveredPage] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
   const buttonRefs = React.useRef<{ [key: number]: HTMLButtonElement | null }>({});
   const overlayInputRef = React.useRef<HTMLInputElement>(null);
 
-  // Watchlist names mapping for tooltips - now state-based
-  const [watchlistNames, setWatchlistNames] = useState([
-    'Top Stocks',
-    'Latest',
-    'Favorites',
-    'Technology',
-    'Banking',
-    'Healthcare',
-    'Automotive',
-    'Energy',
-    'Consumer Goods',
-    'Real Estate',
-    'Telecommunications',
-    'Manufacturing',
-    'Pharmaceuticals',
-    'Finance',
-    'Retail',
-    'Transportation',
-    'Utilities',
-    'Materials',
-    'Industrial',
-    'Services'
-  ]);
+  // Mobile sidebar state
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  // Initial categories state
-  const [categories, setCategories] = useState<Category[]>([
-    {
-      id: 'top',
-      name: 'Top Stocks',
-      watchlists: [
-        {
-          id: '1',
-          name: 'Reliance Industries Ltd.',
-          symbol: 'RELIANCE',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '🏭'
-        },
-        {
-          id: '2',
-          name: 'Tata Consultancy Services Ltd.',
-          symbol: 'TCS',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: -4.10,
-          changePercent: -24.7,
-          logo: '💼'
-        },
-        {
-          id: '3',
-          name: 'HDFC Bank Ltd.',
-          symbol: 'HDFCBANK',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '🏦'
-        },
-        {
-          id: '4',
-          name: 'Bharti Airtel Ltd.',
-          symbol: 'BHARTIARTL',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '📱'
-        },
-        {
-          id: '5',
-          name: 'Infosys Ltd.',
-          symbol: 'INFY',
-          exchange: 'NSE',
-          price: 1500.50,
-          change: 10.25,
-          changePercent: 0.7,
-          logo: '💻'
-        },
-        {
-          id: '6',
-          name: 'ICICI Bank Ltd.',
-          symbol: 'ICICIBANK',
-          exchange: 'NSE',
-          price: 900.10,
-          change: -2.15,
-          changePercent: -0.24,
-          logo: '🏦'
-        },
-        {
-          id: '7',
-          name: 'Hindustan Unilever Ltd.',
-          symbol: 'HINDUNILVR',
-          exchange: 'NSE',
-          price: 2500.00,
-          change: 5.00,
-          changePercent: 0.2,
-          logo: '🧴'
-        },
-        {
-          id: '8',
-          name: 'State Bank of India',
-          symbol: 'SBIN',
-          exchange: 'NSE',
-          price: 600.75,
-          change: 3.50,
-          changePercent: 0.58,
-          logo: '🏦'
-        },
-        {
-          id: '9',
-          name: 'Asian Paints Ltd.',
-          symbol: 'ASIANPAINT',
-          exchange: 'NSE',
-          price: 3200.20,
-          change: -12.00,
-          changePercent: -0.37,
-          logo: '🎨'
-        },
-        {
-          id: '10',
-          name: 'Bajaj Finance Ltd.',
-          symbol: 'BAJFINANCE',
-          exchange: 'NSE',
-          price: 7000.00,
-          change: 50.00,
-          changePercent: 0.72,
-          logo: '💳'
-        },
-        {
-          id: '11',
-          name: 'Maruti Suzuki India Ltd.',
-          symbol: 'MARUTI',
-          exchange: 'NSE',
-          price: 9000.00,
-          change: 100.00,
-          changePercent: 1.12,
-          logo: '🚗'
-        },
-        {
-          id: '12',
-          name: 'Larsen & Toubro Ltd.',
-          symbol: 'LT',
-          exchange: 'NSE',
-          price: 2500.00,
-          change: 20.00,
-          changePercent: 0.81,
-          logo: '🏗️'
-        },
-        {
-          id: '13',
-          name: 'Sun Pharmaceutical Industries Ltd.',
-          symbol: 'SUNPHARMA',
-          exchange: 'NSE',
-          price: 1100.00,
-          change: 8.00,
-          changePercent: 0.73,
-          logo: '💊'
-        },
-        {
-          id: '14',
-          name: 'Nestle India Ltd.',
-          symbol: 'NESTLEIND',
-          exchange: 'NSE',
-          price: 22000.00,
-          change: -150.00,
-          changePercent: -0.68,
-          logo: '🍫'
-        },
-        {
-          id: '15',
-          name: 'UltraTech Cement Ltd.',
-          symbol: 'ULTRACEMCO',
-          exchange: 'NSE',
-          price: 8000.00,
-          change: 60.00,
-          changePercent: 0.75,
-          logo: '🏢'
-        }
-      ],
-    },
-    {
-      id: 'latest',
-      name: 'Latest',
-      watchlists: [
-        {
-          id: '16',
-          name: 'Reliance Industries Ltd.',
-          symbol: 'RELIANCE',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '🏭'
-        },
-        {
-          id: '17',
-          name: 'Tata Consultancy Services Ltd.',
-          symbol: 'TCS',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: -4.10,
-          changePercent: -24.7,
-          logo: '💼'
-        },
-        {
-          id: '18',
-          name: 'HDFC Bank Ltd.',
-          symbol: 'HDFCBANK',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '🏦'
-        },
-        {
-          id: '19',
-          name: 'Bharti Airtel Ltd.',
-          symbol: 'BHARTIARTL',
-          exchange: 'NSE',
-          price: 2042.63,
-          change: 4.10,
-          changePercent: 24.7,
-          logo: '📱'
-        },
-        {
-          id: '20',
-          name: 'Infosys Ltd.',
-          symbol: 'INFY',
-          exchange: 'NSE',
-          price: 1500.50,
-          change: 10.25,
-          changePercent: 0.7,
-          logo: '💻'
-        },
-        {
-          id: '21',
-          name: 'ICICI Bank Ltd.',
-          symbol: 'ICICIBANK',
-          exchange: 'NSE',
-          price: 900.10,
-          change: -2.15,
-          changePercent: -0.24,
-          logo: '🏦'
-        },
-        {
-          id: '22',
-          name: 'Hindustan Unilever Ltd.',
-          symbol: 'HINDUNILVR',
-          exchange: 'NSE',
-          price: 2500.00,
-          change: 5.00,
-          changePercent: 0.2,
-          logo: '🧴'
-        },
-        {
-          id: '23',
-          name: 'State Bank of India',
-          symbol: 'SBIN',
-          exchange: 'NSE',
-          price: 600.75,
-          change: 3.50,
-          changePercent: 0.58,
-          logo: '🏦'
-        },
-        {
-          id: '24',
-          name: 'Asian Paints Ltd.',
-          symbol: 'ASIANPAINT',
-          exchange: 'NSE',
-          price: 3200.20,
-          change: -12.00,
-          changePercent: -0.37,
-          logo: '🎨'
-        },
-        {
-          id: '25',
-          name: 'Bajaj Finance Ltd.',
-          symbol: 'BAJFINANCE',
-          exchange: 'NSE',
-          price: 7000.00,
-          change: 50.00,
-          changePercent: 0.72,
-          logo: '💳'
-        },
-        {
-          id: '26',
-          name: 'Maruti Suzuki India Ltd.',
-          symbol: 'MARUTI',
-          exchange: 'NSE',
-          price: 9000.00,
-          change: 100.00,
-          changePercent: 1.12,
-          logo: '🚗'
-        },
-        {
-          id: '27',
-          name: 'Larsen & Toubro Ltd.',
-          symbol: 'LT',
-          exchange: 'NSE',
-          price: 2500.00,
-          change: 20.00,
-          changePercent: 0.81,
-          logo: '🏗️'
-        },
-        {
-          id: '28',
-          name: 'Sun Pharmaceutical Industries Ltd.',
-          symbol: 'SUNPHARMA',
-          exchange: 'NSE',
-          price: 1100.00,
-          change: 8.00,
-          changePercent: 0.73,
-          logo: '💊'
-        },
-        {
-          id: '29',
-          name: 'Nestle India Ltd.',
-          symbol: 'NESTLEIND',
-          exchange: 'NSE',
-          price: 22000.00,
-          change: -150.00,
-          changePercent: -0.68,
-          logo: '🍫'
-        },
-        {
-          id: '30',
-          name: 'UltraTech Cement Ltd.',
-          symbol: 'ULTRACEMCO',
-          exchange: 'NSE',
-          price: 8000.00,
-          change: 60.00,
-          changePercent: 0.75,
-          logo: '🏢'
-        }
-      ],
-    },
-  ]);
+  // Touch handlers for swipe functionality
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Helper to add a new category
-  const addCategory = (name: string) => {
-    setCategories(prev => [
-      ...prev,
-      { id: Date.now().toString(), name, watchlists: [] }
-    ]);
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
   };
 
-  // Helper to add a new watchlist (stock) to the selected category
-  const addWatchlist = (name: string) => {
-    if (!selectedCategoryId && categories.length > 0) {
-      setSelectedCategoryId(categories[0].id);
+  const onTouchMove = (e: TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    // Only open sidebar on right swipe from left edge (within 50px from left)
+    if (isRightSwipe && touchStart < 50) {
+      setIsMobileSidebarOpen(true);
     }
-    setCategories(prev => prev.map(cat =>
-      cat.id === (selectedCategoryId || categories[0].id)
-        ? { ...cat, watchlists: [...cat.watchlists, { id: Date.now().toString(), name, symbol: name.toUpperCase(), exchange: 'NSE', price: 0, change: 0, changePercent: 0 }] }
-        : cat
-    ));
+    
+    // Close sidebar on left swipe when sidebar is open
+    if (isLeftSwipe && isMobileSidebarOpen) {
+      setIsMobileSidebarOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('touchstart', onTouchStart);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [touchStart, touchEnd, isMobileSidebarOpen]);
+
+  // Watchlist names and ids from API
+  const [watchlists, setWatchlists] = useState<{ id: number; name: string }[]>([]);
+  const [watchlistNames, setWatchlistNames] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Helper to add a new category (API)
+  const addCategory = async (name: string, watchlistId?: number) => {
+    console.log('[Sidebar] addCategory invoked', {
+      name,
+      watchlistId,
+      currentWatchlistId,
+      pendingWatchlistId
+    });
+    if (!watchlists || watchlists.length === 0) {
+      alert('No watchlists exist. Please create a watchlist before adding a category.');
+      console.error('[Sidebar] addCategory error: No watchlists exist');
+      return;
+    }
+    let idToUse: number | undefined = undefined;
+    if (typeof watchlistId === 'number' && !isNaN(watchlistId)) {
+      idToUse = watchlistId;
+    } else if (typeof currentWatchlistId === 'number' && !isNaN(currentWatchlistId)) {
+      idToUse = currentWatchlistId;
+    }
+    console.log('[Sidebar] addCategory resolved idToUse', { idToUse });
+    if (idToUse === undefined || isNaN(idToUse)) {
+      alert('Please select a valid watchlist before creating a category.');
+      console.error('[Sidebar] addCategory error: Invalid idToUse', { idToUse, watchlistId, currentWatchlistId, pendingWatchlistId });
+      return;
+    }
+    try {
+      await createCategory(idToUse, name);
+      await fetchCategories(idToUse);
+      console.log('[Sidebar] addCategory success');
+    } catch (e) {
+      console.error('[Sidebar] addCategory error', e);
+    }
+  };
+
+  // Helper to add a new watchlist (API)
+  const addWatchlist = async (name: string): Promise<number | undefined> => {
+    console.log('[Sidebar] addWatchlist', { name });
+    try {
+      const newWatchlist = await createWatchlist(name);
+      await fetchWatchlists();
+      if (newWatchlist && newWatchlist.id) {
+        const idNum = Number(newWatchlist.id);
+        setCurrentWatchlistId(idNum);
+        await fetchCategories(idNum);
+        console.log('[Sidebar] addWatchlist success');
+        return idNum;
+      }
+    } catch (e) {
+      console.error('[Sidebar] addWatchlist error', e);
+    }
+    return undefined;
+  };
+
+  // Track current watchlistId (for category APIs)
+  const [currentWatchlistId, setCurrentWatchlistId] = useState<number | null>(null);
+
+  // Fetch all watchlists from API
+  const fetchWatchlists = async () => {
+    console.log('[Sidebar] fetchWatchlists');
+    try {
+      const response = await getAllWatchlists();
+      // If backend returns { message, data: [...] }
+      const data = response && response.data ? response.data : response;
+      console.log('[Sidebar] fetchWatchlists raw API data:', data);
+      if (!Array.isArray(data)) {
+        throw new Error('Watchlists response is not an array: ' + JSON.stringify(data));
+      }
+      // Map backend's watchlistId to id for UI compatibility
+      const mapped = data.map((w: any) => ({
+        id: Number(w.watchlistId),
+        name: w.name,
+        ...w
+      }));
+      setWatchlists(mapped);
+      setWatchlistNames(mapped.map((w: any) => w.name));
+      if ((!currentWatchlistId || isNaN(currentWatchlistId)) && mapped.length > 0) {
+        setCurrentWatchlistId(mapped[0].id);
+      }
+      console.log('[Sidebar] fetchWatchlists success', data);
+    } catch (e) {
+      console.error('[Sidebar] fetchWatchlists error', e);
+      setWatchlists([]);
+      setWatchlistNames([]);
+    }
+  };
+
+  // Fetch all categories for a watchlist from API
+  const fetchCategories = async (watchlistId: number) => {
+    if (watchlistId === undefined || watchlistId === null || isNaN(watchlistId)) {
+      console.error('[Sidebar] fetchCategories: watchlistId is not a valid number', watchlistId);
+      return;
+    }
+    console.log('[Sidebar] fetchCategories', { watchlistId });
+    try {
+      const response = await getAllCategories(watchlistId); // pass as number
+      console.log('[Sidebar] fetchCategories raw API data:', response);
+      // The API returns { message, data: [...] }
+      let data = response && response.data ? response.data : response;
+      // Map backend's category fields to UI Category type
+      // Each category: { id, categoryName, positionIndex }
+      // UI expects: { id: string, name: string, watchlists: Stock[] }
+      const mapped = Array.isArray(data)
+        ? data.map((cat: any) => ({
+            id: String(cat.id),
+            name: cat.categoryName || 'Uncategorized',
+            watchlists: cat.watchlists || []
+          }))
+        : [];
+      setCategories(mapped);
+      console.log('[Sidebar] fetchCategories success', mapped);
+    } catch (e) {
+      console.error('[Sidebar] fetchCategories error', e);
+    }
+  };
+
+  // Fetch watchlists on mount
+  React.useEffect(() => {
+    fetchWatchlists();
+  }, []);
+
+  // Fetch categories when currentWatchlistId changes
+  React.useEffect(() => {
+    if (typeof currentWatchlistId === 'number' && !isNaN(currentWatchlistId)) {
+      fetchCategories(currentWatchlistId);
+    }
+  }, [currentWatchlistId]);
+
+  // Helper to reorder or move watchlists between categories (API)
+  const handleDragEnd = async (event: DragEndEvent) => {
+    console.log('[Sidebar] handleDragEnd', event);
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    let sourceCatIdx = -1, sourceIdx = -1, targetCatIdx = -1, targetIdx = -1;
+    categories.forEach((cat, catIdx) => {
+      const idx = cat.watchlists.findIndex(w => w.id === active.id);
+      if (idx !== -1) {
+        sourceCatIdx = catIdx;
+        sourceIdx = idx;
+      }
+      if (over.data?.current?.categoryId && cat.id === over.data.current.categoryId) {
+        targetCatIdx = catIdx;
+      }
+    });
+    if (targetCatIdx === -1) {
+      categories.forEach((cat, catIdx) => {
+        const idx = cat.watchlists.findIndex(w => w.id === over.id);
+        if (idx !== -1) {
+          targetCatIdx = catIdx;
+          targetIdx = idx;
+        }
+      });
+    } else {
+      targetIdx = categories[targetCatIdx].watchlists.length;
+    }
+    console.log('[Sidebar] handleDragEnd indices', { sourceCatIdx, sourceIdx, targetCatIdx, targetIdx });
+    if (sourceCatIdx === -1 || targetCatIdx === -1 || sourceIdx === -1) return;
+    if (sourceCatIdx === targetCatIdx) {
+      try {
+        const cat = categories[sourceCatIdx];
+        const stock = cat.watchlists[sourceIdx];
+        await updateWatchlistPosition(stock.id, targetIdx);
+        await fetchCategories(currentWatchlistId!);
+        console.log('[Sidebar] handleDragEnd reorder success');
+      } catch (e) {
+        console.error('[Sidebar] handleDragEnd reorder error', e);
+      }
+    } else {
+      // Move between categories: update category and position if needed
+      // You may need a dedicated API for moving between categories if available
+      await fetchCategories(currentWatchlistId!);
+      console.log('[Sidebar] handleDragEnd move between categories');
+    }
   };
 
   // Calculate tooltip position based on button position
@@ -443,12 +341,9 @@ const Sidebar: React.FC = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm">
-            {stock.logo}
-          </div>
           <div>
             <div
-              className="font-medium text-gray-900 text-sm mb-[4px]"
+              className="font-medium text-gray-900 text-sm mb-[4px] dark:text-[#F4F4F9]"
               style={{
                 width: '156px',
                 whiteSpace: 'normal',
@@ -459,8 +354,8 @@ const Sidebar: React.FC = () => {
             >
               {stock.name}
             </div>
-            <div className="text-xs text-gray-500">
-              {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px] dark:bg-[#23272F]'>{stock.exchange}</span>
             </div>
           </div>
         </div>
@@ -468,7 +363,7 @@ const Sidebar: React.FC = () => {
         {/* Hover Action Buttons */}
         {isHovered && (
           <div
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#F4F4F9] flex flex-col items-center z-10 rounded-[3px] min-w-[120px] w-auto px-[6px] py-[6px] border border-gray-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#F4F4F9] flex flex-col items-center z-10 rounded-[3px] min-w-[120px] w-auto px-[6px] py-[6px] border border-gray-200 dark:bg-[#23272F] dark:border-[#23272F]"
           >
             <div className="flex items-center space-x-1">
               <button className="w-6 h-6 hover:bg-[#04B94E] text-white rounded flex items-center justify-center transition-colors shadow-sm bg-[#00CA52]">
@@ -499,7 +394,7 @@ const Sidebar: React.FC = () => {
 
         <div className="text-right">
           <div className="font-semibold text-medium text-gray-900 text-[14px] mb-[4px]">{stock.price.toFixed(2)}</div>
-          <div className={`text-[12px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`text-[12px] ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}> 
             {stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.change >= 0 ? '+' : ''}{stock.changePercent.toFixed(1)}%)
           </div>
         </div>
@@ -510,15 +405,12 @@ const Sidebar: React.FC = () => {
   const SearchResultItem: React.FC<{ stock: Stock }> = ({ stock }) => (
     <div className="flex items-center justify-between py-3 hover:bg-gray-50 transition-colors border-b border-gray-100">
       <div className="flex items-center space-x-3 flex-1">
-        <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm">
-          {stock.logo}
-        </div>
         <div className="flex-1">
-          <div className="font-medium text-gray-900 text-sm mb-[4px]">
+          <div className="font-medium text-gray-900 text-sm mb-[4px] dark:text-[#F4F4F9]">
             {stock.name}
           </div>
-          <div className="text-xs text-gray-500">
-            {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px]'>{stock.exchange}</span>
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            {stock.symbol} • <span className='bg-[#F4F4F9] rounded-[3px] px-[6px] py-[2px] dark:bg-[#23272F]'>{stock.exchange}</span>
           </div>
         </div>
       </div>
@@ -536,23 +428,29 @@ const Sidebar: React.FC = () => {
     </div>
   );
 
-  const SectionHeader: React.FC<{ title: string; isExpanded: boolean; onToggle: () => void }> = ({
+  const SectionHeader: React.FC<{ title: string; isExpanded: boolean; onToggle: () => void; categoryId?: string }> = ({
     title,
     isExpanded,
-    onToggle
+    onToggle,
+    categoryId
   }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [savedTitle, setSavedTitle] = useState(title);
+    const [deleting, setDeleting] = useState(false);
 
     const handleTitleClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsEditing(true);
     };
 
-    const handleTitleSave = () => {
+    const handleTitleSave = async () => {
       setSavedTitle(editedTitle);
       setIsEditing(false);
+      if (categoryId && currentWatchlistId) {
+        await updateCategoryName(currentWatchlistId, categoryId, editedTitle);
+        await fetchCategories(currentWatchlistId);
+      }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -565,10 +463,24 @@ const Sidebar: React.FC = () => {
       }
     };
 
+    const handleDeleteCategory = async (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!categoryId || !currentWatchlistId) return;
+      if (!window.confirm('Are you sure you want to delete this category?')) return;
+      setDeleting(true);
+      try {
+        await deleteCategory(currentWatchlistId, categoryId, true);
+        await fetchCategories(currentWatchlistId);
+      } catch (err) {
+        // Optionally show error
+      }
+      setDeleting(false);
+    };
+
     return (
-      <button
+      <div
+        className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-100 transition-colors border-b border-gray-200 dark:border-[#23272F]"
         onClick={onToggle}
-        className="flex items-center justify-between w-full p-3 text-left hover:bg-gray-100 transition-colors border-b border-gray-200"
       >
         <div className="flex items-center space-x-2">
           {isEditing ? (
@@ -578,7 +490,7 @@ const Sidebar: React.FC = () => {
               onChange={(e) => setEditedTitle(e.target.value)}
               onBlur={handleTitleSave}
               onKeyDown={handleKeyPress}
-              className="text-xs font-semibold text-gray-600 uppercase tracking-wide bg-transparent border-none outline-none focus:ring-0 p-0"
+              className="text-xs font-semibold text-gray-600 uppercase tracking-wide bg-transparent dark:bg-[#121413] border-none outline-none focus:ring-0 p-0 dark:text-[#F4F4F9]"
               autoFocus
               onClick={(e) => e.stopPropagation()}
             />
@@ -590,8 +502,18 @@ const Sidebar: React.FC = () => {
           <button
             onClick={handleTitleClick}
             className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+            tabIndex={-1}
           >
             <Edit2 className="w-3 h-3" />
+          </button>
+          <button
+            onClick={handleDeleteCategory}
+            className="text-gray-400 hover:text-red-600 transition-colors p-1"
+            tabIndex={-1}
+            disabled={deleting}
+            title="Delete Category"
+          >
+            <Trash2 className="w-3 h-3" />
           </button>
         </div>
         {isExpanded ? (
@@ -599,7 +521,7 @@ const Sidebar: React.FC = () => {
         ) : (
           <ChevronDown className="w-4 h-4 text-gray-400" />
         )}
-      </button>
+      </div>
     );
   };
 
@@ -607,15 +529,15 @@ const Sidebar: React.FC = () => {
     const [activeTab, setActiveTab] = useState(0);
     
     return (
-      <div className="flex items-center border-b border-gray-200 mb-[6px]">
+      <div className="flex items-center border-b border-gray-200 dark:border-[#23272F] mb-[6px]">
         {['All', 'Cash', 'Future', 'Option', 'MF'].map((tab, index) => (
           <button
             key={tab}
             onClick={() => setActiveTab(index)}
             className={`text-sm font-medium p-[10px] border-b-[2px] transition-colors w-16 ${
               activeTab === index 
-                ? 'text-green-600 border-green-500' 
-                : 'text-gray-500 border-transparent hover:text-gray-700'
+                ? 'text-green-600 dark:text-green-400 border-green-500 dark:border-green-400' 
+                : 'text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-700 dark:hover:text-gray-200'
             }`}
           >
             {tab}
@@ -626,14 +548,25 @@ const Sidebar: React.FC = () => {
   };
 
   // Modal handlers
-  const handleCreateCategory = (name: string) => {
-    addCategory(name);
+  const handleCreateCategory = async (name: string, watchlistId?: number) => {
+    // Use pendingWatchlistId if present, else use passed or current
+    const idToUse = (pendingWatchlistId ?? watchlistId ?? currentWatchlistId);
+    // Only pass idToUse if it's a number
+    const idToPass = typeof idToUse === 'number' && !isNaN(idToUse) ? idToUse : undefined;
+    console.log('[Sidebar] handleCreateCategory', name, idToPass);
+    await addCategory(name, idToPass);
     setShowCategoryModal(false);
+    setPendingWatchlistId(null); // Clear after use
   };
-  const handleCreateWatchlist = (name: string) => {
-    addWatchlist(name);
-    setWatchlistNames(prev => [...prev, name]);
+
+  const handleCreateWatchlist = async (name: string) => {
+    console.log('[Sidebar] handleCreateWatchlist', name);
+    const newId = await addWatchlist(name);
     setShowWatchlistModal(false);
+    if (typeof newId === 'number' && !isNaN(newId)) {
+      setPendingWatchlistId(newId);
+      setShowCategoryModal(true); // Auto-open category modal for new watchlist
+    }
   };
 
   React.useEffect(() => {
@@ -642,16 +575,28 @@ const Sidebar: React.FC = () => {
     }
   }, [showSearchResults]);
 
+  // Close mobile sidebar when clicking overlay
+  const handleOverlayClick = () => {
+    setIsMobileSidebarOpen(false);
+  };
+
   if (showSearchResults) {
     return (
-      <div className="fixed top-20 left-0 w-[320px] h-[calc(100vh-64px)] bg-white ml-[18px] mt-[18px] flex flex-col overflow-hidden z-30">
+      <div className={`
+        fixed top-0 left-0 h-screen bg-white dark:bg-[#181A20] flex flex-col overflow-hidden z-30
+        lg:top-20 lg:h-[calc(100vh-64px)] lg:w-[320px] lg:ml-[18px] lg:mt-[18px]
+        ${isMobileSidebarOpen 
+          ? 'w-[90vw] transform translate-x-0 transition-transform duration-300 ease-in-out' 
+          : 'w-[90vw] transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0'
+        }
+      `}>
         {/* Search Bar - Fixed */}
-        <div className="mt-[18px] border-gray-200 flex-shrink-0 mb-2">
+        <div className="mt-[18px] lg:mt-[18px] border-gray-200 flex-shrink-0 mb-2 px-4 lg:px-0 pt-16 lg:pt-0">
           <div className="flex items-center space-x-2">
             <div className="relative flex-1">
               <button 
                 onClick={() => setShowSearchResults(true)}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-10"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-20 pointer-events-auto"
               >
                 <Search className="w-4 h-4" />
               </button>
@@ -662,17 +607,19 @@ const Sidebar: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                className="w-full pl-9 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none text-[#686868]"
+                className="w-full pl-9 py-3 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121413] pointer-events-auto touch-manipulation"
               />
             </div>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <FilterTabs />
+        <div className="px-4 lg:px-0">
+          <FilterTabs />
+        </div>
 
         {/* Search Results */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar">
+        <div className="flex-1 overflow-y-auto hide-scrollbar px-4 lg:px-0">
           {filteredSearchResults.length === 0 && searchQuery.trim() !== '' && (
             <div className="text-center text-gray-400 py-8">No results found.</div>
           )}
@@ -684,18 +631,35 @@ const Sidebar: React.FC = () => {
     );
   }
 
+  // Sortable StockItem for drag-and-drop
+  const SortableStockItem: React.FC<{ stock: Stock; categoryId: string }> = ({ stock, categoryId }) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: stock.id, data: { categoryId } });
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+      zIndex: isDragging ? 100 : 'auto',
+      background: isDragging ? '#f0f0f0' : undefined
+    };
+    return (
+      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <StockItem stock={stock} />
+      </div>
+    );
+  };
+
   return (
     <>
-      {/* Sidebar and content */}
-      <div className="fixed flex top-16 left-0 h-[calc(100vh-60px)] pl-[18px] z-30">
-        <div className="w-[24vw] bg-white flex flex-col overflow-hidden sidebar-container">
+      {/* Sidebar - Desktop Only */}
+      <div className="hidden lg:block fixed flex top-16 mt-[28px] left-0 h-[calc(100vh-60px)] z-30 pl-[18px]">
+        <div className="w-[24vw] bg-white flex flex-col overflow-hidden sidebar-container dark:bg-[#121212] h-full">
           {/* Search Bar - Fixed */}
           <div className="border-gray-200 flex-shrink-0">
             <div className="flex items-center space-x-2">
               <div className="relative flex-1">
                 <button 
                   onClick={handleSearchClick}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-10"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-20 pointer-events-auto"
                 >
                   <Search className="w-4 h-4" />
                 </button>
@@ -706,21 +670,21 @@ const Sidebar: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={handleSearchClick}
                   onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                  className="w-full pl-9 pr-10 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868]"
+                  className="w-full pl-9 pr-10 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121212] pointer-events-auto"
                 />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1">
+                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 pointer-events-auto">
                   <Filter className="w-4 h-4 text-[#686868]" />
                 </button>
               </div>
               <div className="relative">
                 <button
-                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors pointer-events-auto"
                   onClick={() => setShowPopover((v) => !v)}
                 >
                   <Plus className="w-5 h-5 text-[#686868]" />
                 </button>
                 {showPopover && (
-                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50 flex flex-col py-2">
+                  <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#181A20] rounded-lg shadow-lg border border-gray-100 dark:border-[#23272F] z-50 flex flex-col py-2">
                     <button
                       className="px-4 py-2 text-left text-sm hover:bg-gray-100 text-gray-800"
                       onClick={() => { setShowWatchlistModal(true); setShowPopover(false); }}
@@ -743,68 +707,105 @@ const Sidebar: React.FC = () => {
           <div className="py-3 flex-shrink-0">
             <div className="relative">
               <div className="flex items-center space-x-1 gap-3 overflow-x-auto hide-scrollbar pb-4">
-                {Array.from({ length: watchlistNames.length }, (_, i) => i + 1).map((page) => (
-                  <div key={page} className="relative">
-                    <button
-                      ref={(el) => { buttonRefs.current[page] = el; }}
-                      onClick={() => setCurrentPage(page)}
-                      onMouseEnter={() => {
-                        setHoveredPage(page);
-                        calculateTooltipPosition(page);
-                      }}
-                      onMouseLeave={() => setHoveredPage(null)}
-                      className={`px-3 h-8 rounded text-sm font-medium transition-colors border-[0.5px] ${currentPage === page
-                        ? 'bg-[#EEFFF2] text-green-700 border-green-200'
-                        : 'text-gray-600 bg-[#F4F4F9] border-[#E5E7EB]'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  </div>
-                ))}
+          {watchlists.map((watchlist, idx) => (
+            <div key={watchlist.id} className="relative group">
+              <button
+                ref={(el) => { buttonRefs.current[idx + 1] = el; }}
+                onClick={() => {
+                  setCurrentPage(idx + 1);
+                  setCurrentWatchlistId(watchlist.id);
+                  fetchCategories(watchlist.id);
+                }}
+                onMouseEnter={() => {
+                  setHoveredPage(idx + 1);
+                  calculateTooltipPosition(idx + 1);
+                }}
+                onMouseLeave={() => setHoveredPage(null)}
+                className={`px-3 h-8 rounded text-sm font-medium transition-colors border-[0.5px] ${currentPage === idx + 1
+                  ? 'bg-[#EEFFF2] text-green-700 border-green-200'
+                  : 'text-gray-600 bg-[#F4F4F9] border-[#E5E7EB]'
+                }`}
+                style={{ position: 'relative', zIndex: 2 }}
+              >
+                {idx + 1}
+              </button>
+              {/* Show delete cross on hover */}
+              <button
+                className="absolute -top-[2px] -right-2 w-4 h-4 rounded-full bg-white border border-gray-300 text-gray-400 hover:text-red-600 hover:border-red-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ fontSize: 10, lineHeight: 1, zIndex: 99999 }}
+                title="Delete Watchlist"
+                tabIndex={-1}
+                onClick={async (e) => {
+                  e.stopPropagation();
+                  if (!window.confirm('Are you sure you want to delete this watchlist?')) return;
+                  try {
+                    await deleteWatchlist(String(watchlist.id));
+                    await fetchWatchlists();
+                  } catch (err) {
+                    // Optionally show error
+                  }
+                }}
+              >
+                <span style={{ fontWeight: 'bold', fontSize: 14, marginTop: -2 }}>×</span>
+              </button>
+            </div>
+          ))}
               </div>
             </div>
           </div>
 
-          {/* Dynamic Tooltip positioned above the hovered number */}
-          {hoveredPage && (
-            <div 
+          {/* Dynamic Tooltip positioned above the hovered number, clamped to sidebar top */}
+          {hoveredPage !== null && hoveredPage > 0 && (
+            <div
               className="fixed z-[999999] pointer-events-none"
-              style={{ 
-                left: `${tooltipPosition.left}px`, 
-                top: `${tooltipPosition.top}px`,
+              style={{
+                left: tooltipPosition.left + 'px',
+                top: Math.max(tooltipPosition.top, 8) + 'px', // Clamp to min 8px from top
                 transform: 'translateX(-50%)'
               }}
             >
-              <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap  border-[#d9d9d9] border-[1px]">
+              <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px] shadow dark:bg-[#23272F] dark:text-white dark:border-[#23272F]">
                 {watchlistNames[hoveredPage - 1]}
               </div>
             </div>
           )}
 
           {/* Scrollable Content Area */}
-          <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200">
-            {/* Dynamic Category Sections */}
-            {categories.map(category => (
-              <div className="border-none" key={category.id}>
-                <SectionHeader
-                  title={category.name}
-                  isExpanded={expandedCategories[category.id] ?? true}
-                  onToggle={() => setExpandedCategories(prev => ({ ...prev, [category.id]: !(prev[category.id] ?? true) }))}
-                />
-                {(expandedCategories[category.id] ?? true) && (
-                  <div className="divide-y divide-gray-100">
-                    {category.watchlists.map((stock) => [
-                      <StockItem key={stock.id} stock={stock} />,
-                      openDepthId === stock.id && (
-                        <div key={stock.id + '-depth'} className="w-full"><MarketDepth /></div>
-                      )
-                    ])}
+          <DndContext
+            sensors={useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="flex-1 overflow-y-auto hide-scrollbar border border-gray-200 dark:border-[#23272F]">
+              {/* Dynamic Category Sections */}
+              {categories.map(category => (
+                <SortableContext
+                  key={category.id}
+                  items={category.watchlists.map(w => w.id)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="border-none bg-white dark:bg-[#181A20]" key={category.id}>
+                    <SectionHeader
+                      title={category.name}
+                      isExpanded={expandedCategories[category.id] ?? true}
+                      onToggle={() => setExpandedCategories(prev => ({ ...prev, [category.id]: !(prev[category.id] ?? true) }))}
+                      categoryId={category.id}
+                    />
+                    {(expandedCategories[category.id] ?? true) && (
+                      <div className="divide-y divide-gray-100 dark:divide-[#23272F]" data-category-id={category.id}>
+                        {category.watchlists.map((stock) => [
+                          <SortableStockItem key={stock.id} stock={stock} categoryId={category.id} />,
+                          openDepthId === stock.id && (
+                            <div key={stock.id + '-depth'} className="w-full"><MarketDepth /></div>
+                          )
+                        ])}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                </SortableContext>
+              ))}
+            </div>
+          </DndContext>
 
           {/* Modals for Create Watchlist/Category */}
           <CreateWatchlistCategoryModals
@@ -862,7 +863,7 @@ const TooltipPositioner: React.FC<{ tooltipPosition: { left: number; top: number
         transform: style.transform,
       }}
     >
-      <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px]">
+      <div className="px-3 py-2 bg-white text-black text-xs rounded-[4px] whitespace-nowrap border-[#d9d9d9] border-[1px] shadow dark:bg-[#23272F] dark:text-white dark:border-[#23272F]">
         {watchlistName}
       </div>
     </div>

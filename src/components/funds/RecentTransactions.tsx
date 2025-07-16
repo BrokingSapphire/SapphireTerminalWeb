@@ -25,19 +25,19 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
   transactions,
 }) => {
   return (
-    <div className="border border-gray-200 rounded-lg bg-white mb-4 max-w-[80vw] mx-auto text-xs">
-      <div className="mb-[6px] border-b border-gray-200">
-        <h2 className="text-gray-800 font-medium text-lg p-3">Recent Transactions</h2>
+    <div className="border border-gray-200 dark:border-[#2f2f2f] rounded-lg bg-white dark:bg-[#121212] mb-4 max-w-[80vw] mx-auto text-xs">
+      <div className="mb-[6px] border-b border-gray-200 dark:border-[#2f2f2f]">
+        <h2 className="text-gray-800 dark:text-[#ebeef5] font-medium text-lg p-3">Recent Transactions</h2>
       </div>
 
       <div>
         {transactions.map((transaction) => (
-          <div key={transaction.id} className="border-b border-gray-200 py-3 mx-3">
+          <div key={transaction.id} className="border-b border-gray-200 dark:border-[#2f2f2f] py-3 mx-3">
             <div className="flex justify-between mb-2">
-              <div className="text-xs text-gray-500">#{transaction.id}</div>
+              <div className="text-xs text-gray-500 dark:text-[#ebeef5]">#{transaction.id}</div>
               <div
                 className={`text-sm font-medium ${
-                  transaction.amount < 0 ? "text-red-600" : "text-gray-800"
+                  transaction.amount < 0 ? "text-red-600 dark:text-[#ebeef5]" : "text-gray-800 dark:text-[#ebeef5]"
                 }`}
               >
                 {transaction.amount < 0 ? "-" : ""}₹
@@ -47,10 +47,10 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
 
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-1">
-                <span className="text-xs text-gray-600">
+                <span className="text-xs text-gray-600 dark:text-[#c9cacc]">
                   {transaction.date}
                 </span>
-                <span className="text-gray-400">•</span>
+                <span className="text-gray-400 dark:text-[#ebeef5]">•</span>
                 <span
                   className={`text-xs px-2 py-0.5 rounded-[4px] ${
                     transaction.status === "completed"
@@ -95,7 +95,7 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-500 dark:text-[#c9cacc]">
                   ***** {transaction.cardLastDigits}
                 </span>
               </div>

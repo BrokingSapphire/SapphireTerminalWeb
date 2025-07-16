@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface CreateWatchlistCategoryModalsProps {
   showWatchlistModal: boolean;
@@ -35,9 +36,20 @@ export const CreateWatchlistModal: React.FC<{
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-md max-w-xs w-full mx-auto">
+  const modalContent = (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-[999999] p-4"
+      style={{ 
+        zIndex: 999999,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        pointerEvents: 'auto'
+      }}
+    >
+      <div className="bg-white rounded-lg shadow-md max-w-xs w-full mx-auto relative z-[999999]">
         {/* Header */}
         <div className="bg-[#EAF4F4] px-6 py-4 rounded-t-lg flex items-center justify-between border-b border-gray-200">
           <h2 className="text-[16px] font-medium text-[#1A1A1A]">Create Watchlist</h2>
@@ -78,6 +90,8 @@ export const CreateWatchlistModal: React.FC<{
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export const CreateCategoryModal: React.FC<{
@@ -105,9 +119,20 @@ export const CreateCategoryModal: React.FC<{
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-md max-w-xs w-full mx-auto">
+  const modalContent = (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-[999999] p-4"
+      style={{ 
+        zIndex: 999999,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        pointerEvents: 'auto'
+      }}
+    >
+      <div className="bg-white rounded-lg shadow-md max-w-xs w-full mx-auto relative z-[999999]">
         {/* Header */}
         <div className="bg-[#EAF4F4] px-6 py-4 rounded-t-lg flex items-center justify-between border-b border-gray-200">
           <h2 className="text-[16px]] font-medium text-[#1A1A1A]">Create Category</h2>
@@ -148,6 +173,8 @@ export const CreateCategoryModal: React.FC<{
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 const CreateWatchlistCategoryModals: React.FC<CreateWatchlistCategoryModalsProps> = ({

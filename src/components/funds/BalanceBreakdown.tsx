@@ -82,17 +82,17 @@ const BalanceBreakdown: React.FC<BalanceBreakdownProps> = ({
 
   // Reusable table component
   const renderTable = (items: { label: string; value: number }[]) => (
-    <table className="w-full text-sm">
+    <table className="w-full text-sm dark:text-[#c9cacc]">
       <tbody>
         {items.map((item, index) => (
           <tr
             key={item.label}
-            className={index % 2 === 0 ? "bg-[#F4F4F9]" : ""}
+            className={index % 2 === 0 ? "bg-[#F4F4F9] dark:bg-[#1c1d1d]" : ""}
           >
-            <td className="py-2 pl-[30px] text-[#6B7280] text-[14px]">
+            <td className="py-2 pl-[30px] text-[#6B7280] dark:text-[#c9cacc] text-[14px]">
               {item.label}
             </td>
-            <td className="py-2 pr-[30px] text-[#6B7280] text-right text-[14px]">
+            <td className="py-2 pr-[30px] text-[#6B7280] dark:text-[#c9cacc] text-right text-[14px]">
               ₹{formatCurrency(item.value)}
             </td>
           </tr>
@@ -121,10 +121,10 @@ const BalanceBreakdown: React.FC<BalanceBreakdownProps> = ({
 
   return (
     // Nikhil
-    <div className="border border-gray-200 rounded-lg p-3 w-full max-w-[80vw] mx-auto text-xs"> 
+    <div className="border border-gray-200 dark:border-[#2f2f2f] rounded-lg p-3 w-full max-w-[80vw] mx-auto text-xs"> 
       <div className="flex items-center mb-3">
-        <h2 className="text-[#1DB954] text-base font-medium flex items-center">
-          Total Balance <Info size={14} className="ml-1 text-gray-400" />
+        <h2 className="text-[#1DB954] dark:text-[#1db954] text-base font-medium flex items-center">
+          Total Balance <Info size={14} className="ml-1 text-gray-400 dark:text-[#c9cacc]" />
         </h2>
         <div className="ml-auto text-[#1DB954] font-medium text-base">
           ₹{formatCurrency(totalBalance)}
@@ -135,22 +135,22 @@ const BalanceBreakdown: React.FC<BalanceBreakdownProps> = ({
         <table className="w-full">
           <tbody>
             <tr className="bg-gray-50 text-[#6B7380] text-sm">
-              <td className="py-2 px-3  bg-[#F4F4F9] pl-[30px]">Cash Balance</td>
-              <td className="py-2 px-3 text-right bg-[#F4F4F9] pr-[30px]">
+              <td className="py-2 px-3  bg-[#F4F4F9] dark:text-[#c9cacc] dark:bg-[#1c1d1d] pl-[30px]">Cash Balance</td>
+              <td className="py-2 px-3 text-right bg-[#F4F4F9] dark:text-[#c9cacc] dark:bg-[#1c1d1d] pr-[30px]">
                 ₹{formatCurrency(balanceData.cashBalance)}
               </td>
             </tr>
-            <tr className="text-sm text-[#6B7380]">
+            <tr className="text-sm text-[#6B7380] dark:text-[#c9cacc]">
               <td className="py-2 px-3 pl-[30px]">Collateral Balance</td>
               <td className="py-2 px-3 text-right pr-[30px]">
                 ₹{formatCurrency(balanceData.collateralBalance)}
               </td>
             </tr>
-            <tr className="bg-gray-50 text-[#6B7380] text-sm">
-              <td className="py-2 px-3 bg-[#F4F4F9] pl-[30px]">
+            <tr className="bg-gray-50 text-[#6B7380] dark:text-[#c9cacc] text-sm">
+              <td className="py-2 px-3 bg-[#F4F4F9] pl-[30px] dark:bg-[#1c1d1d]">
                 Collateral (Liquid Funds)
               </td>
-              <td className="py-2 px-3 text-right bg-[#F4F4F9] pr-[30px]">
+              <td className="py-2 px-3 text-right bg-[#F4F4F9] pr-[30px] dark:bg-[#1c1d1d]">
                 ₹{formatCurrency(balanceData.collateralLiquidFunds)}
               </td>
             </tr>

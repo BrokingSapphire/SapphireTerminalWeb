@@ -23,12 +23,12 @@ export default function RootLayout({
         <div className="hidden lg:block w-[27vw]">
           <Sidebar />
         </div>
-          <div
-            className="h-auto w-[0.5px] my-[28px] z-100 bg-gray-200"
-            style={{ overflow: "hidden" }}
-          ></div>
+        <div
+          className="h-auto w-[0.5px] my-[28px] z-100 bg-gray-200 dark:bg-gray-700"
+          style={{ overflow: "hidden" }}
+        ></div>
         <main className="w-full lg:w-[75%] p-[28px] bg-white dark:bg-[#121212]">
-          <div className="bg-white w-full">
+          <div className="bg-white dark:bg-[#121212] w-full">
             <TradeSelector />
             {children}
           </div>

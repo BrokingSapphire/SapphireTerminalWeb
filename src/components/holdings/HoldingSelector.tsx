@@ -26,7 +26,7 @@ function TradeSelector() {
   return (
     <>
       {/* Desktop Version - Horizontal Tabs */}
-      <div className="hidden mb-7 border-b-2 border-gray-200 md:flex w-full justify-center items-center gap-x-4 lg:gap-x-18">
+      <div className="hidden mb-7 border-b-2 border-gray-200 dark:border-[#2f2f2f] md:flex w-full justify-center items-center gap-x-4 lg:gap-x-18">
         {tabs.map((tab) => {
           const isActive = tab.path === pathname;
           return (
@@ -37,7 +37,7 @@ function TradeSelector() {
               <Link
                 href={tab.path}
                 className={`relative group font-medium py-1 pb-0 transition-all duration-300 px-1 ${
-                  isActive ? "text-[#1DB954]" : "text-gray-600"
+                  isActive ? "text-[#1db954]" : "dark:text-white text-black"
                 } group-hover:text-[#1DB954]`}
                 style={{ fontSize: "14px" }}
               >
