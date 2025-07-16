@@ -21,9 +21,9 @@ const ChooseGiftStockUI = () => {
   };
 
   return (
-    <div className="p-6 bg-white dark:bg-[#121212]">
+    <div className="p-4 sm:p-6 bg-white dark:bg-[#121212]">
       <div className="flex items-center mb-6">
-        <div className="relative w-72 ml-auto">
+        <div className="relative w-full sm:w-72 sm:ml-auto">
           <input
             type="text"
             placeholder="Search everything..."
@@ -36,29 +36,42 @@ const ChooseGiftStockUI = () => {
           </span>
         </div>
       </div>
-      <div className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl border border-gray-200 p-4">
+      <div className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl border border-gray-200 p-2 sm:p-4">
         {filteredStocks.map(stock => (
           <div
             key={stock.name}
-            className="flex items-center py-4 border-b border-gray-200 dark:border-[#2F2F2F] last:border-b-0 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition cursor-pointer relative"
+            className="flex items-center py-3 sm:py-4 px-2 sm:px-0 border-b border-gray-200 dark:border-[#2F2F2F] last:border-b-0 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition cursor-pointer relative"
             onClick={() => handleClick(stock.name)}
           >
             <input
               type="checkbox"
               checked={!!given[stock.name]}
               readOnly
-              className="mr-4 w-5 h-5 accent-blue-500 dark:bg-[#181A20] dark:border-[#2f2f2f]"
+              className="mr-3 sm:mr-4 w-4 h-4 sm:w-5 sm:h-5 accent-blue-500 dark:bg-[#181A20] dark:border-[#2f2f2f] flex-shrink-0"
             />
-            <div className="flex-1">
-              <div className="font-medium text-gray-900 dark:text-[#EBEEF5]">{stock.name}</div>
+            <div className="flex-1 min-w-0">
+              <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-[#EBEEF5] truncate">{stock.name}</div>
               <div className="text-xs text-gray-500 dark:text-[#C9CACC]">Haircut {stock.haircut}</div>
             </div>
-            <div className="flex flex-col items-end mr-8">
+            
+            {/* Desktop layout - hidden on mobile */}
+            <div className="hidden sm:flex flex-col items-end mr-8">
               <div className="text-xs text-gray-500 dark:text-[#C9CACC]">Qty : <span className="font-semibold text-gray-700 dark:text-[#EBEEF5]">{stock.qty} / {stock.qty}</span></div>
               <div className="text-xs text-gray-500 dark:text-[#C9CACC]">Invested Value :- <span className="font-semibold text-gray-700 dark:text-[#EBEEF5]">₹{stock.invested.toLocaleString(undefined, {minimumFractionDigits:2})}</span></div>
             </div>
+            
+            {/* Mobile layout - shown only on mobile */}
+            <div className="sm:hidden flex flex-col items-end text-right ml-2 flex-shrink-0">
+              <div className="text-xs text-gray-500 dark:text-[#C9CACC] mb-1">
+                <span className="font-semibold text-gray-700 dark:text-[#EBEEF5]">{stock.qty}</span>
+              </div>
+              <div className="text-xs text-gray-500 dark:text-[#C9CACC]">
+                <span className="font-semibold text-gray-700 dark:text-[#EBEEF5]">₹{stock.invested.toFixed(2)}</span>
+              </div>
+            </div>
+            
             {given[stock.name] && (
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-full px-3 py-1 text-xs font-semibold shadow-lg border-2 border-white dark:border-[#121413]" style={{zIndex:2}}>
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-full px-2 sm:px-3 py-1 text-xs font-semibold shadow-lg border-2 border-white dark:border-[#121413]" style={{zIndex:2}}>
                 Given
               </span>
             )}

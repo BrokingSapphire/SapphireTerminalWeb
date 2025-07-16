@@ -24,27 +24,22 @@ const GiftTransferPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#121212] flex items-center justify-center p-1 mr-28 mb-10">
+    <div className="bg-white dark:bg-[#121212] flex items-center justify-center p-2 sm:p-4 lg:p-1 lg:mr-28 lg:mb-10">
       <div 
-        className="bg-[#F8F8FB] dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl flex shadow-sm"
+        className="bg-[#F8F8FB] dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl flex flex-col lg:flex-row shadow-sm w-full max-w-[959px] min-h-[475px]"
         style={{
-          width: '959px',
-          height: '475px',
           boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.06), 0px 0px 4px 0px rgba(0, 0, 0, 0.04)'
         }}
       >
         {/* Left Section - Gift Box and Instructions */}
-        <div 
-          className="flex flex-col justify-between py-[34px] px-4"
-          style={{ width: '350px', height: '394px' }}
-        >
+        <div className="flex flex-col justify-between py-6 px-4 lg:py-[34px] w-full lg:w-[350px] lg:h-[394px]">
           {/* Gift Box Icon - Using imported image */}
-          <div className="flex justify-center mb-7 ml-8">
-            <div className="w-24 h-24 rounded-lg flex items-center justify-center">
+          <div className="flex justify-center mb-4 lg:mb-7 lg:ml-8">
+            <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg flex items-center justify-center">
               <img 
                 src="/Gift Box.png" 
                 alt="Gift Box" 
-                className="w-20 h-20 object-contain"
+                className="w-16 h-16 lg:w-20 lg:h-20 object-contain"
                 onError={(e) => {
                   // Fallback to SVG if image fails to load
                   e.currentTarget.style.display = 'none';
@@ -70,35 +65,32 @@ const GiftTransferPage: React.FC = () => {
           </div>
 
           {/* Instructions */}
-          <div className="space-y-4 text-sm text-gray-600 dark:text-[#C9CACC] font-inter">
+          <div className="space-y-3 lg:space-y-4 text-sm text-gray-600 dark:text-[#C9CACC] font-inter">
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">1.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">1.</span>
               <p>Select the stocks or instruments you want to gift.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">2.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">2.</span>
               <p>We notify the recipient to accept it via their Sapphire Broking account.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">3.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">3.</span>
               <p>New to Sapphire? They can sign up and accept later.</p>
             </div>
             
             <div className="flex items-start gap-2">
-              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5">4.</span>
+              <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">4.</span>
               <p>You confirm, and we transfer the securities to their demat account.</p>
             </div>
           </div>
         </div>
 
         {/* Right Section - Form */}
-        <div 
-          className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl p-6 flex flex-col justify-between ml-6"
-          style={{ width: '601px', height: '475px' }}
-        >
-          <div className="space-y-[18px]">
+        <div className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl p-4 sm:p-6 flex flex-col justify-between w-full lg:w-[601px] lg:h-[475px] lg:ml-6">
+          <div className="space-y-4 lg:space-y-[18px]">
             {/* Recipient's Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
@@ -161,10 +153,10 @@ const GiftTransferPage: React.FC = () => {
           </div>
 
           {/* Continue Button */}
-          <div className="flex justify-end mb-1">
+          <div className="flex justify-end mt-4 lg:mt-0 lg:mb-1">
             <button
               onClick={handleContinue}
-              className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 font-inter"
+              className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 font-inter w-full sm:w-auto"
             >
               Continue
             </button>
