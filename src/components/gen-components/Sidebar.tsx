@@ -67,6 +67,54 @@ const Sidebar: React.FC = () => {
   const buttonRefs = React.useRef<{ [key: number]: HTMLButtonElement | null }>({});
   const overlayInputRef = React.useRef<HTMLInputElement>(null);
 
+  // Mobile sidebar state
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  // Touch handlers for swipe functionality
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    // Only open sidebar on right swipe from left edge (within 50px from left)
+    if (isRightSwipe && touchStart < 50) {
+      setIsMobileSidebarOpen(true);
+    }
+    
+    // Close sidebar on left swipe when sidebar is open
+    if (isLeftSwipe && isMobileSidebarOpen) {
+      setIsMobileSidebarOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('touchstart', onTouchStart);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', onTouchStart);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [touchStart, touchEnd, isMobileSidebarOpen]);
+
   // Watchlist names and ids from API
   const [watchlists, setWatchlists] = useState<{ id: number; name: string }[]>([]);
   const [watchlistNames, setWatchlistNames] = useState<string[]>([]);
@@ -527,16 +575,28 @@ const Sidebar: React.FC = () => {
     }
   }, [showSearchResults]);
 
+  // Close mobile sidebar when clicking overlay
+  const handleOverlayClick = () => {
+    setIsMobileSidebarOpen(false);
+  };
+
   if (showSearchResults) {
     return (
-      <div className="fixed top-20 left-0 w-[320px] h-[calc(100vh-64px)] bg-white dark:bg-[#181A20] ml-[18px] mt-[18px] flex flex-col overflow-hidden z-30">
+      <div className={`
+        fixed top-0 left-0 h-screen bg-white dark:bg-[#181A20] flex flex-col overflow-hidden z-30
+        lg:top-20 lg:h-[calc(100vh-64px)] lg:w-[320px] lg:ml-[18px] lg:mt-[18px]
+        ${isMobileSidebarOpen 
+          ? 'w-[90vw] transform translate-x-0 transition-transform duration-300 ease-in-out' 
+          : 'w-[90vw] transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0'
+        }
+      `}>
         {/* Search Bar - Fixed */}
-        <div className="mt-[18px] border-gray-200 flex-shrink-0 mb-2">
+        <div className="mt-[18px] lg:mt-[18px] border-gray-200 flex-shrink-0 mb-2 px-4 lg:px-0 pt-16 lg:pt-0">
           <div className="flex items-center space-x-2">
             <div className="relative flex-1">
               <button 
                 onClick={() => setShowSearchResults(true)}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-10"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-20 pointer-events-auto"
               >
                 <Search className="w-4 h-4" />
               </button>
@@ -547,17 +607,19 @@ const Sidebar: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                className="w-full pl-9 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121413]"
+                className="w-full pl-9 py-3 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121413] pointer-events-auto touch-manipulation"
               />
             </div>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <FilterTabs />
+        <div className="px-4 lg:px-0">
+          <FilterTabs />
+        </div>
 
         {/* Search Results */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar">
+        <div className="flex-1 overflow-y-auto hide-scrollbar px-4 lg:px-0">
           {filteredSearchResults.length === 0 && searchQuery.trim() !== '' && (
             <div className="text-center text-gray-400 py-8">No results found.</div>
           )}
@@ -588,16 +650,16 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      {/* Sidebar and content */}
-      <div className="fixed flex top-16 mt-[28px] left-0 h-[calc(100vh-60px)] pl-[18px] z-30">
-        <div className="w-[24vw] bg-white flex flex-col overflow-hidden sidebar-container dark:bg-[#121212]">
+      {/* Sidebar - Desktop Only */}
+      <div className="hidden lg:block fixed flex top-16 mt-[28px] left-0 h-[calc(100vh-60px)] z-30 pl-[18px]">
+        <div className="w-[24vw] bg-white flex flex-col overflow-hidden sidebar-container dark:bg-[#121212] h-full">
           {/* Search Bar - Fixed */}
           <div className="border-gray-200 flex-shrink-0">
             <div className="flex items-center space-x-2">
               <div className="relative flex-1">
                 <button 
                   onClick={handleSearchClick}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-10"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#686868] z-20 pointer-events-auto"
                 >
                   <Search className="w-4 h-4" />
                 </button>
@@ -608,15 +670,15 @@ const Sidebar: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={handleSearchClick}
                   onKeyDown={(e) => { if (e.key === 'Escape') handleBackToMain(); }}
-                  className="w-full pl-9 pr-10 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121212]"
+                  className="w-full pl-9 pr-10 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-[#686868] dark:text-[#F4F4F9] bg-white dark:bg-[#121212] pointer-events-auto"
                 />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1">
+                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 pointer-events-auto">
                   <Filter className="w-4 h-4 text-[#686868]" />
                 </button>
               </div>
               <div className="relative">
                 <button
-                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors pointer-events-auto"
                   onClick={() => setShowPopover((v) => !v)}
                 >
                   <Plus className="w-5 h-5 text-[#686868]" />
