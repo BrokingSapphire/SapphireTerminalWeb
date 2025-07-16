@@ -23,7 +23,7 @@ const Home = () => {
             >
               <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-[#ebeef5]" />
             </button>
-            <h1 className="text-lg font-medium text-gray-900 dark:text-[#F4F4F9]">
+            <h1 className="text-[16px] font-semibold text-gray-900 dark:text-[#F4F4F9]">
               Session Management
             </h1>
           </div>

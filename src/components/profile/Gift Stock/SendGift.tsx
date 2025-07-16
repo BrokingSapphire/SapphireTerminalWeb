@@ -24,22 +24,20 @@ const GiftTransferPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#121212] flex items-center justify-center p-2 sm:p-4 lg:p-1 lg:mr-28 lg:mb-10">
+    <div className="bg-white dark:bg-[#121212] flex items-center justify-center p-2 sm:p-3 lg:p-1 lg:mr-16 lg:mb-6">
       <div 
-        className="bg-[#F8F8FB] dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl flex flex-col lg:flex-row shadow-sm w-full max-w-[959px] min-h-[475px]"
-        style={{
-          boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.06), 0px 0px 4px 0px rgba(0, 0, 0, 0.04)'
-        }}
+        className="bg-[#F8F8FB] dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl flex flex-col lg:flex-row shadow-sm w-full max-w-[700px] min-h-[320px]"
+        style={{ boxShadow: '0px 2px 8px 0px rgba(0, 0, 0, 0.06), 0px 0px 2px 0px rgba(0, 0, 0, 0.04)' }}
       >
         {/* Left Section - Gift Box and Instructions */}
-        <div className="flex flex-col justify-between py-6 px-4 lg:py-[34px] w-full lg:w-[350px] lg:h-[394px]">
+        <div className="flex flex-col justify-between py-3 px-2 w-full lg:w-[150px] lg:h-[150px]">
           {/* Gift Box Icon - Using imported image */}
-          <div className="flex justify-center mb-4 lg:mb-7 lg:ml-8">
-            <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-lg flex items-center justify-center">
+          <div className="flex justify-center mb-2 lg:mb-3 lg:ml-2">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center">
               <img 
                 src="/Gift Box.png" 
                 alt="Gift Box" 
-                className="w-16 h-16 lg:w-20 lg:h-20 object-contain"
+                className="w-8 h-8 lg:w-10 lg:h-10 object-contain"
                 onError={(e) => {
                   // Fallback to SVG if image fails to load
                   e.currentTarget.style.display = 'none';
@@ -48,8 +46,8 @@ const GiftTransferPage: React.FC = () => {
               />
               {/* Fallback SVG (hidden by default) */}
               <svg 
-                width="40" 
-                height="40" 
+                width="24" 
+                height="24" 
                 viewBox="0 0 40 40" 
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,37 +61,32 @@ const GiftTransferPage: React.FC = () => {
               </svg>
             </div>
           </div>
-
           {/* Instructions */}
-          <div className="space-y-3 lg:space-y-4 text-sm text-gray-600 dark:text-[#C9CACC] font-inter">
-            <div className="flex items-start gap-2">
+          <div className="space-y-2 text-xs text-gray-600 dark:text-[#C9CACC] font-inter">
+            <div className="flex items-start gap-1">
               <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">1.</span>
               <p>Select the stocks or instruments you want to gift.</p>
             </div>
-            
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-1">
               <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">2.</span>
               <p>We notify the recipient to accept it via their Sapphire Broking account.</p>
             </div>
-            
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-1">
               <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">3.</span>
               <p>New to Sapphire? They can sign up and accept later.</p>
             </div>
-            
-            <div className="flex items-start gap-2">
+            <div className="flex items-start gap-1">
               <span className="text-gray-500 dark:text-[#C9CACC] mt-0.5 flex-shrink-0">4.</span>
               <p>You confirm, and we transfer the securities to their demat account.</p>
             </div>
           </div>
         </div>
-
         {/* Right Section - Form */}
-        <div className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl p-4 sm:p-6 flex flex-col justify-between w-full lg:w-[601px] lg:h-[475px] lg:ml-6">
-          <div className="space-y-4 lg:space-y-[18px]">
+        <div className="bg-white dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-xl p-2 sm:p-3 flex flex-col justify-between w-full lg:w-[320px] lg:h-[200px] lg:ml-3">
+          <div className="space-y-2">
             {/* Recipient's Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
+              <label className="block text-xs font-semibold text-gray-700 dark:text-[#EBEEF5] mb-0.5 font-inter">
                 Recipient's name
               </label>
               <input
@@ -102,13 +95,12 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientName}
                 onChange={handleInputChange}
                 placeholder="Name"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
+                className="w-full px-2 py-1.5 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-[14px]"
               />
             </div>
-
             {/* Recipient's Mobile */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
+              <label className="block text-xs font-semibold text-gray-700 dark:text-[#EBEEF5] mb-0.5 font-inter">
                 Recipient's mobile
               </label>
               <input
@@ -117,13 +109,12 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientMobile}
                 onChange={handleInputChange}
                 placeholder="Mobile"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
+                className="w-full px-2 py-1.5 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-[14px]"
               />
             </div>
-
             {/* Recipient's Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
+              <label className="block text-xs font-semibold text-gray-700 dark:text-[#EBEEF5] mb-0.5 font-inter">
                 Recipient's e-mail (optional)
               </label>
               <input
@@ -132,13 +123,12 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.recipientEmail}
                 onChange={handleInputChange}
                 placeholder="E-mail"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-sm"
+                className="w-full px-2 py-1.5 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent font-inter text-[14px]"
               />
             </div>
-
             {/* Gift Message */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EBEEF5] mb-1 font-inter">
+              <label className="block text-xs font-semibold text-gray-700 dark:text-[#EBEEF5] mb-0.5 font-inter">
                 Gift message (Optional)
               </label>
               <textarea
@@ -146,17 +136,16 @@ const GiftTransferPage: React.FC = () => {
                 value={formData.giftMessage}
                 onChange={handleInputChange}
                 placeholder="Message"
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent resize-none font-inter text-sm"
+                rows={2}
+                className="w-full px-2 py-1.5 border border-gray-300 dark:border-[#2F2F2F] dark:bg-[#121413] dark:text-[#C9CACC] dark:placeholder-[#C9CACC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent resize-none font-inter text-[14px]"
               />
             </div>
           </div>
-
           {/* Continue Button */}
-          <div className="flex justify-end mt-4 lg:mt-0 lg:mb-1">
+          <div className="flex justify-end mt-2">
             <button
               onClick={handleContinue}
-              className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200 font-inter w-full sm:w-auto"
+              className="bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-md font-semibold transition-colors duration-200 font-inter w-full sm:w-auto text-[14px]"
             >
               Continue
             </button>

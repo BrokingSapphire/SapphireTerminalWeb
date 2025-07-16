@@ -9,23 +9,23 @@ const BankAccountInterface = () => {
         style={{
           boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04)',
           borderRadius: '8px',
-          padding: '24px'
+          padding: '12px'
         }}
       >
         {/* Inner container for bank accounts */}
         <div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full"
-          style={{ gap: '32px' }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full"
+          style={{ gap: '8px' }}
         >
           {/* Bank of Baroda */}
           <div 
             className="bg-white dark:bg-[#181A20] rounded-lg border border-gray-200 dark:border-[#2f2f2f] relative w-full"
-            style={{ borderRadius: '8px', borderWidth: '1px', padding: '16px', minHeight: '131px' }}
+            style={{ borderRadius: '8px', borderWidth: '1px', padding: '8px', minHeight: '90px' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded flex items-center justify-center overflow-hidden">
+                <div className="w-7 h-7 rounded flex items-center justify-center overflow-hidden">
                   <img 
                     src="/bank-logos/BOB.png" 
                     alt="Bank of Baroda" 
@@ -44,8 +44,8 @@ const BankAccountInterface = () => {
                 </div>
                 <div>
                   <span 
-                    className="text-gray-900 dark:text-[#ebeef5]"
-                    style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '16px', lineHeight: '100%', letterSpacing: '0%' }}
+                    className="text-gray-900 dark:text-[#ebeef5] text-[13px]"
+                    style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '13px', lineHeight: '100%', letterSpacing: '0%' }}
                   >
                     Bank of Baroda - 8639
                   </span>
@@ -67,42 +67,42 @@ const BankAccountInterface = () => {
             <div className="space-y-2 ml-12">
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   A/c Number :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   78888832882
                 </span>
               </div>
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   IFS Code :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   BARBOMANEWA
                 </span>
               </div>
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   Branch :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   Manewada
                 </span>
@@ -113,12 +113,12 @@ const BankAccountInterface = () => {
           {/* IDFC Bank */}
           <div 
             className="bg-white dark:bg-[#181A20] rounded-lg border border-gray-200 dark:border-[#2f2f2f] relative w-full"
-            style={{ borderRadius: '8px', borderWidth: '1px', padding: '16px', minHeight: '131px' }}
+            style={{ borderRadius: '8px', borderWidth: '1px', padding: '8px', minHeight: '90px' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded flex items-center justify-center overflow-hidden">
+                <div className="w-7 h-7 rounded flex items-center justify-center overflow-hidden">
                   <img 
                     src="/bank-logos/IDFC.png" 
                     alt="IDFC Bank" 
@@ -136,8 +136,8 @@ const BankAccountInterface = () => {
                   </div>
                 </div>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '16px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-[13px]"
+                  style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '13px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   IDFC Bank- 8639
                 </span>
@@ -155,42 +155,42 @@ const BankAccountInterface = () => {
             <div className="space-y-2 ml-12">
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   A/c Number :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   78888832882
                 </span>
               </div>
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   IFS Code :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   BARBOMANEWA
                 </span>
               </div>
               <div className="flex justify-between">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   Branch :
                 </span>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   Manewada
                 </span>
@@ -201,12 +201,12 @@ const BankAccountInterface = () => {
           {/* Yes Bank */}
           <div 
             className="bg-white dark:bg-[#181A20] rounded-lg border border-gray-200 dark:border-[#2f2f2f] relative w-full"
-            style={{ borderRadius: '8px', borderWidth: '1px', padding: '16px', minHeight: '131px' }}
+            style={{ borderRadius: '8px', borderWidth: '1px', padding: '8px', minHeight: '90px' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded flex items-center justify-center overflow-hidden">
+                <div className="w-7 h-7 rounded flex items-center justify-center overflow-hidden">
                   <img 
                     src="/bank-logos/Yes.png" 
                     alt="Yes Bank" 
@@ -226,8 +226,8 @@ const BankAccountInterface = () => {
                   </div>
                 </div>
                 <span 
-                  className="text-gray-900 dark:text-[#ebeef5]"
-                  style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '16px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-900 dark:text-[#ebeef5] text-[13px]"
+                  style={{ width: '172px', height: '19px', opacity: 1, fontFamily: 'Inter', fontWeight: 400, fontStyle: 'normal', fontSize: '13px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   Yes Bank - 8639
                 </span>
@@ -245,42 +245,42 @@ const BankAccountInterface = () => {
             <div className="space-y-2 ml-12">
               <div className="flex">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   A/c Number :
                 </span>
                 <span 
-                  className="text-gray-900 ml-auto dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 ml-auto dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   78888832882
                 </span>
               </div>
               <div className="flex">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   IFS Code :
                 </span>
                 <span 
-                  className="text-gray-900 ml-auto dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 ml-auto dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   BARBOMANEWA
                 </span>
               </div>
               <div className="flex">
                 <span 
-                  className="text-gray-600 dark:text-[#c9cacc]"
-                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%' }}
+                  className="text-gray-600 dark:text-[#c9cacc] text-xs"
+                  style={{ width: '75px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%' }}
                 >
                   Branch :
                 </span>
                 <span 
-                  className="text-gray-900 ml-auto dark:text-[#ebeef5]"
-                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
+                  className="text-gray-900 ml-auto dark:text-[#ebeef5] text-xs"
+                  style={{ width: '105px', height: '15px', fontFamily: 'Inter', fontWeight: 400, fontSize: '11px', lineHeight: '100%', letterSpacing: '0%', textAlign: 'right' }}
                 >
                   Manewada
                 </span>
@@ -294,11 +294,11 @@ const BankAccountInterface = () => {
 
         {/* Add Bank Account button */}
         <div className="flex items-center mt-4 w-full pt-4 pb-4 pl-1">
-          <button className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            <div className="w-5 h-5 rounded-full border-2 border-blue-600 dark:border-blue-400 flex items-center justify-center">
-              <Plus size={12} />
+          <button className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors text-xs">
+            <div className="w-4 h-4 rounded-full border-2 border-blue-600 dark:border-blue-400 flex items-center justify-center">
+              <Plus size={10} />
             </div>
-            <span className="font-medium text-sm">Add Bank Account</span>
+            <span className="font-medium text-xs">Add Bank Account</span>
           </button>
         </div>
       </div>

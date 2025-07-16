@@ -14,7 +14,7 @@ const Checkbox = ({ checked, onCheckedChange, id }: {
     id={id}
     checked={checked}
     onChange={onCheckedChange}
-    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-[#2f2f2f] dark:bg-[#181A20]"
+    className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-[#2f2f2f] dark:bg-[#181A20]"
   />
 );
 
@@ -108,10 +108,10 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
                 gap: '4px'
               }}
             >
-              <h2 className="text-[#111827] dark:text-[#ebeef5]" style={{ fontSize: '18px', fontWeight: '600', margin: 0, fontFamily: 'inter' }}>
+              <h2 className="text-[#111827] dark:text-[#ebeef5]" style={{ fontSize: '15px', fontWeight: '600', margin: 0, fontFamily: 'inter' }}>
                 Delete Account
               </h2>
-              <p className="text-[#6B7280] dark:text-[#c9cacc]" style={{ fontSize: '14px', margin: 0, lineHeight: '1.4', fontFamily: 'inter' }}>
+              <p className="text-[#6B7280] dark:text-[#c9cacc]" style={{ fontSize: '12px', margin: 0, lineHeight: '1.4', fontFamily: 'inter' }}>
                 Let us know why you are leaving, so we can improve our app for all investors
               </p>
             </div>
@@ -126,7 +126,7 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
               }}
             >
               {checkboxes.map((checkbox) => (
-                <div key={checkbox.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <div key={checkbox.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                   <Checkbox
                     id={checkbox.id}
                     checked={checkbox.checked}
@@ -135,10 +135,10 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
                   <label
                     htmlFor={checkbox.id}
                     onClick={() => handleCheckboxChange(checkbox.id)}
-                    className="text-[#6B7280] dark:text-[#c9cacc]"
+                    className="text-[#6B7280] dark:text-[#c9cacc] text-xs"
                     style={{  
-                      fontSize: '14px',
-                      lineHeight: '1.4',
+                      fontSize: '11px',
+                      lineHeight: '1.3',
                       cursor: 'pointer',
                       flex: 1,
                       fontWeight:'400',
@@ -173,11 +173,11 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
         >
           <button
             onClick={handleCancel}
-            className="border border-[#D1D5DB] dark:border-[#2f2f2f] text-[#374151] dark:text-[#c9cacc] bg-transparent dark:bg-[#181A20]"
+            className="border border-[#D1D5DB] dark:border-[#2f2f2f] text-[#374151] dark:text-[#c9cacc] bg-transparent dark:bg-[#181A20] text-xs"
             style={{
-              padding: '8px 16px',
+              padding: '6px 12px',
               borderRadius: '4px',
-              fontSize: '14px',
+              fontSize: '11px',
               cursor: 'pointer',
               fontWeight: '500',
               fontFamily: 'inter'
@@ -187,11 +187,11 @@ const DeleteAccountPopup: React.FC<{ onClose: () => void; onConfirmDelete: () =>
           </button>
           <button
             onClick={handleDelete}
-            className="bg-[#E53935] border border-[#E53935] text-white dark:bg-[#E53935] dark:border-[#E53935] dark:text-white"
+            className="bg-[#E53935] border border-[#E53935] text-white dark:bg-[#E53935] dark:border-[#E53935] dark:text-white text-xs"
             style={{
-              padding: '8px 16px',
+              padding: '6px 12px',
               borderRadius: '4px',
-              fontSize: '14px',
+              fontSize: '11px',
               cursor: 'pointer',
               fontWeight: '500',
               fontFamily: 'inter'

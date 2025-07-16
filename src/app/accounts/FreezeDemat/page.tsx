@@ -29,15 +29,15 @@ const Home = () => {
     <div className="bg-white dark:bg-[#121212]">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-        <div className="px-1 py-2">
-          <div className="flex items-center gap-1">
+        <div className="px-3 py-2">
+          <div className="flex items-center gap-2">
             <button
               onClick={handleGoBack}
-              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
+              className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-[#C9CACC]" />
+              <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-[#C9CACC]" />
             </button>
-            <h1 className="text-lg font-medium text-gray-900 dark:text-[#EBEEF5]">
+            <h1 className="text-[16px] font-semibold text-gray-900 dark:text-[#EBEEF5]">
               Freeze Demat Account
             </h1>
           </div>
@@ -45,20 +45,20 @@ const Home = () => {
       </div>
 
       {/* Main content with proper spacing */}
-      <div className="px-1 py-3">
+      <div className="px-3 py-3">
         <FreezeDemat />
 
         {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row justify-center sm:justify-end gap-3 sm:gap-4 mt-6 sm:mt-8 px-3 sm:px-0 sm:mr-3 lg:mr-5">
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-end gap-2 sm:gap-3 mt-4 sm:mt-6 px-2 sm:px-0 sm:mr-2 lg:mr-4">
           <button
             onClick={handleDontFreeze}
-            className="w-full sm:w-[140px] lg:w-[156px] h-[40px] sm:h-[41px] bg-gray-100 dark:bg-[#ebeef5] rounded-md px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-[14px] font-medium text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-200 transition-colors order-2 sm:order-1"
+            className="w-full sm:w-[120px] lg:w-[130px] h-[32px] sm:h-[34px] bg-gray-100 dark:bg-[#ebeef5] rounded-md px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-[13px] font-medium text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-200 transition-colors order-2 sm:order-1"
           >
             No, Don't Freeze
           </button>
           <button
             onClick={handleFreeze}
-            className="w-full sm:w-[140px] lg:w-[156px] h-[40px] sm:h-[41px] bg-[#1DB954] rounded-md px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-[14px] font-medium text-white hover:bg-[#1AA84A] transition-colors order-1 sm:order-2"
+            className="w-full sm:w-[120px] lg:w-[130px] h-[32px] sm:h-[34px] bg-[#1DB954] rounded-md px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-[13px] font-medium text-white hover:bg-[#1AA84A] transition-colors order-1 sm:order-2"
           >
             Yes, Freeze
           </button>

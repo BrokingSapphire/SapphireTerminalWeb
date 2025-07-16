@@ -74,7 +74,7 @@ const CurrentSessions: React.FC = () => {
       <img 
         src={iconPath} 
         alt={device} 
-        className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain flex-shrink-0" 
+        className="w-5 h-5 object-contain flex-shrink-0" 
       />
     );
   };
@@ -151,11 +151,11 @@ const CurrentSessions: React.FC = () => {
 
   return (
     <>
-      <div className="w-full max-w-6xl mx-auto bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-3 sm:p-4 lg:p-6 shadow-lg">
+      <div className="w-full max-w-6xl mx-auto bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-3 shadow-lg">
         {/* Header */}
         <div className="flex items-start sm:items-center justify-between mb-4 sm:mb-6">
           <div className="flex flex-col gap-2 sm:gap-3 flex-1">
-            <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-[#F4F4F9] font-inter">
+            <h2 className="text-[15px] font-semibold text-gray-900 dark:text-[#F4F4F9] font-inter">
               Current Sessions
             </h2>
             <p className="text-xs sm:text-sm text-gray-500 dark:text-[#c9cacc] font-inter leading-relaxed">
@@ -166,31 +166,30 @@ const CurrentSessions: React.FC = () => {
         </div>
 
         {/* Sessions Container */}
-        <div className="w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-3 sm:p-4 shadow-sm">
+        <div className="w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-2 shadow-sm">
           {sessions.map((session, index) => (
             <div
               key={session.id}
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 px-1 sm:px-2 gap-3 sm:gap-0"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-1.5 px-1 gap-2"
               style={{
                 borderBottom:
                   index < sessions.length - 1 ? "0.5px solid #E5E7EB" : "none",
               }}
             >
-              <div className="flex items-center gap-3 flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
                 {getDeviceIcon(session.icon, session.device)}
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm sm:text-base font-medium text-gray-900 dark:text-[#F4F4F9] font-inter truncate">
+                  <div className="text-[13px] font-medium text-gray-900 dark:text-[#F4F4F9] font-inter truncate">
                     {session.device}
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-500 dark:text-[#c9cacc] font-inter">
+                  <div className="text-xs text-gray-500 dark:text-[#c9cacc] font-inter">
                     {session.location} • {session.lastActive}
                   </div>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
                 <span
-                  className={`text-xs sm:text-sm font-medium font-inter ${
+                  className={`text-xs font-medium font-inter ${
                     session.status === "current"
                       ? "text-green-600 dark:text-green-400"
                       : "text-orange-500 dark:text-orange-300"
@@ -200,7 +199,7 @@ const CurrentSessions: React.FC = () => {
                 </span>
                 <button
                   onClick={() => handleLogoutClick(session)}
-                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium px-3 sm:px-4 py-1.5 rounded-md border border-gray-300 dark:border-[#2f2f2f] hover:bg-red-50 dark:hover:bg-[#23272F] transition-colors text-xs sm:text-sm font-inter whitespace-nowrap"
+                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium px-2 py-1 rounded-md border border-gray-300 dark:border-[#2f2f2f] hover:bg-red-50 dark:hover:bg-[#23272F] transition-colors text-xs font-inter whitespace-nowrap"
                 >
                   Log out
                 </button>
