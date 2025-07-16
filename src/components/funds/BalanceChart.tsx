@@ -25,7 +25,7 @@ const BalanceChart: React.FC<BalanceChartProps> = ({ data }) => {
   return (
     // Nikhil
     <div className='border border-gray-200 dark:border-[#2f2f2f] mt-3 rounded-md max-w-[80vw] mx-auto text-xs'>
-      <h2 className="text-lg border-b border-gray-200 dark:border-[#2f2f2f] dark:text-[#ebeef5] font-medium p-3">Total Balance Breakup</h2>
+      <h2 className="text-lg border-b border-gray-200 dark:border-[#2f2f2f] text-[#121212] dark:text-[#ebeef5] font-medium p-3">Total Balance Breakup</h2>
       
       <div className="p-4">
         <div className="flex">
@@ -43,8 +43,8 @@ const BalanceChart: React.FC<BalanceChartProps> = ({ data }) => {
               
               {/* Margin Utilised text below gauge */}
               <div className="text-center mt-4">
-                <div className="text-[#6B7280] text-sm">Margin Utilised</div>
-                <div className="text-lg">₹0.00</div>
+                <div className="text-[#6B7280] dark:text-[#9CA3AF] text-sm">Margin Utilised</div>
+                <div className="text-lg text-black dark:text-white">₹0.00</div>
               </div>
             </div>
           </div>
@@ -54,11 +54,11 @@ const BalanceChart: React.FC<BalanceChartProps> = ({ data }) => {
             <div className="pt-3 ml-12">
               <div className="flex items-center mb-1">
                 <div className="w-2 h-2 bg-[#FBBC05] rounded-full mr-2"></div>
-                <span className="text-sm">Total Balance</span>
+                <span className="text-sm text-black dark:text-white">Total Balance</span>
               </div>
               <div className="flex items-center">
                 <div className="w-2 h-2 bg-[#0F4C3A] rounded-full mr-2"></div>
-                <span className="text-sm">Margin Utilised</span>
+                <span className="text-sm text-black dark:text-white">Margin Utilised</span>
               </div>
             </div>
           </div>

@@ -157,30 +157,30 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full max-w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8" style={{maxHeight: '100vh'}}>
+    <div className="w-full max-w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8 bg-white dark:bg-[#121212]" style={{maxHeight: '100vh'}}>
       {/* Back button */}
       <button
         onClick={onBack}
-        className="flex items-center text-[16px] text-black mb-1 whitespace-nowrap text-[16px] py-0.5 px-1 pb-4"
+        className="flex items-center text-[16px] text-black dark:text-[#ebeef5] mb-1 whitespace-nowrap text-[16px] py-0.5 px-1 pb-4"
       >
         <ChevronLeft size={20} className="mr-0.5" />
         <span className="text-[16px]">Deposit</span>
       </button>
 
       {/* Deposit Form */}
-      <div className="bg-[#FAFAFA] border border-gray-200 rounded-md mb-3 max-w-full mx-auto p-3 w-[508px]">
+      <div className="bg-[#FAFAFA] dark:bg-[#1c1c1c] border border-gray-200 dark:border-[#2f2f2f] rounded-md mb-3 max-w-full mx-auto p-3 w-[508px]">
         <div className="p-2">
           {/* Title and Balance */}
           <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xs text-[#212529]">Enter Amount</h2>
-            <div className="text-[#6B7280] text-xs">Avl. Balance : <span className="text-[#333333]">₹1,39,000 </span></div>
+            <h2 className="text-xs text-[#212529] dark:text-[#ebeef5]">Enter Amount</h2>
+            <div className="text-[#6B7280] dark:text-[#c9cacc] text-xs">Avl. Balance : <span className="text-[#333333] dark:text-[#ebeef5]">₹1,39,000 </span></div>
           </div>
           
           {/* Amount Input */}
           <input 
             type="text" 
             placeholder="₹20,000"
-            className="w-full h-[38px] border border-gray-300 text-black bg-white rounded-md px-2 py-2 mb-4 text-xs"
+            className="w-full h-[38px] border border-gray-300 dark:border-[#2f2f2f] text-black dark:text-[#ebeef5] bg-white dark:bg-[#121212] rounded-md px-2 py-2 mb-4 text-xs placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
             value={selectedAmount ? `₹${selectedAmount.toLocaleString()}` : ""}
             onChange={handleAmountChange}
           />
@@ -189,7 +189,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           <div className="flex space-x-2 mb-[18px]">
             <div className="relative">
               <div
-                className="bg-[#F4F4F9] rounded text-[#333333] px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50"
+                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] rounded text-[#333333] dark:text-[#ebeef5] px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
                 onClick={() => handleAmountIncrement(5000)}
               >
                 + ₹5,000
@@ -204,7 +204,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
                   style={{ margin: "-1px" }}
                 ></div>
                 <div
-                  className="relative bg-[#F4F4F9] text-[#333333] rounded px-2 py-1.5 text-xs cursor-pointer"
+                  className="relative bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 text-xs cursor-pointer"
                   onClick={() => handleAmountIncrement(10000)}
                 >
                   + ₹10,000
@@ -217,7 +217,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
             
             <div className="relative">
               <div
-                className="bg-[#F4F4F9] text-[#333333] rounded px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50"
+                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
                 onClick={() => handleAmountIncrement(20000)}
               >
                 + ₹20,000
@@ -226,10 +226,10 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           </div>
           
           {/* Bank Selection */}
-          <h2 className="text-xs text-[#212529] mb-1.5">Select Bank</h2>
+          <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Select Bank</h2>
           <div className="relative mb-4 h-[38px]">
             <div
-              className="flex items-center justify-between w-full border h-[38px] border-gray-300 rounded-md px-2 py-2 bg-white cursor-pointer"
+              className="flex items-center justify-between w-full border h-[38px] border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 bg-white dark:bg-[#121212] cursor-pointer"
               onClick={() => setShowBankDropdown((v) => !v)}
             >
               <div className="flex items-center">
@@ -240,18 +240,18 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
                   height={22}
                   className="mr-1.5"
                 />
-                <span className="text-black ml-1 text-xs">
+                <span className="text-black dark:text-[#ebeef5] ml-1 text-xs">
                   {bankOptions.find((b) => b.id === selectedBank)?.label}
                 </span>
               </div>
-              <ChevronDown size={14} className="text-gray-400" />
+              <ChevronDown size={14} className="text-gray-400 dark:text-[#c9cacc]" />
             </div>
             {showBankDropdown && (
-              <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+              <div className="absolute left-0 right-0 mt-1 bg-white dark:bg-[#121212] border border-gray-200 dark:border-[#2f2f2f] rounded-md shadow-lg z-10">
                 {bankOptions.map((bank) => (
                   <div
                     key={bank.id}
-                    className={`flex items-center px-3 py-2 cursor-pointer hover:bg-gray-100 ${selectedBank === bank.id ? 'bg-gray-50' : ''}`}
+                    className={`flex items-center px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#2f2f2f] ${selectedBank === bank.id ? 'bg-gray-50 dark:bg-[#1c1c1c]' : ''}`}
                     onClick={() => {
                       setSelectedBank(bank.id);
                       setShowBankDropdown(false);
@@ -264,7 +264,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
                       height={18}
                       className="mr-2"
                     />
-                    <span className="text-xs text-black">{bank.label}</span>
+                    <span className="text-xs text-black dark:text-[#ebeef5]">{bank.label}</span>
                   </div>
                 ))}
               </div>
@@ -272,13 +272,13 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           </div>
           
           {/* Payment Mode */}
-          <h2 className="text-xs text-[#212529] mb-1.5">Payment mode:</h2>
+          <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Payment mode:</h2>
           <div className="grid grid-cols-3 gap-2 mb-4">
             <button
               className={`flex items-center justify-center border rounded py-2 px-2 ${
                 selectedPaymentMode === "upi"
                   ? "border-green-500 text-green-600"
-                  : "border-gray-300 text-[#212529]"
+                  : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
               onClick={() => handlePaymentModeSelect("upi")}
             >
@@ -296,7 +296,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
               className={`flex items-center justify-center border rounded py-2 px-2 h-[38px] ${
                 selectedPaymentMode === "qr"
                   ? "border-green-500 text-green-600"
-                  : "border-gray-300 text-[#212529]"
+                  : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
               onClick={() => handlePaymentModeSelect("qr")}
             >
@@ -314,7 +314,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
               className={`flex items-center justify-center border rounded py-2 px-2 h-[38px] ${
                 selectedPaymentMode === "netbanking"
                   ? "border-green-500 text-green-600"
-                  : "border-gray-300 text-[#212529]"
+                  : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
               onClick={() => handlePaymentModeSelect("netbanking")}
             >
@@ -332,18 +332,18 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           {/* UPI ID Input - Only show when UPI is selected */}
           {selectedPaymentMode === "upi" && (
             <div className="mb-4">
-              <h2 className="text-xs text-[#212529] mb-1.5">Enter UPI ID</h2>
+              <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Enter UPI ID</h2>
               <input
                 type="text"
                 placeholder="abcd@ybl"
-                className="w-full border h-[38px] border-gray-300 rounded-md px-2 py-2 text-xs"
+                className="w-full border h-[38px] border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 text-xs bg-white dark:bg-[#121212] text-black dark:text-[#ebeef5] placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
               />
             </div>
           )}
           
           {/* Submit Button */}
           <button 
-            className="w-full bg-green-500 text-white font-medium py-3 mt-[18px] h-[38px] rounded-md text-center text-xs"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-3 mt-[18px] h-[38px] rounded-md text-center text-xs transition-colors duration-200"
             onClick={handlePaymentClick}
             disabled={!selectedAmount}
           >
@@ -353,7 +353,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
       </div>
 
       {/* Horizontal Divider */}
-      <hr className="my-4 border-gray-200" />
+      <hr className="my-4 border-gray-200 dark:border-[#2f2f2f]" />
 
       {/* Deposit History */}
       <div>

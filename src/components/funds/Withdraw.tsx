@@ -38,6 +38,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
   const [availableBalance, setAvailableBalance] = useState(withdrawableBalance);
   const [withdrawType, setWithdrawType] = useState('normal');
   const [withdrawAll, setWithdrawAll] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,6 +58,19 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
     { id: 'icici', label: 'ICICI - ******* 5678' },
   ];
   const [showBankDropdown, setShowBankDropdown] = useState(false);
+
+  // Dark mode detection
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   // Handle amount selection
   const handleAmountSelect = (amount: number) => {
@@ -146,31 +160,33 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full max-w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8" style={{maxHeight: '100vh'}}>
+    <div className={`w-full max-w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8 ${isDarkMode ? 'bg-[#121212]' : ''}`} style={{maxHeight: '100vh'}}>
       {/* Back button */}
-      <button onClick={onBack} className="flex items-center text-[16px] text-black mb-1 whitespace-nowrap py-0.5 px-1 pb-4">
+      <button onClick={onBack} className={`flex items-center text-[16px] mb-1 whitespace-nowrap py-0.5 px-1 pb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
         <ChevronLeft size={20} className="mr-0.5" />
         <span className="text-[16px]">Withdraw</span>
       </button>
       
       {/* Withdraw Form */}
-      <div className="my-2 bg-[#FAFAFA] border border-gray-200 rounded-md max-w-full mx-auto p-2 text-xs w-[508px]">
+      <div className={`my-2 border rounded-md max-w-full mx-auto p-2 text-xs w-[508px] ${isDarkMode ? 'bg-[#1e1e1e] border-gray-600' : 'bg-[#FAFAFA] border-gray-200'}`}>
         <div className="p-1.5">
           {/* Title and Balance */}
           <div className="flex justify-between items-center mb-2 text-xs">
-            <h2 className="text-xs text-[#212529] font-medium">Enter Amount</h2>
-            <div className="text-xs text-[#6B7280]">Wdl. Balance : <span className='text-[#333333]'>₹{formatCurrency(availableBalance)}</span></div>
+            <h2 className={`text-xs font-medium ${isDarkMode ? 'text-white' : 'text-[#212529]'}`}>Enter Amount</h2>
+            <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-[#6B7280]'}`}>
+              Wdl. Balance : <span className={isDarkMode ? 'text-white' : 'text-[#333333]'}>₹{formatCurrency(availableBalance)}</span>
+            </div>
           </div>
           
           {/* Amount Input */}
           <input 
             type="text" 
             placeholder="₹20,000"
-            className="w-full border h-[38px] border-gray-300 rounded-md px-2 py-2 mb-1.5 text-xs"
+            className={`w-full border h-[38px] rounded-md px-2 py-2 mb-1.5 text-xs ${isDarkMode ? 'bg-[#2a2a2a] border-gray-600 text-white placeholder-gray-400' : 'border-gray-300 bg-white text-black'}`}
             value={withdrawAmount !== null ? `₹${withdrawAmount}` : ''}
             onChange={handleAmountChange}
           />
-          <div className="text-xs text-gray-500 mb-3">
+          <div className={`text-xs mb-3 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             Amount is Expected to credit by (next settlement cycle)
           </div>
           
@@ -184,7 +200,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
                 onChange={() => setWithdrawType('instant')} 
                 className="mr-1.5 h-4 w-4"
               />
-              <span className="text-gray-500 text-xs">Instant Withdraw</span>
+              <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>Instant Withdraw</span>
             </label>
             <label className="inline-flex items-center">
               <input 
@@ -194,15 +210,15 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
                 onChange={() => setWithdrawType('normal')} 
                 className="mr-1.5 h-4 w-4"
               />
-              <span className="text-gray-500 text-xs">Normal Withdraw</span>
+              <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>Normal Withdraw</span>
             </label>
           </div>
           
           {/* Bank Selection */}
-          <h2 className="text-xs font-medium mb-1.5 mt-2">Select Bank</h2>
+          <h2 className={`text-xs font-medium mb-1.5 mt-2 ${isDarkMode ? 'text-white' : 'text-black'}`}>Select Bank</h2>
           <div className="relative mb-[12px]">
             <div
-              className="flex items-center h-[38px] justify-between w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 text-xs cursor-pointer"
+              className={`flex items-center h-[38px] justify-between w-full border rounded-md px-2 py-1.5 text-xs cursor-pointer ${isDarkMode ? 'bg-[#2a2a2a] border-gray-600 text-white' : 'bg-white border-gray-300 text-black'}`}
               onClick={() => setShowBankDropdown((v) => !v)}
             >
               <div className="flex items-center">
@@ -215,14 +231,14 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
                 />
                 <span>{bankOptions.find((b) => b.id === selectedBank)?.label}</span>
               </div>
-              <ChevronDown size={14} className="text-gray-400" />
+              <ChevronDown size={14} className={isDarkMode ? 'text-gray-400' : 'text-gray-400'} />
             </div>
             {showBankDropdown && (
-              <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+              <div className={`absolute left-0 right-0 mt-1 border rounded-md shadow-lg z-10 ${isDarkMode ? 'bg-[#2a2a2a] border-gray-600' : 'bg-white border-gray-200'}`}>
                 {bankOptions.map((bank) => (
                   <div
                     key={bank.id}
-                    className={`flex items-center px-3 py-2 cursor-pointer hover:bg-gray-100 ${selectedBank === bank.id ? 'bg-gray-50' : ''}`}
+                    className={`flex items-center px-3 py-2 cursor-pointer ${isDarkMode ? 'hover:bg-[#3a3a3a] text-white' : 'hover:bg-gray-100 text-black'} ${selectedBank === bank.id ? (isDarkMode ? 'bg-[#3a3a3a]' : 'bg-gray-50') : ''}`}
                     onClick={() => {
                       setSelectedBank(bank.id);
                       setShowBankDropdown(false);
@@ -235,7 +251,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
                       height={18}
                       className="mr-2"
                     />
-                    <span className="text-xs text-black">{bank.label}</span>
+                    <span className="text-xs">{bank.label}</span>
                   </div>
                 ))}
               </div>
@@ -250,12 +266,12 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
               onChange={() => setWithdrawAll(!withdrawAll)} 
               className="mr-1.5 h-4 w-4"
             />
-            <span className="text-gray-500 text-xs">Withdraw all</span>
+            <span className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>Withdraw all</span>
           </label>
           
           {/* Submit Button */}
           <button 
-            className="w-full bg-green-500 text-white font-medium py-2 rounded-md text-center text-xs mt-3 h-[38px]"
+            className="w-full bg-green-500 text-white font-medium py-2 rounded-md text-center text-xs mt-3 h-[38px] hover:bg-green-600 transition-colors"
             onClick={handleSubmit}
           >
             Withdraw {withdrawAmount ? `₹${formatCurrency(withdrawAmount)}` : 'Amount'}
@@ -264,7 +280,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
       </div>
       
       {/* Horizontal Divider */}
-      <hr className="my-4 border-gray-200" />
+      <hr className={`my-4 ${isDarkMode ? 'border-gray-600' : 'border-gray-200'}`} />
       
       {/* Withdrawal History */}
       <div>
@@ -352,7 +368,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
 
         {/* Pagination */}
         <div className="flex items-center justify-between mt-3 hidden">
-          <div className="text-xs text-gray-500">
+          <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             Showing {startIndex + 1} to {Math.min(endIndex, sortedHistory.length)} of {sortedHistory.length} entries
           </div>
           
@@ -361,7 +377,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="p-1.5 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`p-1.5 border rounded disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode ? 'border-gray-600 hover:bg-[#2a2a2a] text-white' : 'border-gray-300 hover:bg-gray-50 text-black'}`}
             >
               <ChevronLeft size={14} />
             </button>
@@ -374,7 +390,9 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
                 className={`px-2 py-1.5 border rounded text-xs ${
                   currentPage === page
                     ? "bg-blue-500 text-white border-blue-500"
-                    : "border-gray-300 hover:bg-gray-50"
+                    : isDarkMode 
+                      ? "border-gray-600 hover:bg-[#2a2a2a] text-white"
+                      : "border-gray-300 hover:bg-gray-50 text-black"
                 }`}
               >
                 {page}
@@ -385,7 +403,7 @@ const WithdrawPage: React.FC<WithdrawPageProps> = ({ onBack }) => {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="p-1.5 border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`p-1.5 border rounded disabled:opacity-50 disabled:cursor-not-allowed ${isDarkMode ? 'border-gray-600 hover:bg-[#2a2a2a] text-white' : 'border-gray-300 hover:bg-gray-50 text-black'}`}
             >
               <ChevronRight size={14} />
             </button>
