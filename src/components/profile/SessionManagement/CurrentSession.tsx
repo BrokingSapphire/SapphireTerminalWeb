@@ -71,7 +71,11 @@ const CurrentSessions: React.FC = () => {
 
   const getDeviceIcon = (iconPath: string, device: string) => {
     return (
-      <img src={iconPath} alt={device} className="w-8 h-8 object-contain" />
+      <img 
+        src={iconPath} 
+        alt={device} 
+        className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain flex-shrink-0" 
+      />
     );
   };
 
@@ -118,14 +122,12 @@ const CurrentSessions: React.FC = () => {
     setTimer(60);
     setIsTimerActive(true);
     setOtp(["", "", "", "", "", ""]);
-    // Add your resend OTP logic here
     console.log("Resending OTP...");
   };
 
   const handleOTPConfirm = () => {
     const otpValue = otp.join("");
     if (otpValue.length === 6) {
-      // Handle OTP verification and logout logic here
       console.log("OTP verified:", otpValue);
       console.log("Logging out session:", sessionToLogout?.id);
       
@@ -149,47 +151,46 @@ const CurrentSessions: React.FC = () => {
 
   return (
     <>
-      <div className="w-full max-w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-6 shadow-lg">
+      <div className="w-full max-w-6xl mx-auto bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-3 sm:p-4 lg:p-6 shadow-lg">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-[#F4F4F9] font-inter">
-                Current Sessions
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-[#c9cacc] font-inter">
-                Keep up with your available sessions logged in from your
-                account. Learn more.
-              </p>
-            </div>
+        <div className="flex items-start sm:items-center justify-between mb-4 sm:mb-6">
+          <div className="flex flex-col gap-2 sm:gap-3 flex-1">
+            <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-[#F4F4F9] font-inter">
+              Current Sessions
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-[#c9cacc] font-inter leading-relaxed">
+              Keep up with your available sessions logged in from your
+              account. Learn more.
+            </p>
           </div>
         </div>
 
         {/* Sessions Container */}
-        <div className="w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+        <div className="w-full bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2f2f2f] rounded-lg p-3 sm:p-4 shadow-sm">
           {sessions.map((session, index) => (
             <div
               key={session.id}
-              className="flex items-center justify-between py-3 px-2"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 px-1 sm:px-2 gap-3 sm:gap-0"
               style={{
                 borderBottom:
                   index < sessions.length - 1 ? "0.5px solid #E5E7EB" : "none",
               }}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
                 {getDeviceIcon(session.icon, session.device)}
-                <div>
-                  <div className="text-sm font-medium text-gray-900 dark:text-[#F4F4F9] font-inter">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm sm:text-base font-medium text-gray-900 dark:text-[#F4F4F9] font-inter truncate">
                     {session.device}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-[#c9cacc] font-inter">
+                  <div className="text-xs sm:text-sm text-gray-500 dark:text-[#c9cacc] font-inter">
                     {session.location} • {session.lastActive}
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              
+              <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 <span
-                  className={`text-sm font-medium font-inter ${
+                  className={`text-xs sm:text-sm font-medium font-inter ${
                     session.status === "current"
                       ? "text-green-600 dark:text-green-400"
                       : "text-orange-500 dark:text-orange-300"
@@ -199,7 +200,7 @@ const CurrentSessions: React.FC = () => {
                 </span>
                 <button
                   onClick={() => handleLogoutClick(session)}
-                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium px-4 py-1.5 rounded-md border border-gray-300 dark:border-[#2f2f2f] hover:bg-red-50 dark:hover:bg-[#23272F] transition-colors text-xs font-inter"
+                  className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium px-3 sm:px-4 py-1.5 rounded-md border border-gray-300 dark:border-[#2f2f2f] hover:bg-red-50 dark:hover:bg-[#23272F] transition-colors text-xs sm:text-sm font-inter whitespace-nowrap"
                 >
                   Log out
                 </button>
@@ -211,13 +212,12 @@ const CurrentSessions: React.FC = () => {
 
       {/* Logout Confirmation Popup */}
       {showLogoutPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-3xl shadow-2xl p-6 max-w-sm w-full mx-4 text-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-[#121212] rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 max-w-xs sm:max-w-sm w-full mx-2 text-center">
             <h3
-              className="text-gray-900 mb-3 font-inter"
+              className="text-gray-900 dark:text-[#F4F4F9] mb-3 font-inter text-lg sm:text-xl"
               style={{
                 fontWeight: 590,
-                fontSize: "21px",
                 lineHeight: "100%",
                 letterSpacing: "2%",
                 textAlign: "center",
@@ -226,15 +226,17 @@ const CurrentSessions: React.FC = () => {
               Log out
             </h3>
 
-            <p className="text-gray-600 mb-5 font-inter">Do you really want to log out?</p>
+            <p className="text-gray-600 dark:text-[#c9cacc] mb-5 font-inter text-sm sm:text-base">
+              Do you really want to log out?
+            </p>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <button
                 onClick={handleConfirmLogout}
-                className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-4 px-6 rounded-full transition-colors duration-200 flex items-center justify-center gap-2 font-inter"
+                className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-full transition-colors duration-200 flex items-center justify-center gap-2 font-inter text-sm sm:text-base"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -251,7 +253,7 @@ const CurrentSessions: React.FC = () => {
 
               <button
                 onClick={handleCancelLogout}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-full transition-colors duration-200 font-inter"
+                className="w-full bg-gray-100 dark:bg-[#2f2f2f] hover:bg-gray-200 dark:hover:bg-[#3f3f3f] text-gray-700 dark:text-[#F4F4F9] font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-full transition-colors duration-200 font-inter text-sm sm:text-base"
               >
                 Cancel
               </button>
@@ -262,47 +264,27 @@ const CurrentSessions: React.FC = () => {
 
       {/* OTP Verification Popup */}
       {showOTPPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-2xl  z-50 ">
-          <div className="bg-white shadow-2xl rounded-2xl" style={{ width: "528px" }}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-[#121212] shadow-2xl rounded-xl sm:rounded-2xl w-full max-w-md sm:max-w-lg lg:max-w-xl">
             {/* OTP Header */}
-            <div
-              className="border border-gray-300 border-b-0 rounded-2xl bg-white p-4"
-              style={{
-                width: "528px",
-                height: "175px",
-                borderTopLeftRadius: "4px",
-                borderTopRightRadius: "4px",
-                borderWidth: "1px 1px 0px 1px",
-                borderStyle: "solid",
-                borderColor: "#D1D5DB",
-                boxShadow:
-                  "0px 4px 16px 0px rgba(0, 0, 0, 0.06), 0px 0px 4px 0px rgba(0, 0, 0, 0.04)",
-              }}
-            >
-              <div
-                className="flex flex-col gap-8"
-                style={{ width: "496px", height: "167px" }}
-              >
+            <div className="border border-gray-300 dark:border-[#2f2f2f] border-b-0 rounded-t-xl sm:rounded-t-2xl bg-white dark:bg-[#121212] p-4 sm:p-6">
+              <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
                 {/* Header Section */}
-                <div
-                  className="flex items-start justify-between pr-1.5"
-                  style={{ width: "496px", height: "40px" }}
-                >
-                  <div >
-                    <h3 className="w-[110px] h-[30px] opacity-100 font-inter font-bold font-16px text-lg leading-none tracking-normal text-[#1A1A1A]">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1 pr-4">
+                    <h3 className="font-inter font-bold text-lg sm:text-xl leading-none tracking-normal text-[#1A1A1A] dark:text-[#F4F4F9] mb-2">
                       Verify OTP
                     </h3>
-
-                    <p className="w-[450px] h-[17px] opacity-100 font-inter font-normal text-sm leading-none tracking-normal text-[#6B7280]">
+                    <p className="font-inter font-normal text-sm sm:text-base leading-relaxed tracking-normal text-[#6B7280] dark:text-[#c9cacc]">
                       OTP has been sent to your registered mobile number
                     </p>
                   </div>
                   <button
                     onClick={handleOTPCancel}
-                    className="text-gray-400 hover:text-gray-600 p-2"
+                    className="text-gray-400 dark:text-[#c9cacc] hover:text-gray-600 dark:hover:text-gray-300 p-1 sm:p-2 flex-shrink-0"
                   >
                     <svg
-                      className="w-6 h-6"
+                      className="w-5 h-5 sm:w-6 sm:h-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -318,16 +300,11 @@ const CurrentSessions: React.FC = () => {
                 </div>
 
                 {/* OTP Input Section */}
-                
-                
-                <div
-                  className="flex flex-col gap-3 mb-4"
-                  style={{ width: "496px", height: "60px" }}
-                >
-                  <h4 className="w-[252px] h-[15px] opacity-100 font-inter font-semibold text-sm leading-none tracking-normal text-[#1A1A1A] ">
+                <div className="flex flex-col gap-3 sm:gap-4">
+                  <h4 className="font-inter font-semibold text-sm sm:text-base leading-none tracking-normal text-[#1A1A1A] dark:text-[#F4F4F9]">
                     Enter 6-digit OTP
                   </h4>
-                  <div className="flex gap-3 ">
+                  <div className="flex gap-2 sm:gap-3 justify-center">
                     {otp.map((digit, index) => (
                       <input
                         key={index}
@@ -336,9 +313,8 @@ const CurrentSessions: React.FC = () => {
                         value={digit}
                         onChange={(e) => handleOTPChange(index, e.target.value)}
                         onKeyDown={(e) => handleOTPKeyDown(index, e)}
-                        className="w-12 h-12 text-center text-lg font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+                        className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-center text-sm sm:text-base lg:text-lg font-medium border border-gray-300 dark:border-[#2f2f2f] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-[#1e1e1e] text-gray-900 dark:text-[#F4F4F9]"
                         maxLength={1}
-                        style={{ backgroundColor: "#F9FAFB" }}
                       />
                     ))}
                   </div>
@@ -347,114 +323,53 @@ const CurrentSessions: React.FC = () => {
             </div>
 
             {/* Timer and Resend Section */}
-            <div
-              className="border-l border-r border-gray-300 bg-white px-4 py-3 flex items-center justify-between"
-              style={{
-                width: "528px",
-                height: "57px",
-                borderWidth: "0px 1px 0px 1px",
-                borderStyle: "solid",
-                borderColor: "#D1D5DB",
-                paddingLeft: "16px",
-                paddingRight: "16px",
-              }}
-            >
-              <div
-                className="flex items-center justify-between"
-                style={{ width: "496px", height: "30px" }}
-              >
-                <div
-                  className="flex items-center gap-2 rounded"
+            <div className="border-l border-r border-gray-300 dark:border-[#2f2f2f] bg-white dark:bg-[#121212] px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <div className="flex items-center gap-2 rounded bg-[#F7F9FD] dark:bg-[#2f2f2f] px-2 sm:px-3 py-1.5 sm:py-2">
+                <svg
+                  className="w-4 h-4 text-gray-600 dark:text-[#c9cacc]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span className="text-sm text-gray-600 dark:text-[#c9cacc] font-medium font-inter">
+                  {timer}sec
+                </span>
+              </div>
+
+              {timer === 0 && (
+                <button
+                  onClick={handleResendOTP}
+                  className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 font-semibold font-inter text-sm sm:text-base"
                   style={{
-                    width: "84px",
-                    height: "30px",
-                    borderRadius: "4px",
-                    gap: "9px",
-                    paddingTop: "6px",
-                    paddingRight: "8px",
-                    paddingBottom: "6px",
-                    paddingLeft: "8px",
-                    backgroundColor: "#F7F9FD",
+                    fontWeight: 590,
+                    color: "#1DB954",
                   }}
                 >
-                  <svg
-                    className="w-4 h-4 text-gray-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span className="text-sm text-gray-600 font-medium font-inter">
-                    {timer}sec
-                  </span>
-                </div>
-
-                {timer === 0 && (
-                  <button
-                    onClick={handleResendOTP}
-                    className="text-green-600 hover:text-green-700 font-semibold font-inter"
-                    style={{
-                      width: "90px",
-                      height: "18px",
-                      fontWeight: 590,
-                      fontSize: "15px",
-                      lineHeight: "100%",
-                      letterSpacing: "0%",
-                      color: "#1DB954",
-                    }}
-                  >
-                    Resend OTP
-                  </button>
-                )}
-              </div>
+                  Resend OTP
+                </button>
+              )}
             </div>
 
             {/* Actions */}
-            <div
-              className="border border-gray-300 border-t-0 rounded-b bg-white p-3 flex items-center justify-end gap-3"
-              style={{
-                width: "528px",
-                height: "57px",
-                borderBottomLeftRadius: "4px",
-                borderBottomRightRadius: "4px",
-                borderWidth: "0px 1px 1px 1px",
-                borderStyle: "solid",
-                borderColor: "#D1D5DB",
-              }}
-            >
+            <div className="border border-gray-300 dark:border-[#2f2f2f] border-t-0 rounded-b-xl sm:rounded-b-2xl bg-white dark:bg-[#121212] p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-end gap-3">
               <button
                 onClick={handleOTPCancel}
-                className="text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-colors font-medium text-sm font-inter"
-                style={{
-                  width: "86px",
-                  height: "33px",
-                  borderRadius: "6px",
-                  paddingTop: "8px",
-                  paddingRight: "16px",
-                  paddingBottom: "8px",
-                  paddingLeft: "16px",
-                }}
+                className="w-full sm:w-auto text-gray-700 dark:text-[#F4F4F9] bg-white dark:bg-[#2f2f2f] border border-gray-300 dark:border-[#2f2f2f] hover:bg-gray-50 dark:hover:bg-[#3f3f3f] transition-colors font-medium text-sm font-inter rounded-md px-4 py-2 order-2 sm:order-1"
               >
                 Cancel
               </button>
               <button
                 onClick={handleOTPConfirm}
                 disabled={otp.join("").length !== 6}
-                className="text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 font-inter"
+                className="w-full sm:w-auto text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 font-inter rounded-md px-4 py-2 order-1 sm:order-2"
                 style={{
-                  width: "86px",
-                  height: "33px",
-                  borderRadius: "6px",
-                  paddingTop: "8px",
-                  paddingRight: "16px",
-                  paddingBottom: "8px",
-                  paddingLeft: "16px",
                   backgroundColor: "#1DB954",
                 }}
               >

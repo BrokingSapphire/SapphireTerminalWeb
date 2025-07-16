@@ -39,24 +39,24 @@ const FundTransferComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-[968px] h-[350px] bg-white border border-gray-300 rounded-lg p-6 flex flex-col gap-6 relative font-inter">
+    <div className="w-full max-w-6xl mx-auto min-h-[300px] sm:min-h-[350px] bg-white dark:bg-[#121212] border border-gray-300 dark:border-[#2F2F2F] rounded-lg p-3 sm:p-4 lg:p-6 flex flex-col gap-4 sm:gap-5 lg:gap-6 relative font-inter">
       {/* Header */}
-      <div className="text-gray-800 text-sm font-normal leading-none tracking-normal font-inter">
+      <div className="text-gray-800 dark:text-[#EBEEF5] text-xs sm:text-sm lg:text-base font-normal leading-relaxed sm:leading-none tracking-normal font-inter">
         Funds available in your Sapphire account will be transferred to your registered bank account Based on the selection made below
       </div>
       
       {/* Options Container */}
-      <div className="w-[920px] border border-[#D1D5DB] rounded-lg shadow-[0px_2px_4px_0px_#00000014,0px_0px_8px_0px_#00000005] flex flex-col mr-6">
+      <div className="w-full border border-[#D1D5DB] dark:border-[#2F2F2F] bg-white dark:bg-[#121212] rounded-lg shadow-[0px_2px_4px_0px_#00000014,0px_0px_8px_0px_#00000005] dark:shadow-[0px_2px_4px_0px_#00000040,0px_0px_8px_0px_#00000020] flex flex-col">
         {options.map((option, index) => (
           <div
             key={option.id}
-            className={`h-16 flex items-center justify-between py-3 px-4 ${
-              index !== options.length - 1 ? 'border-b-[0.5px] border-[#D1D5DB]' : ''
+            className={`min-h-[60px] sm:min-h-[64px] lg:h-16 flex items-center justify-between py-3 sm:py-3 lg:py-3 px-3 sm:px-4 lg:px-4 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors ${
+              index !== options.length - 1 ? 'border-b-[0.5px] border-[#D1D5DB] dark:border-[#2F2F2F]' : ''
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-start sm:items-center gap-3 w-full">
               {/* Radio Button */}
-              <div className="relative">
+              <div className="relative flex-shrink-0 mt-1 sm:mt-0">
                 <input
                   type="radio"
                   id={option.id}
@@ -66,28 +66,28 @@ const FundTransferComponent: React.FC = () => {
                   className="sr-only"
                 />
                 <div 
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer ${
+                  className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors ${
                     option.selected 
-                      ? 'border-green-500 bg-white' 
-                      : 'border-gray-300 bg-white'
+                      ? 'border-green-500 bg-white dark:bg-[#121212]' 
+                      : 'border-gray-300 dark:border-[#666666] bg-white dark:bg-[#121212]'
                   }`}
                   onClick={() => handleOptionChange(option.id)}
                 >
                   {option.selected && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500"></div>
                   )}
                 </div>
               </div>
               
               {/* Label and Description */}
-              <div className="flex flex-col">
+              <div className="flex flex-col flex-1 min-w-0">
                 <label 
                   htmlFor={option.id}
-                  className="text-gray-900 font-medium text-sm cursor-pointer"
+                  className="text-gray-900 dark:text-[#EBEEF5] font-medium text-sm sm:text-sm lg:text-base cursor-pointer"
                 >
                   {option.label}
                 </label>
-                <span className="text-gray-600 text-xs mt-1">
+                <span className="text-gray-600 dark:text-[#C9CACC] text-xs sm:text-xs lg:text-sm mt-1 leading-relaxed sm:leading-normal break-words">
                   {option.description}
                 </span>
               </div>
@@ -96,9 +96,9 @@ const FundTransferComponent: React.FC = () => {
         ))}
       </div>
       
-      {/* Proceed Button Outside the Container */}
-      <div className="flex justify-end ">
-        <button className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200 font-inter">
+      {/* Proceed Button */}
+      <div className="flex justify-center sm:justify-end w-full">
+        <button className="w-full sm:w-auto bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white font-medium py-2.5 sm:py-2 px-6 sm:px-6 lg:px-8 rounded-md transition-colors duration-200 font-inter text-sm sm:text-sm lg:text-base">
           Proceed
         </button>
       </div>
