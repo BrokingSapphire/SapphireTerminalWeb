@@ -43,16 +43,18 @@ const TradeCard: React.FC<TradeCardProps> = ({
   const [showGainInfo, setShowGainInfo] = React.useState(false);
 
   return (
-    <div className="border border-border dark:border-dark-border rounded-lg p-4 sm:p-6 bg-surface dark:bg-[#121413]">
+    <div className="border border-border dark:border-dark-border rounded-lg bg-surface dark:bg-[#121413] w-[1050px] p-6 max-[550px]:w-full max-[550px]:p-4">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-[26px]">
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <Image src="/globe.svg" alt="Stock" width={24} height={24} />
-          <div className="text-sm sm:text-base font-normal truncate text-[#1A1A1A] dark:text-dark-lighttext">
+      <div className="h-[30px] mb-[26px] max-[550px]:h-auto max-[550px]:mb-4">
+        <div className="float-left max-[550px]:float-none max-[550px]:w-full max-[550px]:mb-2">
+          <div className="inline-block mr-2">
+            <Image src="/globe.svg" alt="Stock" width={24} height={24} />
+          </div>
+          <div className="inline-block text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext mr-2 max-[550px]:text-sm">
             {`${symbol} ${date} FUT`}
           </div>
           <div
-            className={`text-xs font-semibold px-2 py-0.5 rounded ${
+            className={`inline-block text-xs font-semibold px-2 py-0.5 rounded ${
               type === "BUY"
                 ? "bg-[#E5FFDC] text-[#34A853]"
                 : "bg-red-100 text-red-700"
@@ -61,8 +63,8 @@ const TradeCard: React.FC<TradeCardProps> = ({
             {type}
           </div>
         </div>
-        <div className="flex items-center mt-2 sm:mt-0 sm:ml-auto w-full sm:w-auto justify-between sm:justify-end">
-          <span className="text-base sm:text-lg font-normal text-[#1A1A1A] dark:text-dark-lighttext">
+        <div className="float-right max-[550px]:float-none max-[550px]:w-full max-[550px]:flex max-[550px]:justify-between">
+          <span className="text-lg font-normal text-[#1A1A1A] dark:text-dark-lighttext max-[550px]:text-base">
             ₹{price.toLocaleString("en-IN")}
           </span>
           <span
@@ -74,42 +76,43 @@ const TradeCard: React.FC<TradeCardProps> = ({
             {percentChange.toFixed(2)}%
           </span>
         </div>
+        <div className="clear-both max-[550px]:clear-none"></div>
       </div>
 
       {/* Trade Details Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 text-xs mb-4">
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Entry Price</span>
+      <div className="mb-4 max-[550px]:grid max-[550px]:grid-cols-2 max-[550px]:gap-2">
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Entry Price</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {entryPrice.toFixed(2)}
           </div>
         </div>
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Entry Range</span>
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Entry Range</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {entryRange}
           </div>
         </div>
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Stoploss</span>
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Stoploss</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {stoploss}
           </div>
         </div>
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Target</span>
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Target</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {target.toLocaleString("en-IN")}
           </div>
         </div>
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Quantity</span>
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Quantity</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {quantity}
           </div>
         </div>
-        <div>
-          <span className="text-sm text-[#4B5563] dark:text-dark-graytext">Risk/Reward Ratio</span>
+        <div className="inline-block w-[160px] mr-3 mb-4 align-top max-[550px]:w-auto max-[550px]:mr-0">
+          <div className="text-sm text-[#4B5563] dark:text-dark-graytext">Risk/Reward Ratio</div>
           <div className="mt-1 text-base font-normal text-[#1A1A1A] dark:text-dark-lighttext">
             {riskRewardRatio}
           </div>
@@ -117,7 +120,7 @@ const TradeCard: React.FC<TradeCardProps> = ({
       </div>
 
       {/* Margin Required Section */}
-      <div className="flex items-center justify-center border-t-[0.5px] py-2 dark:border-t-dark-border text-xs">
+      <div className="text-center border-t-[0.5px] py-2 dark:border-t-dark-border text-xs">
         <span className="text-[#4B5563] dark:text-dark-graytext mt-2">
           Margin required:
         </span>
@@ -129,23 +132,24 @@ const TradeCard: React.FC<TradeCardProps> = ({
           alt="Info"
           width={16}
           height={16}
-          className="ml-1 mt-2 text-gray-400"
+          className="ml-1 mt-2 text-gray-400 inline"
         />
       </div>
 
       {/* Button Section */}
-      <div className="flex items-center gap-10 pt-3">
+      <div className="pt-3">
         <button
-          className="bg-white dark:bg-[#23232399] text-center rounded border border-border dark:border-dark-border text-[#1A1A1A] dark:text-[#6B7280] py-2 flex-1 text-sm"
+          className="bg-white dark:bg-[#23232399] text-center rounded border border-border dark:border-dark-border text-[#1A1A1A] dark:text-[#6B7280] py-2 w-[180px] text-sm mr-12 max-[550px]:w-full max-[550px]:mr-0 max-[550px]:mb-2"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           About Trade
         </button>
-        <button className="bg-[#00C853] text-white py-2 rounded flex items-center justify-center flex-1 text-sm">
-          Place Order <ArrowRight className="ml-2" size={18} />
+        <button className="bg-[#00C853] text-white py-2 rounded w-[180px] text-sm mr-12 max-[550px]:w-full max-[550px]:mr-0 max-[550px]:mb-2">
+          Place Order
+          <ArrowRight className="ml-2 inline" size={18} />
         </button>
         <button
-          className="text-gray-400 p-2"
+          className="text-gray-400 p-2 max-[550px]:w-full"
           onClick={() => setShowGainInfo(!showGainInfo)}
         >
           {showGainInfo ? (
@@ -171,30 +175,30 @@ const TradeCard: React.FC<TradeCardProps> = ({
           </div>
         )}
 
-        <div className="flex gap-x-6 sm:gap-4 text-[#4B5563] dark:text-dark-graytext mt-2 text-xs">
+        <div className="mt-2 text-xs">
           {postedOn && (
-            <div>
+            <span className="text-[#4B5563] dark:text-dark-graytext mr-6 max-[550px]:mr-4">
               Posted on:{" "}
               <span className="text-[#1A1A1A] dark:text-dark-lighttext font-medium">
                 {postedOn}
               </span>
-            </div>
+            </span>
           )}
           {postedBy && (
-            <div>
+            <span className="text-[#4B5563] dark:text-dark-graytext mr-6 max-[550px]:mr-4">
               Posted by:{" "}
               <span className="text-[#1A1A1A] dark:text-dark-lighttext font-medium">
                 {postedBy}
               </span>
-            </div>
+            </span>
           )}
           {adviceId && (
-            <div>
+            <span className="text-[#4B5563] dark:text-dark-graytext">
               Advice ID:{" "}
               <span className="text-[#1A1A1A] dark:text-dark-lighttext font-medium">
                 {adviceId}
               </span>
-            </div>
+            </span>
           )}
         </div>
       </div>

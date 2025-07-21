@@ -156,10 +156,10 @@ const Navbar = () => {
             {/* Navigation Links - Center section */}
             <div className="flex-1 justify-start items-center pl-[14px]">
               <div className="flex items-center space-x-[20px]"> 
-                {navLinks.map((link) => { 
+                {navLinks.map((link, idx) => { 
                   const isActive = isRouteActive(link.href); 
                   return ( 
-                    <div key={link.href} className="relative group w-[80px] text-center"> 
+                    <div key={link.href} className={`relative group w-[80px] text-center${link.label === 'Home' ? ' ml-1' : ''}`}> 
                       <Link 
                         href={link.href} 
                         className={`relative group text-sm font-normal py-1 transition-all duration-300 ${ 

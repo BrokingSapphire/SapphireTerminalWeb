@@ -25,18 +25,18 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
   transactions,
 }) => {
   return (
-    <div className="border border-gray-200 dark:border-[#2f2f2f] rounded-lg bg-white dark:bg-[#121212] mb-4 max-w-[80vw] mx-auto text-xs">
+    <div className="border border-gray-200 dark:border-[#2f2f2f] rounded-lg bg-white dark:bg-[#121212] mb-4 mx-auto text-xs w-[500px] max-[550px]:w-full max-[550px]:max-w-full overflow-x-auto">
       <div className="mb-[6px] border-b border-gray-200 dark:border-[#2f2f2f]">
-        <h2 className="text-gray-800 dark:text-[#ebeef5] font-medium text-lg p-3">Recent Transactions</h2>
+        <h2 className="text-gray-800 dark:text-[#ebeef5] font-medium text-lg p-3 max-[550px]:text-base">Recent Transactions</h2>
       </div>
 
-      <div>
+      <div className="max-[550px]:overflow-x-auto">
         {transactions.map((transaction) => (
-          <div key={transaction.id} className="border-b border-gray-200 dark:border-[#2f2f2f] py-3 mx-3">
+          <div key={transaction.id} className="border-b border-gray-200 dark:border-[#2f2f2f] py-3 mx-3 max-[550px]:min-w-[300px]">
             <div className="flex justify-between mb-2">
-              <div className="text-xs text-gray-500 dark:text-[#ebeef5]">#{transaction.id}</div>
+              <div className="text-xs text-gray-500 dark:text-[#ebeef5] max-[550px]:text-[10px]">#{transaction.id}</div>
               <div
-                className={`text-sm font-medium ${
+                className={`text-sm font-medium max-[550px]:text-xs ${
                   transaction.amount < 0 ? "text-red-600 dark:text-[#ebeef5]" : "text-gray-800 dark:text-[#ebeef5]"
                 }`}
               >
@@ -45,14 +45,14 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
               </div>
             </div>
 
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-1">
-                <span className="text-xs text-gray-600 dark:text-[#c9cacc]">
+            <div className="flex justify-between items-center max-[550px]:flex-col max-[550px]:items-start max-[550px]:space-y-2">
+              <div className="flex items-center space-x-1 max-[550px]:flex-wrap max-[550px]:gap-1">
+                <span className="text-xs text-gray-600 dark:text-[#c9cacc] max-[550px]:text-[10px]">
                   {transaction.date}
                 </span>
                 <span className="text-gray-400 dark:text-[#ebeef5]">•</span>
                 <span
-                  className={`text-xs px-2 py-0.5 rounded-[4px] ${
+                  className={`text-xs px-2 py-0.5 rounded-[4px] max-[550px]:text-[10px] max-[550px]:px-1 max-[550px]:py-0.5 ${
                     transaction.status === "completed"
                       ? "bg-[#deffd3] text-[#24813d]"
                       : transaction.status === "processing"
@@ -66,7 +66,7 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
 
               <div className="flex items-center">
                 <svg
-                  className="w-4 h-4 text-red-500 mr-1"
+                  className="w-4 h-4 text-red-500 mr-1 max-[550px]:w-3 max-[550px]:h-3"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ const RecentTransactions: React.FC<RecentTransactionsProps> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-xs text-gray-500 dark:text-[#c9cacc]">
+                <span className="text-xs text-gray-500 dark:text-[#c9cacc] max-[550px]:text-[10px]">
                   ***** {transaction.cardLastDigits}
                 </span>
               </div>

@@ -320,9 +320,9 @@ const Positions: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="w-full max-w-[80vw] mx-auto bg-white dark:bg-[#121212] text-[#23272F] dark:text-[#F4F4F9]">
+    <div className="bg-white dark:bg-[#121212] text-[#23272F] dark:text-[#F4F4F9]">
       {/* Positions Section Header */}
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center mt-1 px-4 xsm:px-0">
         <h2 className="text-base font-normal text-[#23272F] dark:text-[#ebeef5]">Positions (5)</h2>
         <div className="flex items-center gap-2">
           <div
@@ -353,9 +353,9 @@ const Positions: React.FC = () => {
         </div>
       </div>
 
-      {/* Positions Table */}
-      <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212]">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212]">
+      {/* Desktop and Mobile Table View: Table is always visible, horizontal scroll on mobile */}
+      <div className="border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212] xsm:w-[1090px] w-full max-w-[1200px] xsm:max-w-none -ml-1 mt-10 overflow-x-auto xsm:overflow-x-visible pl-2 pr-2 xsm:pl-0 xsm:pr-2">
+        <table className="divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212] w-full min-w-[600px] xsm:w-[1090px] text-xs xsm:text-sm" style={{ tableLayout: 'fixed' }}>
           <thead className="bg-[#F4F4F9] dark:bg-[#1c1c1c] divide-x divide-gray-200 dark:divide-[#2f2f2f] border-b border-gray-200 dark:border-[#2f2f2f]" style={{ height: "42px" }}>
             <tr className="bg-[#F4F4F9] dark:bg-[#1c1c1c] border-b border-gray-200 dark:border-[#2f2f2f]" style={{ height: "42px" }}>
               <HeaderCell
@@ -369,13 +369,13 @@ const Positions: React.FC = () => {
                 label="Avg. Price"
                 className="w-[12%]"
               />
-              <HeaderCell field="ltp" label="LTP" className="w-[12%]" />
+              <HeaderCell field="ltp" label="LTP" className="w-[14%]" />
               <HeaderCell field="type" label="Action" className="w-[16%]" />
-              <HeaderCell field="netPL" label="Net P&L" className="w-[15%]" />
+              <HeaderCell field="netPL" label="Net P&L" className="w-[22%]" />
               <HeaderCell
                 field="dailyPL"
                 label="Daily P&L"
-                className="w-[15%]"
+                className="w-[21%] min-w-[140px] xsm:min-w-0"
               />
             </tr>
           </thead>
@@ -422,31 +422,14 @@ const Positions: React.FC = () => {
                 >
                   <div className="flex items-center justify-center ">
                     <div
-                      className="text-[10px] py-[3px] px-1 rounded-[4px] text-center mr-2 w-auto"
-                      style={{
-                        ...getActionBadgeStyles(position.action, position.isClosed),
-                        backgroundColor: position.isClosed
-                          ? position.action === "BUY"
-                            ? "#234F1E80"
-                            : "#4B1E1E80"
-                          : position.action === "BUY"
-                          ? "#D5FFC6"
-                          : "#FFE4DD",
-                        color: position.isClosed
-                          ? position.action === "BUY"
-                            ? "#34A85380"
-                            : "#F1093080"
-                          : position.action === "BUY"
-                          ? "#34A853"
-                          : "#F10930"
-                      }}
+                      className="text-[9px] xsm:text-[10px] rounded-[4px] text-center mr-2 w-auto py-[2px] xsm:py-[3px] px-[3px] xsm:px-[4px] min-w-[32px] xsm:min-w-[40px]"
+                      style={getActionBadgeStyles(position.action, position.isClosed)}
                     >
                       {position.action}
                     </div>
                     <div
-                      className="text-[10px] rounded-[4px] text-center w-auto"
+                      className="text-[9px] xsm:text-[10px] rounded-[4px] text-center w-auto py-[2px] xsm:py-[3px] px-[3px] xsm:px-[4px] min-w-[32px] xsm:min-w-[40px]"
                       style={{
-                        padding: "3px 4px",
                         ...getTypeBadgeStyles(position.type, position.isClosed)
                       }}
                     >
@@ -474,7 +457,7 @@ const Positions: React.FC = () => {
                   </span>
                 </td>
                 <td
-                  className="px-2.5 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#2f2f2f]"
+                  className="px-2.5 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#2f2f2f] min-w-[140px] xsm:min-w-0"
                   style={{ fontSize: "12px" }}
                 >
                   <span

@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
   	extend: {
+		screens: {
+      xsm: "550px",
+    },
+		
   		colors: {
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',

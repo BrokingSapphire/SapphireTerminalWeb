@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronDown, ArrowUpDown, ChevronRight } from "lucide-react";
 import UpiPaymentModal from "@/components/funds/pop-ups/UpiPaymentModal";
 import QrPaymentModal from "@/components/funds/pop-ups/QrPaymentModal";
@@ -34,6 +34,7 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
   const [selectedBank, setSelectedBank] = useState(banks[0]?.id || "");
   const [selectedPaymentMode, setSelectedPaymentMode] = useState("upi");
   const [history, setHistory] = useState(depositHistory);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Modal states
   const [isUpiModalOpen, setIsUpiModalOpen] = useState(false);
@@ -55,6 +56,18 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
     { id: 'icici', label: 'ICICI - ******* 5678' },
   ];
   const [showBankDropdown, setShowBankDropdown] = useState(false);
+
+  // Check for mobile breakpoint
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 550);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Handle increment from chips
   const handleAmountIncrement = (amount: number) => {
@@ -157,39 +170,71 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="w-full max-w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8 bg-white dark:bg-[#121212]" style={{maxHeight: '100vh'}}>
+    <div 
+      className="w-full mx-auto text-xs overflow-y-auto hide-scrollbar min-h-0 mb-8 bg-white dark:bg-[#121212]" 
+      style={{
+        maxHeight: '100vh',
+        minWidth: isMobile ? '100%' : '600px',
+        padding: isMobile ? '0 16px' : '0'
+      }}
+    >
       {/* Back button */}
       <button
         onClick={onBack}
-        className="flex items-center text-[16px] text-black dark:text-[#ebeef5] mb-1 whitespace-nowrap text-[16px] py-0.5 px-1 pb-4"
+        className="flex items-center text-black dark:text-[#ebeef5] mb-1 whitespace-nowrap py-0.5 px-1 pb-4"
+        style={{
+          fontSize: isMobile ? '14px' : '16px'
+        }}
       >
-        <ChevronLeft size={20} className="mr-0.5" />
-        <span className="text-[16px]">Deposit</span>
+        <ChevronLeft size={isMobile ? 18 : 20} className="mr-0.5" />
+        <span style={{ fontSize: isMobile ? '14px' : '16px' }}>Deposit</span>
       </button>
 
       {/* Deposit Form */}
-      <div className="bg-[#FAFAFA] dark:bg-[#1c1c1c] border border-gray-200 dark:border-[#2f2f2f] rounded-md mb-3 max-w-full mx-auto p-3 w-[508px]">
+      <div 
+        className="bg-[#FAFAFA] dark:bg-[#1c1c1c] border border-gray-200 dark:border-[#2f2f2f] rounded-md mb-3 mx-auto p-3"
+        style={{
+          width: isMobile ? '100%' : '508px'
+        }}
+      >
         <div className="p-2">
           {/* Title and Balance */}
           <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xs text-[#212529] dark:text-[#ebeef5]">Enter Amount</h2>
-            <div className="text-[#6B7280] dark:text-[#c9cacc] text-xs">Avl. Balance : <span className="text-[#333333] dark:text-[#ebeef5]">₹1,39,000 </span></div>
+            <h2 
+              className="text-[#212529] dark:text-[#ebeef5]"
+              style={{ fontSize: isMobile ? '11px' : '12px' }}
+            >
+              Enter Amount
+            </h2>
+            <div 
+              className="text-[#6B7280] dark:text-[#c9cacc]"
+              style={{ fontSize: isMobile ? '10px' : '12px' }}
+            >
+              Avl. Balance : <span className="text-[#333333] dark:text-[#ebeef5]">₹1,39,000 </span>
+            </div>
           </div>
           
           {/* Amount Input */}
           <input 
             type="text" 
             placeholder="₹20,000"
-            className="w-full h-[38px] border border-gray-300 dark:border-[#2f2f2f] text-black dark:text-[#ebeef5] bg-white dark:bg-[#121212] rounded-md px-2 py-2 mb-4 text-xs placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
+            className="w-full border border-gray-300 dark:border-[#2f2f2f] text-black dark:text-[#ebeef5] bg-white dark:bg-[#121212] rounded-md px-2 py-2 mb-4 placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
+            style={{
+              height: isMobile ? '32px' : '38px',
+              fontSize: isMobile ? '11px' : '12px'
+            }}
             value={selectedAmount ? `₹${selectedAmount.toLocaleString()}` : ""}
             onChange={handleAmountChange}
           />
           
           {/* Quick Amount Selection */}
-          <div className="flex space-x-2 mb-[18px]">
+          <div 
+            className={`flex mb-[18px] ${isMobile ? 'flex-col gap-2' : 'flex-row space-x-2'}`}
+          >
             <div className="relative">
               <div
-                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] rounded text-[#333333] dark:text-[#ebeef5] px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
+                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] rounded text-[#333333] dark:text-[#ebeef5] px-2 py-1.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
+                style={{ fontSize: isMobile ? '10px' : '12px' }}
                 onClick={() => handleAmountIncrement(5000)}
               >
                 + ₹5,000
@@ -204,20 +249,25 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
                   style={{ margin: "-1px" }}
                 ></div>
                 <div
-                  className="relative bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 text-xs cursor-pointer"
+                  className="relative bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 cursor-pointer"
+                  style={{ fontSize: isMobile ? '10px' : '12px' }}
                   onClick={() => handleAmountIncrement(10000)}
                 >
                   + ₹10,000
                 </div>
               </div>
-              <span className="absolute text-xs text-center w-full text-green-500 mt-0.5">
+              <span 
+                className="absolute text-center w-full text-green-500 mt-0.5"
+                style={{ fontSize: isMobile ? '9px' : '12px' }}
+              >
                 Popular
               </span>
             </div>
             
             <div className="relative">
               <div
-                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 text-xs cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
+                className="bg-[#F4F4F9] dark:bg-[#2f2f2f] text-[#333333] dark:text-[#ebeef5] rounded px-2 py-1.5 cursor-pointer hover:bg-gray-50 dark:hover:bg-[#3a3a3a]"
+                style={{ fontSize: isMobile ? '10px' : '12px' }}
                 onClick={() => handleAmountIncrement(20000)}
               >
                 + ₹20,000
@@ -226,21 +276,33 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           </div>
           
           {/* Bank Selection */}
-          <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Select Bank</h2>
-          <div className="relative mb-4 h-[38px]">
+          <h2 
+            className="text-[#212529] dark:text-[#ebeef5] mb-1.5"
+            style={{ fontSize: isMobile ? '11px' : '12px' }}
+          >
+            Select Bank
+          </h2>
+          <div 
+            className="relative mb-4"
+            style={{ height: isMobile ? '32px' : '38px' }}
+          >
             <div
-              className="flex items-center justify-between w-full border h-[38px] border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 bg-white dark:bg-[#121212] cursor-pointer"
+              className="flex items-center justify-between w-full border border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 bg-white dark:bg-[#121212] cursor-pointer"
+              style={{
+                height: isMobile ? '32px' : '38px',
+                fontSize: isMobile ? '11px' : '12px'
+              }}
               onClick={() => setShowBankDropdown((v) => !v)}
             >
               <div className="flex items-center">
                 <Image
                   alt="Bank"
                   src="/funds/bank-transfer.svg"
-                  width={22}
-                  height={22}
+                  width={isMobile ? 18 : 22}
+                  height={isMobile ? 18 : 22}
                   className="mr-1.5"
                 />
-                <span className="text-black dark:text-[#ebeef5] ml-1 text-xs">
+                <span className="text-black dark:text-[#ebeef5] ml-1">
                   {bankOptions.find((b) => b.id === selectedBank)?.label}
                 </span>
               </div>
@@ -260,11 +322,16 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
                     <Image
                       alt="Bank"
                       src="/funds/bank-transfer.svg"
-                      width={18}
-                      height={18}
+                      width={isMobile ? 16 : 18}
+                      height={isMobile ? 16 : 18}
                       className="mr-2"
                     />
-                    <span className="text-xs text-black dark:text-[#ebeef5]">{bank.label}</span>
+                    <span 
+                      className="text-black dark:text-[#ebeef5]"
+                      style={{ fontSize: isMobile ? '10px' : '12px' }}
+                    >
+                      {bank.label}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -272,78 +339,110 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
           </div>
           
           {/* Payment Mode */}
-          <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Payment mode:</h2>
-          <div className="grid grid-cols-3 gap-2 mb-4">
+          <h2 
+            className="text-[#212529] dark:text-[#ebeef5] mb-1.5"
+            style={{ fontSize: isMobile ? '11px' : '12px' }}
+          >
+            Payment mode:
+          </h2>
+          <div 
+            className={`grid mb-4 ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-3 gap-2'}`}
+          >
             <button
               className={`flex items-center justify-center border rounded py-2 px-2 ${
                 selectedPaymentMode === "upi"
                   ? "border-green-500 text-green-600"
                   : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
+              style={{
+                height: isMobile ? '32px' : '38px',
+                fontSize: isMobile ? '10px' : '12px'
+              }}
               onClick={() => handlePaymentModeSelect("upi")}
             >
               <Image
                 alt="UPI"
                 src="/funds/upi-logo.svg"
-                width={16}
-                height={16}
+                width={isMobile ? 14 : 16}
+                height={isMobile ? 14 : 16}
                 className="mr-1"
               />
-              <span className="text-xs">UPI</span>
+              <span>UPI</span>
             </button>
           
             <button
-              className={`flex items-center justify-center border rounded py-2 px-2 h-[38px] ${
+              className={`flex items-center justify-center border rounded py-2 px-2 ${
                 selectedPaymentMode === "qr"
                   ? "border-green-500 text-green-600"
                   : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
+              style={{
+                height: isMobile ? '32px' : '38px',
+                fontSize: isMobile ? '10px' : '12px'
+              }}
               onClick={() => handlePaymentModeSelect("qr")}
             >
               <Image
                 alt="QR"
                 src="/funds/qr.svg"
-                width={16}
-                height={16}
+                width={isMobile ? 14 : 16}
+                height={isMobile ? 14 : 16}
                 className="mr-1"
               />
-              <span className="text-xs">Scan QR</span>
+              <span>Scan QR</span>
             </button>
           
             <button
-              className={`flex items-center justify-center border rounded py-2 px-2 h-[38px] ${
+              className={`flex items-center justify-center border rounded py-2 px-2 ${
                 selectedPaymentMode === "netbanking"
                   ? "border-green-500 text-green-600"
                   : "border-gray-300 dark:border-[#2f2f2f] text-[#212529] dark:text-[#ebeef5]"
               }`}
+              style={{
+                height: isMobile ? '32px' : '38px',
+                fontSize: isMobile ? '10px' : '12px'
+              }}
               onClick={() => handlePaymentModeSelect("netbanking")}
             >
               <Image
                 alt="Net Banking"
                 src="/funds/net.svg"
-                width={16}
-                height={16}
+                width={isMobile ? 14 : 16}
+                height={isMobile ? 14 : 16}
                 className="mr-1"
               />
-              <span className="text-xs">Net Banking</span>
+              <span>Net Banking</span>
             </button>
           </div>
           
           {/* UPI ID Input - Only show when UPI is selected */}
           {selectedPaymentMode === "upi" && (
             <div className="mb-4">
-              <h2 className="text-xs text-[#212529] dark:text-[#ebeef5] mb-1.5">Enter UPI ID</h2>
+              <h2 
+                className="text-[#212529] dark:text-[#ebeef5] mb-1.5"
+                style={{ fontSize: isMobile ? '11px' : '12px' }}
+              >
+                Enter UPI ID
+              </h2>
               <input
                 type="text"
                 placeholder="abcd@ybl"
-                className="w-full border h-[38px] border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 text-xs bg-white dark:bg-[#121212] text-black dark:text-[#ebeef5] placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
+                className="w-full border border-gray-300 dark:border-[#2f2f2f] rounded-md px-2 py-2 bg-white dark:bg-[#121212] text-black dark:text-[#ebeef5] placeholder:text-gray-400 dark:placeholder:text-[#6B7280]"
+                style={{
+                  height: isMobile ? '32px' : '38px',
+                  fontSize: isMobile ? '11px' : '12px'
+                }}
               />
             </div>
           )}
           
           {/* Submit Button */}
           <button 
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-3 mt-[18px] h-[38px] rounded-md text-center text-xs transition-colors duration-200"
+            className="w-full bg-green-500 hover:bg-green-600 text-white font-medium rounded-md text-center mt-[18px] transition-colors duration-200"
+            style={{
+              height: isMobile ? '32px' : '38px',
+              fontSize: isMobile ? '11px' : '12px'
+            }}
             onClick={handlePaymentClick}
             disabled={!selectedAmount}
           >
@@ -357,100 +456,12 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
 
       {/* Deposit History */}
       <div>
-        {/* <h2 className="text-sm font-medium mb-3">Fund Deposit History</h2> */}
-
-        {/* <div className="overflow-x-auto border rounded-md">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-[#F4F4F9]">
-              <tr>
-                <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider border-r group hover:bg-gray-100 cursor-pointer">
-                  <div 
-                    className="flex items-center justify-between w-full"
-                    onClick={() => handleSort('account')}
-                  >
-                    <span>Account</span>
-                    <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </th>
-                <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider border-r group hover:bg-gray-100 cursor-pointer">
-                  <div 
-                    className="flex items-center justify-between w-full"
-                    onClick={() => handleSort('bank')}
-                  >
-                    <span>Bank</span>
-                    <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </th>
-                <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider border-r group hover:bg-gray-100 cursor-pointer">
-                  <div 
-                    className="flex items-center justify-between w-full"
-                    onClick={() => handleSort('date')}
-                  >
-                    <span>Date & Time</span>
-                    <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </th>
-                <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider border-r group hover:bg-gray-100 cursor-pointer">
-                  <div 
-                    className="flex items-center justify-between w-full"
-                    onClick={() => handleSort('amount')}
-                  >
-                    <span>Amount</span>
-                    <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </th>
-                <th className="px-2 py-2 text-left text-xs font-medium uppercase tracking-wider group hover:bg-gray-100 cursor-pointer">
-                  <div 
-                    className="flex items-center justify-between w-full"
-                    onClick={() => handleSort('status')}
-                  >
-                    <span>Status</span>
-                    <ArrowUpDown className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {currentItems.map((item, index) => (
-                <tr key={index}>
-                  <td className="px-2 py-2 whitespace-nowrap text-xs text-[#6B7280] text-center border-r">
-                    {item.account}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap text-xs text-[#6B7280] text-center border-r">
-                    {item.bank}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap text-xs text-[#6B7280] text-center border-r">
-                    {item.date} {item.time}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap text-xs text-[#6B7280] text-center border-r">
-                    ₹{formatCurrency(item.amount)}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap text-center">
-                    <span
-                      className={`inline-flex px-1.5 py-0.5 text-xs rounded-sm ${
-                        item.status === "pending"
-                          ? "bg-[#FFF6DC] text-[#FFBF00]"
-                          : item.status === "success"
-                          ? "bg-green-100 text-[#1DB954]"
-                          : "bg-red-100 text-red-500"
-                      }`}
-                    >
-                      {item.status === "pending"
-                        ? "Pending"
-                        : item.status === "success"
-                        ? "Success"
-                        : "Failed"}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
-
         {/* Pagination */}
         <div className="flex items-center justify-between mt-3 hidden">
-          <div className="text-xs text-gray-500">
+          <div 
+            className="text-gray-500"
+            style={{ fontSize: isMobile ? '10px' : '12px' }}
+          >
             Showing {startIndex + 1} to {Math.min(endIndex, sortedHistory.length)} of {sortedHistory.length} entries
           </div>
           
@@ -469,11 +480,12 @@ const DepositPage: React.FC<DepositPageProps> = ({ onBack }) => {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-2 py-1.5 border rounded text-xs ${
+                className={`px-2 py-1.5 border rounded ${
                   currentPage === page
                     ? "bg-blue-500 text-white border-blue-500"
                     : "border-gray-300 hover:bg-gray-50"
                 }`}
+                style={{ fontSize: isMobile ? '10px' : '12px' }}
               >
                 {page}
               </button>

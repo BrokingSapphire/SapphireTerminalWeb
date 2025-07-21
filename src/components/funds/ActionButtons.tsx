@@ -11,7 +11,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ onNavigate }) => {
       <div className="flex items-center gap-3 whitespace-nowrap">
         <button
           onClick={() => onNavigate("withdraw")}
-          className="py-2 px-5 border border-green-500 dark:border-[#22a06b] text-green-600 rounded-md bg-[#D1FADF4D] dark:bg-[#4b5555] hover:bg-green-100 transition-colors text-xs dark:text-[#ffffff]"
+          className="py-2 px-5 border border-green-500 dark:border-[#22a06b] text-green-600 rounded-md bg-[#D1FADF4D] dark:bg-[#4b5555] hover:bg-[#323939] transition-colors text-xs dark:text-[#ffffff]"
           style={{ width: "120px" }}
         >
           Withdraw

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FundsSummaryCards from "@/components/funds/FundsSummaryCards";
 import ActionButtons from "@/components/funds/ActionButtons";
 import BalanceBreakdown from "@/components/funds/BalanceBreakdown";
@@ -52,6 +52,26 @@ export default function FundsPage() {
     "main" | "deposit" | "withdraw"
   >("main");
 
+  const [screenWidth, setScreenWidth] = useState(800); // Default to desktop
+
+  // Track screen width for responsive behavior
+  useEffect(() => {
+    const updateScreenWidth = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    
+    // Initial check
+    updateScreenWidth();
+    
+    // Add resize listener
+    window.addEventListener('resize', updateScreenWidth);
+    
+    return () => window.removeEventListener('resize', updateScreenWidth);
+  }, []);
+
+  // Determine if mobile based on screen width
+  const isMobile = screenWidth <= 550;
+
   // Replace with real API calls when integrating with backend
   const [summaryData] = useState(fundsSummary);
   const [balanceData] = useState(balanceBreakdown);
@@ -92,7 +112,54 @@ export default function FundsPage() {
     setActiveSection(section);
   };
 
-  // No need to transform data - pass summaryData directly
+  // CSS styles object for responsive design
+  const styles = {
+    mainContainer: {
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column' as const,
+      overflow: 'hidden', // Prevent main container from scrolling
+      paddingBottom: '40px',
+    },
+    headerContainer: {
+      flexShrink: 0,
+      marginBottom: isMobile ? '8px' : '16px',
+      width: '100%',
+      zIndex: 10,
+    },
+    scrollableContent: {
+      flex: 1,
+      overflowY: 'auto' as const,
+      overflowX: 'hidden' as const,
+      // Remove height constraints that might be causing issues
+      minHeight: 0, // Important for flex children
+    },
+    contentWrapper: {
+      width: '100%',
+      maxWidth: isMobile ? '100%' : '1050px',
+      padding: isMobile ? '0 16px' : '0 24px',
+      margin: '0 auto',
+      // Remove minWidth that might cause horizontal scrolling
+    },
+    gridContainer: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: isMobile ? '16px' : '50px',
+      paddingTop: isMobile ? '8px' : '12px',
+      paddingBottom: isMobile ? '40px' : '60px', // Extra padding at bottom
+      justifyContent: 'center',
+      // Ensure grid doesn't constrain height
+      minHeight: 'fit-content',
+    },
+    leftColumn: {
+      width: '100%',
+      minHeight: 'fit-content',
+    },
+    rightColumn: {
+      width: '100%',
+      minHeight: 'fit-content',
+    },
+  };
 
   // Render based on active section
   const renderContent = () => {
@@ -106,41 +173,46 @@ export default function FundsPage() {
       case "main":
       default:
         return (
-          <div className="flex flex-col h-full">
+          <>
             {/* Fixed Header - FundsSummaryCards */}
-            <div className="flex-shrink-0 mb-4">
+            <div style={styles.headerContainer}>
               <FundsSummaryCards data={summaryData} onNavigate={handleNavigate} />
             </div>
 
-            {/* Scrollable Content - Two Column Layout */}
-            <div className="flex-1 overflow-y-auto max-h-[calc(100vh-200px)] scrollbar-hide">
-              <div className="grid grid-cols-1 md:grid-cols-2 pt-3 gap-6 pb-6">
-                {/* Left Column - Balance Breakdown */}
-                <div className="mb-12">
-                  <BalanceBreakdown
-                    balanceData={balanceData}
-                    profitLossData={profitLossData}
-                    margins={margins}
-                    premiums={premiums}
-                    withdrawable={withdrawable}
-                    totalBalance={totalBalance}
-                  />
-                </div>
+            {/* Scrollable Content */}
+            <div 
+              className="scrollbar-hide"
+              style={styles.scrollableContent}
+            >
+              <div style={styles.contentWrapper}>
+                <div style={styles.gridContainer}>
+                  {/* Left Column - Balance Breakdown */}
+                  <div style={styles.leftColumn}>
+                    <BalanceBreakdown
+                      balanceData={balanceData}
+                      profitLossData={profitLossData}
+                      margins={margins}
+                      premiums={premiums}
+                      withdrawable={withdrawable}
+                      totalBalance={totalBalance}
+                    />
+                  </div>
 
-                {/* Right Column - Recent Transactions and Chart */}
-                <div className="mb-12">
-                  <RecentTransactions transactions={transactions} />
-                  <BalanceChart data={chartValues} />
+                  {/* Right Column - Recent Transactions and Chart */}
+                  <div style={styles.rightColumn}>
+                    <RecentTransactions transactions={transactions} />
+                    <BalanceChart data={chartValues} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </>
         );
     }
   };
 
   return (
-    <div className="h-screen flex flex-col pb-10 mx-auto">
+    <div style={styles.mainContainer}>
       {renderContent()}
     </div>
   );

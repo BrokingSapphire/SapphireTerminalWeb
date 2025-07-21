@@ -21,7 +21,7 @@ interface ClosedTrade {
 }
 
 export default function ClosedTradesList() {
-  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid'); // Default to 'grid'
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredTrades, setFilteredTrades] = useState<ClosedTrade[]>([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -101,49 +101,32 @@ export default function ClosedTradesList() {
     }
   ];
 
-  // Filter trades whenever search query or filters change
   useEffect(() => {
     let filtered = [...closedTradesData];
-    
-    // Apply type filter if selected
-    if (filterType) {
-      filtered = filtered.filter(trade => trade.type === filterType);
-    }
-    
-    // Apply duration filter if selected
-    if (filterDuration) {
-      filtered = filtered.filter(trade => trade.duration === filterDuration);
-    }
-    
-    // Apply search query if entered
+    if (filterType) filtered = filtered.filter(trade => trade.type === filterType);
+    if (filterDuration) filtered = filtered.filter(trade => trade.duration === filterDuration);
     if (searchQuery.trim() !== '') {
-      const lowercasedQuery = searchQuery.toLowerCase();
+      const query = searchQuery.toLowerCase();
       filtered = filtered.filter(trade => 
-        trade.security.toLowerCase().includes(lowercasedQuery) ||
-        trade.date.toLowerCase().includes(lowercasedQuery) ||
-        trade.type.toLowerCase().includes(lowercasedQuery) ||
-        trade.entryPrice.toLowerCase().includes(lowercasedQuery) ||
-        trade.exitPrice.toLowerCase().includes(lowercasedQuery) ||
-        trade.quantity.toLowerCase().includes(lowercasedQuery) ||
-        trade.duration.toLowerCase().includes(lowercasedQuery) ||
-        trade.net.toLowerCase().includes(lowercasedQuery)
+        trade.security.toLowerCase().includes(query) ||
+        trade.date.toLowerCase().includes(query) ||
+        trade.type.toLowerCase().includes(query) ||
+        trade.entryPrice.toLowerCase().includes(query) ||
+        trade.exitPrice.toLowerCase().includes(query) ||
+        trade.quantity.toLowerCase().includes(query) ||
+        trade.duration.toLowerCase().includes(query) ||
+        trade.net.toLowerCase().includes(query)
       );
     }
-    
     setFilteredTrades(filtered);
   }, [searchQuery, filterType, filterDuration]);
 
-  // Initialize filtered trades with all trades on component mount
   useEffect(() => {
     setFilteredTrades(closedTradesData);
   }, []);
 
-  // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value);
 
-  // Reset all filters
   const resetFilters = () => {
     setFilterType('');
     setFilterDuration('');
@@ -160,8 +143,7 @@ export default function ClosedTradesList() {
   const uniqueDurations = Array.from(new Set(closedTradesData.map(trade => trade.duration)));
 
   return (
-    <div className="w-full">
-      {/* Search Filter Controls with repositioned filter button */}
+    <div className="mx-auto w-[1050px] max-[550px]:w-full px-4 max-[550px]:px-2">
       <SearchFilterControls
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -178,9 +160,9 @@ export default function ClosedTradesList() {
         viewMode={viewMode}
         setViewMode={setViewMode}
       />
-      
+
       {filteredTrades.length === 0 ? (
-        <div className="bg-white p-6 text-center rounded-lg border">
+        <div className="w-[1030px] max-[550px]:w-full bg-white p-6 text-center rounded-lg border mx-auto">
           <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -200,16 +182,18 @@ export default function ClosedTradesList() {
           </div>
         </div>
       ) : viewMode === 'list' ? (
-        /* List View - Scrollable Table */
+        <div className="w-[1px] max-[550px]:w-full mx-auto">
           <FixedColumnTable filteredTrades={filteredTrades} />
+        </div>
       ) : (
-        /* Grid View */
-        <GridViewTable trades={filteredTrades.map(trade => ({
-          ...trade,
-          status: trade.status,
-          postedBy: trade.postedBy,
-          marginReq: trade.marginReq,
-        }))} />
+        <div className="w-[1030px] max-[550px]:w-full mx-auto">
+          <GridViewTable trades={filteredTrades.map(trade => ({
+            ...trade,
+            status: trade.status,
+            postedBy: trade.postedBy,
+            marginReq: trade.marginReq,
+          }))} />
+        </div>
       )}
     </div>
   );

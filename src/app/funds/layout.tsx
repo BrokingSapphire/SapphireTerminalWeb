@@ -20,13 +20,13 @@ export default function RootLayout({
     <div className={inter.className}>
       <Navbar />
       <div className="flex w-full pt-[74px]">
-        {/* Sidebar - Hidden on mobile/tablet, visible on laptop+ */}
-        <div className="hidden lg:block lg:w-[25%] z-0">
+        {/* Sidebar - Hidden on mobile/tablet, visible on laptop+ - Fixed until 550px */}
+        <div className="w-[25%] z-0 max-[550px]:hidden">
           <Sidebar />
         </div>
-        
-        {/* Main Content - Full width on mobile/tablet, 75% on laptop+ */}
-        <main className="w-full lg:w-[75%] py-[28px] pt-0 px-2 sm:px-6 lg:px-9 lg:fixed lg:top-[84px] lg:left-[25%] lg:pr-[28px] pb-40">
+                
+        {/* Main Content - Fixed layout until 550px, then responsive */}
+        <main className="w-[75%] py-[28px] pt-0 px-9 fixed top-[84px] left-[25%] pr-[28px] pb-40 overflow-x-auto max-[550px]:w-full max-[550px]:left-0 max-[550px]:px-2 max-[550px]:static max-[550px]:overflow-x-visible">
           {children}
         </main>
       </div>
