@@ -179,16 +179,15 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full flex justify-center">
-      <div className="bg-white dark:bg-[#121212] max-w-[80vw] w-full">
-        <div className="py-3 flex justify-between items-center">
+    <div className="w-full dark:bg-[#121212] xsm:w-[1100px] px-2 xsm:px-0" style={{ margin: '0 auto' }}>
+      <div className="bg-white dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0" style={{ margin: '0 auto' }}>
+        <div className="flex justify-between items-center pt-6 pb-1 mb-2 mt-1 ml-1 xsm:pt-6 xsm:pb-1 xsm:mb-2 xsm:mt-1 xsm:ml-1 px-2 xsm:px-0">
           <button
-            className="flex items-center bg-[#F4F4F9] dark:bg-gray-800 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="flex items-center bg-[#F4F4F9] dark:bg-[#2F2F2F] text-xs text-[#2F2F2F] dark:text-white px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#2F2F2F] transition-colors"
             onClick={() => setShowBasketNameInput(true)}
           >
             <Plus size={14} className="mr-1" /> Basket Order
           </button>
-
           <div
             className="relative flex items-center transition-all duration-200 overflow-hidden"
             style={{ width: searchExpanded ? 192 : 32 }}
@@ -214,32 +213,31 @@ export default function Page() {
             />
           </div>
         </div>
-
-        <div className="overflow-hidden rounded-md border border-[#D1D5DB] dark:border-gray-700">
-          <table className="w-full border-collapse">
+        <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
+          <table className="w-full min-w-[800px] border-collapse">
             <thead>
-              <tr className="bg-[#F4F4F9] dark:bg-gray-900 text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+              <tr className="text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Date</span>
+                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Date</span>
                     <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Basket ID</span>
+                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Basket ID</span>
                     <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Basket Name</span>
+                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Basket Name</span>
                     <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap">
+                <th className="px-3 py-2 whitespace-nowrap bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#1A1A1A] dark:text-[#EBEEF5] font-[400]">Items</span>
+                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Items</span>
                     <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
                   </div>
                 </th>
