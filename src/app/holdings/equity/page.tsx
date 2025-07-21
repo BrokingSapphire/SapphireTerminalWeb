@@ -277,8 +277,10 @@ const EquityHoldings = () => {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <div className="w-full">
-      <HoldingSelector />
+    <div className="dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0 mt-2 xsm:mt-8" style={{ margin: '0 auto' }}>
+      <div className="mb-10">
+        <HoldingSelector />
+      </div>
       {/* Summary Section */}
       <div className="grid grid-cols-4 bg-[#F4F4F9] dark:bg-[#1c1c1c] mb-2 h-16 overflow-hidden border border-[#D1D5DB] dark:border-[#2F2F2F] rounded-md">
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
@@ -322,163 +324,80 @@ const EquityHoldings = () => {
 
       {/* Equity Section */}
       <div className="mb-2">
-        <div className="flex justify-between items-center mb-3 mt-4">
-          <h2 className="text-sm font-normal text-black dark:text-[#ebeef5]">Equity (5)</h2>
-          <div className="flex items-center gap-2">
-            <div
-              className={`relative flex items-center transition-all duration-200 overflow-hidden`}
-              style={{ width: searchExpanded ? 192 : 32 }}
+        <div className="flex justify-between items-center pt-6 pb-1 mb-2 mt-1 ml-1 xsm:pt-6 xsm:pb-1 xsm:mb-2 xsm:mt-1 xsm:ml-1 px-2 xsm:px-0">
+          <h2 className="text-md font-medium text-gray-900 dark:text-[#EBEEF5]">Equity ({initialHoldings.length})</h2>
+          <div
+            className={`relative flex items-center transition-all duration-200 overflow-hidden`}
+            style={{ width: searchExpanded ? 192 : 32 }}
+          >
+            <button
+              onClick={() => setSearchExpanded(true)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center z-10"
+              aria-label="Expand search"
+              tabIndex={searchExpanded ? -1 : 0}
+              style={{ pointerEvents: searchExpanded ? 'none' : 'auto' }}
             >
-              <button
-                onClick={() => setSearchExpanded(true)}
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center z-10"
-                aria-label="Expand search"
-                tabIndex={searchExpanded ? -1 : 0}
-                style={{ pointerEvents: searchExpanded ? 'none' : 'auto' }}
-              >
-                <SearchButton />
-              </button>
-              <input
-                type="text"
-                value={searchValue}
-                onChange={e => setSearchValue(e.target.value)}
-                onBlur={() => setSearchExpanded(false)}
-                autoFocus={searchExpanded}
-                className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#23272F] rounded-lg text-sm text-[#686868] dark:text-[#F4F4F9] focus:outline-none focus:border-[#c9cacc] transition-all duration-200 bg-white dark:bg-[#23272F] ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                placeholder="Search..."
-                style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
-              />
-            </div>
-            <DownloadButton />
+              <SearchButton />
+            </button>
+            <input
+              type="text"
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
+              onBlur={() => setSearchExpanded(false)}
+              autoFocus={searchExpanded}
+              className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#2F2F2F] rounded-lg text-sm text-gray-900 dark:text-[#C9CACC] bg-white dark:bg-[#121413] dark:placeholder-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              style={{ 
+                width: searchExpanded ? 192 : 32, 
+                minWidth: 0
+              }}
+              placeholder="Search..."
+            />
           </div>
         </div>
-
-        {/* Equity Table with vertical columns and divider lines */}
-        <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212]">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212]">
-            <thead className="bg-[#F4F4F9] dark:bg-[#181A20] divide-x divide-gray-200 dark:divide-[#2f2f2f]">
-              <tr className="bg-[#F4F4F9] dark:bg-[#181A20]" style={{ height: "42px" }}>
-                <HeaderCell
-                  field="security"
-                  label="Security"
-                  width="180px"
-                  className="text-black dark:text-[#F4F4F9]"
-                />
-                <HeaderCell field="quantity" label="Qty" width="80px" className="text-black dark:text-[#F4F4F9]" />
-                <HeaderCell field="avgPrice" label="Avg. Price" width="100px" className="text-black dark:text-[#F4F4F9]" />
-                <HeaderCell field="ltp" label="LTP" width="100px" className="text-black dark:text-[#F4F4F9]" />
-                <HeaderCell field="investmentValue" label="Investment Value" width="130px" className="text-black dark:text-[#F4F4F9]" />
-                <HeaderCell field="netPL" label="Net P&L" width="120px" className="text-black dark:text-[#F4F4F9]" />
-                <HeaderCell field="dailyPL" label="Daily P&L" width="120px" className="text-black dark:text-[#F4F4F9]" />
+        <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
+          <table className="w-full min-w-[800px] border-collapse border border-gray-300 dark:border-[#444]">
+            <thead>
+              <tr className="bg-gray-50 dark:bg-[#2F2F2F]" style={{ height: '36px' }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Security</th>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Qty</th>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Avg. Price</th>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">LTP</th>
+                <th className="px-3 py-2 border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Investment Value</th>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Net P&L</th>
+                <th className="px-3 py-2 whitespace-nowrap bg-gray-50 dark:bg-[#2F2F2F] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Daily P&L</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-[#121212] divide-y divide-gray-200 dark:divide-[#2f2f2f]">
+            <tbody className="bg-white dark:bg-[#121413]">
               {sortedHoldings.map((holding, index) => (
                 <tr
                   key={index}
-                  style={{ height: "32px" }}
-                  className=""
+                  className={`border-t border-gray-200 dark:border-[#2F2F2F] hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors ${
+                    index === sortedHoldings.length - 1
+                      ? 'rounded-b-md overflow-hidden'
+                      : ''
+                  }`}
+                  style={{ height: '32px' }}
                 >
-                  <td className="px-2 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]">
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                     <div className="flex items-center justify-between">
-                      <span
-                        className="text-[#6B7280] dark:text-[#bcbdbf]"
-                        style={{ fontSize: "11px" }}
-                      >
-                        {holding.security}
-                      </span>
-                      <MoreHorizontal
-                        strokeWidth={2}
-                        className="w-3 h-3 ml-1.5 rotate-90 text-gray-400 dark:text-[#c9cacc]"
-                      />
+                      <span className="text-[#6B7280] dark:text-[#bcbdbf]" style={{ fontSize: '11px' }}>{holding.security}</span>
                     </div>
                   </td>
-                  <td
-                    className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    {holding.quantity}
-                  </td>
-                  <td
-                    className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    {formatCurrency(holding.avgPrice)}
-                  </td>
-                  <td
-                    className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    {formatCurrency(holding.ltp)}
-                  </td>
-                  <td
-                    className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] border-r border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    {formatCurrency(holding.investmentValue)}
-                  </td>
-                  <td
-                    className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    <span
-                      className={
-                        holding.netPL.percentage < 0
-                          ? "text-red-500 dark:text-[#e53935]"
-                          : "text-[#22A06B] dark:text-[#22a06b]"
-                      }
-                    >
-                      {formatCurrency(holding.netPL.value)}{" "}
-                      {formatPercentage(holding.netPL.percentage)}
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{holding.quantity}</td>
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.avgPrice)}</td>
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.ltp)}</td>
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.investmentValue)}</td>
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>
+                    <span className={holding.netPL.percentage < 0 ? 'text-red-500 dark:text-[#e53935]' : 'text-[#22A06B] dark:text-[#22a06b]'}>
+                      {formatCurrency(holding.netPL.value)} {formatPercentage(holding.netPL.percentage)}
                     </span>
                   </td>
-                  <td
-                    className="px-2 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#2f2f2f]"
-                    style={{ fontSize: "11px" }}
-                  >
-                    <span className="text-[#22A06B] dark:text-[#22a06b]">
-                      {formatCurrency(holding.dailyPL.value)}{" "}
-                      {formatPercentage(holding.dailyPL.percentage)}
-                    </span>
+                  <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] text-center" style={{ fontSize: '11px' }}>
+                    <span className="text-[#22A06B] dark:text-[#22a06b]">{formatCurrency(holding.dailyPL.value)} {formatPercentage(holding.dailyPL.percentage)}</span>
                   </td>
                 </tr>
               ))}
             </tbody>
-            <tfoot>
-              <tr className="bg-[#F4F4F9] dark:bg-[#121212] font-medium border-t border-gray-200 dark:border-[#2f2f2f]" style={{ height: "32px" }}>
-                <td
-                  colSpan={4}
-                  className="px-2 py-0 text-center whitespace-nowrap border-r text-[#bcbdbf] border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  Total
-                </td>
-                <td
-                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#C9CACC] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  {formatCurrency(totalInvestmentValue)}
-                </td>
-                <td
-                  className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  <span className="text-red-500 dark:text-[#e53935]">
-                    {formatCurrency(totalNetPL.value)}{" "}
-                    {formatPercentage(totalNetPL.percentage)}
-                  </span>
-                </td>
-                <td
-                  className="px-2 py-0 text-center whitespace-nowrap border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  <span className="text-[#22A06B] dark:text-[#22a06b]">
-                    {formatCurrency(totalDailyPL.value)}{" "}
-                    {formatPercentage(totalDailyPL.percentage)}
-                  </span>
-                </td>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

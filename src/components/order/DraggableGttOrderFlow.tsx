@@ -192,11 +192,12 @@ export function DraggableGttOrderFlow() {
       {showStockSearchDialog && (
         <div 
           ref={stockSearchDialogRef}
-          className="fixed z-50 rounded-lg shadow-xl w-[500px]"
+          className="fixed z-50 rounded-lg shadow-xl w-[500px] left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] max-w-[95vw] w-full max-h-[80vh] my-4 shadow-2xl border border-gray-300 dark:border-[#444] rounded-xl p-2 overflow-y-auto xsm:w-[500px] xsm:max-w-none xsm:max-h-none xsm:my-0 xsm:shadow-xl xsm:border xsm:rounded-lg xsm:p-4"
           style={{
-            left: `${stockSearchPosition.x}px`,
-            top: `${stockSearchPosition.y}px`,
-            cursor: isDraggingStockSearch ? 'grabbing' : 'auto',
+            left: window.innerWidth <= 550 ? '50%' : `${stockSearchPosition.x}px`,
+            top: window.innerWidth <= 550 ? '50%' : `${stockSearchPosition.y}px`,
+            transform: window.innerWidth <= 550 ? 'translate(-50%, -50%)' : undefined,
+            cursor: window.innerWidth <= 550 ? 'default' : (isDraggingStockSearch ? 'grabbing' : 'auto'),
             backgroundColor: theme.background,
             border: `1px solid ${theme.border}`,
             boxShadow: isDarkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
@@ -292,11 +293,12 @@ export function DraggableGttOrderFlow() {
       {showGttDialog && selectedStock && (
         <div 
           ref={gttDialogRef}
-          className="fixed z-50 rounded-lg shadow-xl w-[600px]"
+          className="fixed z-50 rounded-lg shadow-xl w-[600px] left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] max-w-[95vw] w-full max-h-[80vh] my-4 shadow-2xl border border-gray-300 dark:border-[#444] rounded-xl p-2 overflow-y-auto xsm:w-[600px] xsm:max-w-none xsm:max-h-none xsm:my-0 xsm:shadow-xl xsm:border xsm:rounded-lg xsm:p-4"
           style={{
-            left: `${gttPosition.x}px`,
-            top: `${gttPosition.y}px`,
-            cursor: isDraggingGtt ? 'grabbing' : 'auto',
+            left: window.innerWidth <= 550 ? '50%' : `${gttPosition.x}px`,
+            top: window.innerWidth <= 550 ? '50%' : `${gttPosition.y}px`,
+            transform: window.innerWidth <= 550 ? 'translate(-50%, -50%)' : undefined,
+            cursor: window.innerWidth <= 550 ? 'default' : (isDraggingGtt ? 'grabbing' : 'auto'),
             backgroundColor: theme.background,
             border: `1px solid ${theme.border}`,
             boxShadow: isDarkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)'

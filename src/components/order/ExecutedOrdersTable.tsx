@@ -2,6 +2,7 @@ import { Search } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import SearchButton from "@/components/gen-components/SearchButton";
+import { ArrowUpDown } from 'lucide-react';
 
 const ExecutedOrdersTable = () => {
   // Sample data matching the image
@@ -97,105 +98,49 @@ const ExecutedOrdersTable = () => {
             </div>
           </div>
           <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
-            <table className="w-full min-w-[800px] border-collapse">
+            <table className="w-full min-w-[800px] border-collapse border border-gray-300 dark:border-[#444]">
               <thead>
-                <tr className="bg-gray-50 dark:bg-[#121413] text-xs border-b border-gray-200 dark:border-[#2F2F2F]" style={{ height: "36px" }}>
-                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Time</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                <tr className="bg-gray-50 dark:bg-[#2F2F2F]" style={{ height: "36px" }}>
+                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Time</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Action</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Action</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-2 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Exch.</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-2 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Exch.</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Security</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Security</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-3 py-2 border-r border-gray-200 dark:border-[#2F2F2F]" style={{ width: "80px" }}>
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Qty.</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-3 py-2 border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]" style={{ width: "80px" }}>
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Qty.</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">Avg. Price</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">Avg. Price</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
-                  <th className="px-3 py-2 whitespace-nowrap">
-                    <div className="flex justify-between items-center group">
-                      <span className="mr-1 text-xs text-gray-900 dark:text-[#EBEEF5] font-[400]">LTP</span>
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Image
-                          src="/sort-icon.svg"
-                          alt="Sort Icon"
-                          width={12}
-                          height={12}
-                          className="dark:invert"
-                        />
-                      </div>
+                  <th className="px-3 py-2 whitespace-nowrap bg-gray-50 dark:bg-[#2F2F2F] text-[#000] dark:text-[#EBEEF5]">
+                    <div className="flex justify-between items-center">
+                      <span className="mr-1 text-xs font-[400]">LTP</span>
+                      <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                     </div>
                   </th>
                 </tr>

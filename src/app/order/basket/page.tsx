@@ -214,31 +214,31 @@ export default function Page() {
           </div>
         </div>
         <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
-          <table className="w-full min-w-[800px] border-collapse">
+          <table className="w-full min-w-[800px] border-collapse border border-gray-300 dark:border-[#444]">
             <thead>
-              <tr className="text-xs font-medium text-gray-600 dark:text-[#EBEEF5] border-b border-[#D1D5DB] dark:border-gray-700" style={{ height: "36px" }}>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
+              <tr className="bg-[#F4F4F9] dark:bg-[#2F2F2F]" style={{ height: "36px" }}>
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Date</span>
-                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
+                    <span className="mr-1 text-xs font-[400]">Date</span>
+                    <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Basket ID</span>
-                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
+                    <span className="mr-1 text-xs font-[400]">Basket ID</span>
+                    <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-gray-700 bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
+                <th className="px-3 py-2 whitespace-nowrap border-r border-[#D1D5DB] dark:border-[#444] text-[#000] dark:text-[#EBEEF5]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Basket Name</span>
-                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
+                    <span className="mr-1 text-xs font-[400]">Basket Name</span>
+                    <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                   </div>
                 </th>
-                <th className="px-3 py-2 whitespace-nowrap bg-[#F4F4F9] dark:bg-[#2F2F2F] hover:bg-[#E5E5E5] transition-colors">
+                <th className="px-3 py-2 whitespace-nowrap bg-[#F4F4F9] dark:bg-[#2F2F2F] text-[#000] dark:text-[#EBEEF5]">
                   <div className="flex justify-between items-center">
-                    <span className="mr-1 text-xs text-[#2F2F2F] dark:text-[#EBEEF5] font-[400]">Items</span>
-                    <ArrowUpDown size={12} className="dark:text-[#C9CACC]" />
+                    <span className="mr-1 text-xs font-[400]">Items</span>
+                    <ArrowUpDown size={12} className="text-[#515C7A] dark:text-[#EBEEF5]" />
                   </div>
                 </th>
               </tr>

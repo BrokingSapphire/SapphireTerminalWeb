@@ -208,8 +208,10 @@ const MutualFundsTable = () => {
   };
 
   return (
-    <div className="w-full">
-      <HoldingSelector />
+    <div className="dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0 mt-2 xsm:mt-8" style={{ margin: '0 auto' }}>
+      <div className="mb-10">
+        <HoldingSelector />
+      </div>
       {/* Header Summary */}
       <div className="grid grid-cols-5 bg-[#F4F4F9] dark:bg-[#1c1c1c] mb-2 h-16 overflow-hidden border dark:border-[#2f2f2f] rounded-md">
         <div className="flex flex-col justify-center h-full px-1.5 relative text-center">
@@ -263,199 +265,82 @@ const MutualFundsTable = () => {
       </div>
 
       {/* Mutual Funds Section Header */}
-      <div className="flex justify-between items-center mt-4 mb-3">
-        <h2 className="text-sm text-black dark:text-[#ebeef5] font-normal">Mutual Funds (5)</h2>
-        <div className="flex items-center gap-2">
-          <div
-            className={`relative flex items-center transition-all duration-200 overflow-hidden`}
-            style={{ width: searchExpanded ? 192 : 32 }}
+      <div className="flex justify-between items-center pt-6 pb-1 mb-2 mt-1 ml-1 xsm:pt-6 xsm:pb-1 xsm:mb-2 xsm:mt-1 xsm:ml-1 px-2 xsm:px-0">
+        <h2 className="text-md font-medium text-gray-900 dark:text-[#EBEEF5]">Mutual Funds ({holdings.length})</h2>
+        <div
+          className={`relative flex items-center transition-all duration-200 overflow-hidden`}
+          style={{ width: searchExpanded ? 192 : 32 }}
+        >
+          <button
+            onClick={() => setSearchExpanded(true)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center z-10"
+            aria-label="Expand search"
+            tabIndex={searchExpanded ? -1 : 0}
+            style={{ pointerEvents: searchExpanded ? 'none' : 'auto' }}
           >
-            <button
-              onClick={() => setSearchExpanded(true)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center z-10"
-              aria-label="Expand search"
-              tabIndex={searchExpanded ? -1 : 0}
-              style={{ pointerEvents: searchExpanded ? 'none' : 'auto' }}
-            >
-              <SearchButton />
-            </button>
-            <input
-              type="text"
-              value={searchValue}
-              onChange={e => setSearchValue(e.target.value)}
-              onBlur={() => setSearchExpanded(false)}
-              autoFocus={searchExpanded}
-              className={`pl-9 pr-2 py-2 border border-gray-300 rounded-lg text-sm text-[#686868] focus:outline-none focus:border-blue-500 transition-all duration-200 bg-white ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-              placeholder="Search..."
-              style={{ width: searchExpanded ? 192 : 32, minWidth: 0 }}
-            />
-          </div>
-          <DownloadButton />
+            <SearchButton />
+          </button>
+          <input
+            type="text"
+            value={searchValue}
+            onChange={e => setSearchValue(e.target.value)}
+            onBlur={() => setSearchExpanded(false)}
+            autoFocus={searchExpanded}
+            className={`pl-9 pr-2 py-2 border border-gray-300 dark:border-[#2F2F2F] rounded-lg text-sm text-gray-900 dark:text-[#C9CACC] bg-white dark:bg-[#121413] dark:placeholder-[#C9CACC] focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 ${searchExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            style={{ 
+              width: searchExpanded ? 192 : 32, 
+              minWidth: 0
+            }}
+            placeholder="Search..."
+          />
         </div>
       </div>
 
       {/* Mutual Funds Table */}
-      <div className="overflow-x-auto border rounded-md border-gray-200 dark:border-[#2f2f2f] bg-white dark:bg-[#121212]">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-[#2f2f2f] bg-white dark:bg-[#121212]">
-          <thead className="bg-[#F4F4F9] dark:bg-[#1c1c1c] divide-x divide-gray-200 dark:divide-[#2f2f2f]">
-            <tr className="bg-[#F4F4F9] dark:bg-[#1c1c1c]" style={{ height: '42px' }}>
-              <HeaderCell
-                field="security"
-                label="Security"
-                width="180px"
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell 
-                field="units" 
-                label="Qty" 
-                width="80px" 
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell 
-                field="avgNav" 
-                label="Avg. NAV" 
-                width="100px" 
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell
-                field="marketNav"
-                label="Market NAV"
-                width="100px"
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell
-                field="investmentValue"
-                label="Investment Value"
-                width="130px"
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell 
-                field="netPL" 
-                label="Net P&L" 
-                width="120px" 
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
-              <HeaderCell
-                field="dailyPL"
-                label="Daily P&L"
-                width="120px"
-                className="text-black dark:text-[#F4F4F9] border-r border-gray-200 dark:border-[#2f2f2f]"
-              />
+      <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
+        <table className="w-full min-w-[800px] border-collapse border border-gray-300 dark:border-[#444]">
+          <thead>
+            <tr className="bg-gray-50 dark:bg-[#2F2F2F]" style={{ height: '36px' }}>
+              <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Security</th>
+              <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Qty</th>
+              <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Avg. NAV</th>
+              <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Market NAV</th>
+              <th className="px-3 py-2 border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Investment Value</th>
+              <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#444] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Net P&L</th>
+              <th className="px-3 py-2 whitespace-nowrap bg-gray-50 dark:bg-[#2F2F2F] text-[#000] dark:text-[#EBEEF5] font-normal text-xs">Daily P&L</th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-[#121212] divide-y divide-gray-200 dark:divide-[#2f2f2f]">
+          <tbody className="bg-white dark:bg-[#121413]">
             {sortedHoldings.map((holding, index) => (
-              <tr 
-                key={index} 
-                style={{ height: "32px" }}
-                className=""
+              <tr
+                key={index}
+                className={`border-t border-gray-200 dark:border-[#2F2F2F] hover:bg-gray-50 dark:hover:bg-[#1a1a1a] transition-colors ${
+                  index === sortedHoldings.length - 1
+                    ? 'rounded-b-md overflow-hidden'
+                    : ''
+                }`}
+                style={{ height: '32px' }}
               >
-                <td className="px-2 py-0 whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]">
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F]">
                   <div className="flex items-center justify-between">
-                    <span
-                      className="text-[#6B7280] dark:text-[#bcbdbf]"
-                      style={{ fontSize: "11px" }}
-                    >
-                      {holding.security}
-                    </span>
-                    <MoreHorizontal
-                      strokeWidth={2}
-                      className="w-3 h-3 ml-1.5 rotate-90 text-gray-400"
-                    />
+                    <span className="text-[#6B7280] dark:text-[#bcbdbf]" style={{ fontSize: '11px' }}>{holding.security}</span>
                   </div>
                 </td>
-                <td
-                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  {holding.units}
-                </td>
-                <td
-                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  {formatCurrency(holding.avgNav)}
-                </td>
-                <td
-                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  {formatCurrency(holding.marketNav)}
-                </td>
-                <td
-                  className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] border-r border-gray-200 dark:border-[#2f2f2f]"
-                  style={{ fontSize: "11px" }}
-                >
-                  {formatCurrency(holding.investmentValue)}
-                </td>
-                <td
-                  className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
-                  style={{ fontSize: "11px" }}
-                >
-                  <span
-                    className={
-                      holding.netPL.value < 0
-                        ? "text-red-500 dark:text-[#e53935]"
-                        : "text-[#22A06B] dark:text-[#22a06b]"
-                    }
-                  >
-                    {formatCurrency(holding.netPL.value)}{" "}
-                    {formatPercentage(holding.netPL.percentage)}
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{holding.units}</td>
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.avgNav)}</td>
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.marketNav)}</td>
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>{formatCurrency(holding.investmentValue)}</td>
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] border-r border-gray-200 dark:border-[#2F2F2F] text-center" style={{ fontSize: '11px' }}>
+                  <span className={holding.netPL.value < 0 ? 'text-red-500 dark:text-[#e53935]' : 'text-[#22A06B] dark:text-[#22a06b]'}>
+                    {formatCurrency(holding.netPL.value)} {formatPercentage(holding.netPL.percentage)}
                   </span>
                 </td>
-                <td
-                  className="px-2 py-0 text-center whitespace-nowrap dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
-                  style={{ fontSize: "11px" }}
-                >
-                  <span
-                    className={
-                      holding.dailyPL.value < 0
-                        ? "text-red-500 dark:text-[#e53935]"
-                        : "text-[#22A06B] dark:text-[#22a06b]"
-                    }
-                  >
-                    {formatCurrency(holding.dailyPL.value)}{" "}
-                    {formatPercentage(holding.dailyPL.percentage)}
-                  </span>
+                <td className="px-3 py-2 text-xs text-gray-700 dark:text-[#C9CACC] text-center" style={{ fontSize: '11px' }}>
+                  <span className={holding.dailyPL.value < 0 ? 'text-red-500 dark:text-[#e53935]' : 'text-[#22A06B] dark:text-[#22a06b]'}>{formatCurrency(holding.dailyPL.value)} {formatPercentage(holding.dailyPL.percentage)}</span>
                 </td>
               </tr>
             ))}
           </tbody>
-          <tfoot>
-            <tr className="bg-[#F4F4F9] dark:bg-[#121212] font-medium border-t border-gray-200 dark:border-[#2f2f2f]" style={{ height: '32px' }}>
-              <td
-                colSpan={4}
-                className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
-                style={{ fontSize: "11px" }}
-              >
-                Total
-              </td>
-              <td
-                className="px-2 py-0 text-center text-[#6B7280] dark:text-[#bcbdbf] whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f]"
-                style={{ fontSize: "11px" }}
-              >
-                {formatCurrency(totalInvestmentValue)}
-              </td>
-              <td
-                className="px-2 py-0 text-center whitespace-nowrap border-r border-gray-200 dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
-                style={{ fontSize: "11px" }}
-              >
-                <span className="text-red-500 dark:text-[#e53935]">
-                  {formatCurrency(totalNetPL.value)}{" "}
-                  {formatPercentage(totalNetPL.percentage)}
-                </span>
-              </td>
-              <td
-                className="px-2 py-0 text-center whitespace-nowrap dark:border-[#2f2f2f] text-[#6B7280] dark:text-[#bcbdbf]"
-                style={{ fontSize: "11px" }}
-              >
-                <span className="text-[#22A06B] dark:text-[#22a06b]">
-                  {formatCurrency(totalDailyPL.value)}{" "}
-                  {formatPercentage(totalDailyPL.percentage)}
-                </span>
-              </td>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </div>

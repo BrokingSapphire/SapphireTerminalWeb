@@ -19,14 +19,15 @@ export default function RootLayout({
   return (
     <div className={inter.className}>
       <Navbar />
-      <div className="flex w-full pt-[60px]">
-        <div className="w-[30%]">
+      <div className="flex w-full pt-[60px] xsm:flex-row flex-col">
+        {/* Sidebar: hidden on mobile */}
+        <div className="w-[30%] hidden xsm:block">
           <Sidebar />
         </div>
-        <main className="w-[80%] p-7 bg-white dark:bg-[#121212]">
-          <div className="bg-white dark:bg-[#121212] w-full">
-            {children}
-          </div>
+        {/* Main content: full width on mobile, 80% on desktop */}
+        <main className="w-full xsm:w-[80%] p-2 xsm:p-7 bg-white dark:bg-[#121212]">
+          
+          {children}
         </main>
       </div>
     </div>

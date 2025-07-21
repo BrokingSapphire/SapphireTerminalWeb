@@ -26,7 +26,9 @@ export function GttOrderPopup() {
           <Plus size={18} className="mr-2" /> New GTT Order
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] p-0 rounded-lg bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F]">
+      <DialogContent
+        className="left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] max-w-[95vw] w-full max-h-[80vh] my-4 rounded-xl p-2 shadow-2xl border border-gray-300 dark:border-[#444] overflow-y-auto sm:max-w-[600px] sm:p-0 bg-white dark:bg-[#121413]"
+      >
         <DialogHeader className="flex flex-row items-start justify-between p-3 bg-gray-50 dark:bg-[#121413]">
           <div className="flex-1">
             <DialogTitle className="text-base font-medium text-gray-900 dark:text-[#EBEEF5] flex items-center gap-1.5">
