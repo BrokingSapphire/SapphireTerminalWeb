@@ -64,10 +64,10 @@ const QueuedOrdersTable = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="w-full flex justify-center bg-white dark:bg-[#121212]">
-      <div className="bg-white dark:bg-[#121212] max-w-[80vw] w-full mx-auto">
-        <div className="flex justify-between items-center pt-4 pb-3">
-          <h2 className="text-sm font-medium text-gray-800 dark:text-[#EBEEF5]">5 Queued Orders</h2>
+    <div className="dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0" style={{ margin: '0 auto' }}>
+      <div className="bg-white dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0" style={{ margin: '0 auto' }}>
+        <div className="flex justify-between items-center pt-6 pb-1 mb-2 mt-1 ml-1 xsm:pt-6 xsm:pb-1 xsm:mb-2 xsm:mt-1 xsm:ml-1 px-2 xsm:px-0">
+          <h2 className="text-md font-medium text-gray-900 dark:text-[#EBEEF5]">5 Queued Orders</h2>
           <div
             className={`relative flex items-center transition-all duration-200 overflow-hidden`}
             style={{ width: searchExpanded ? 192 : 32 }}
@@ -96,9 +96,8 @@ const QueuedOrdersTable = () => {
             />
           </div>
         </div>
-
-        <div className="overflow-hidden rounded-md border border-gray-200 dark:border-[#2F2F2F]">
-          <table className="w-full border-collapse">
+        <div className="overflow-x-auto w-full" style={{ borderRadius: '8px' }}>
+          <table className="w-full min-w-[800px] border-collapse">
             <thead>
               <tr className="bg-gray-50 dark:bg-[#121413] text-xs border-b border-gray-200 dark:border-[#2F2F2F]" style={{ height: "36px" }}>
                 <th className="px-3 py-2 whitespace-nowrap border-r border-gray-200 dark:border-[#2F2F2F]">
