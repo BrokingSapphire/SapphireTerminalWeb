@@ -15,7 +15,7 @@ const Home = () => {
     <div className=" ">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-          <div className="px-1 py-2">
+          <div className="xsm:px-14 py-2 pl-2 xsm:py-0">
             <div className="flex items-center gap-1">
               <button
                 onClick={handleGoBack}
@@ -32,7 +32,7 @@ const Home = () => {
       
 
       {/* Main content with proper spacing */}
-      <div className="px-1 py-4">
+      <div className="xsm:pl-16 xsm:py-6 xsm:pr-10 pl-5 pr-1 py-2">
         <ChooseGiftStockUI />
       </div>
     </div>

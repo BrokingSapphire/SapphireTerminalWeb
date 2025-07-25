@@ -145,7 +145,7 @@ export default function ClosedTradesList() {
   const uniqueDurations = Array.from(new Set(closedTradesData.map(trade => trade.duration)));
 
   return (
-    <div className="w-full max-w-[1050px] xsm:w-[1050px] px-4 mx-auto">
+    <div className="w-full max-w-[1100px] mx-auto px-2 max-[550px]:px-2 max-[550px]:max-w-full max-[550px]:w-full">
       <SearchFilterControls
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -164,7 +164,7 @@ export default function ClosedTradesList() {
       />
 
       {filteredTrades.length === 0 ? (
-        <div className="w-full max-w-[1030px] xsm:w-[1030px] bg-white p-6 text-center rounded-lg border mx-auto">
+        <div className="w-full max-w-[1100px] bg-white p-6 text-center rounded-lg border mx-auto max-[550px]:max-w-full max-[550px]:w-full">
           <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -184,11 +184,11 @@ export default function ClosedTradesList() {
           </div>
         </div>
       ) : viewMode === 'list' ? (
-        <div className="w-full max-w-[1030px] xsm:w-[1030px] mx-auto">
+        <div className="w-full max-w-[1100px] mx-auto max-[550px]:max-w-full max-[550px]:w-full max-[550px]:overflow-x-auto">
           <FixedColumnTable filteredTrades={filteredTrades} />
         </div>
       ) : (
-        <div className="w-full max-w-[1030px] xsm:w-[1030px] mx-auto">
+        <div className="w-full max-w-[1100px] mx-auto max-[550px]:max-w-full max-[550px]:w-full max-[550px]:overflow-x-auto">
           <GridViewTable
             trades={filteredTrades.map(trade => ({
               ...trade,

@@ -122,7 +122,7 @@ export default function TradesList() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="w-full max-w-[1100px] mx-auto px-2">
       <div className="flex items-center justify-between flex-wrap gap-2">
         {/* WhatsApp Alerts Button on the left */}
         {/* <Whatsapp /> */}
@@ -230,7 +230,7 @@ export default function TradesList() {
       )}
 
       {filteredTrades.length === 0 ? (
-        <div className="bg-white p-6 text-center rounded-lg border">
+        <div className="bg-white p-6 text-center rounded-lg border w-full max-w-[1100px] mx-auto">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"
             fill="none"
@@ -265,7 +265,9 @@ export default function TradesList() {
         </div>
       ) : (
         filteredTrades.map((trade, index) => (
-          <TradeCard key={index} {...trade} />
+          <div key={index} className="w-full max-w-[1100px] mx-auto mb-4 sm:mb-6">
+            <TradeCard {...trade} />
+          </div>
         ))
       )}
     </div>

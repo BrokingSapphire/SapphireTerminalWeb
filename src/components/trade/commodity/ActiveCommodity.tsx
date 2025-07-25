@@ -121,6 +121,7 @@ export default function ActiveCommodity() {
   };
 
   return (
+    <div className="w-full max-w-[1100px] mx-auto px-2">
     <div className="space-y-6">
       <div className='flex items-center justify-between flex-wrap gap-2'>
         {/* WhatsApp Alerts Button on the left */}
@@ -209,7 +210,7 @@ export default function ActiveCommodity() {
       )}
 
       {filteredTrades.length === 0 ? (
-        <div className="bg-white p-6 text-center rounded-lg border">
+          <div className="bg-white p-6 text-center rounded-lg border w-full max-w-[1100px] mx-auto">
           <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -230,9 +231,12 @@ export default function ActiveCommodity() {
         </div>
       ) : (
         filteredTrades.map((trade, index) => (
-          <TradeCard key={index} {...trade} />
+            <div key={index} className="w-full max-w-[1100px] mx-auto mb-4 sm:mb-6 mr-4 max-[550px]:mr-0">
+              <TradeCard {...trade} />
+            </div>
         ))
       )}
+      </div>
     </div>
   );
 }

@@ -79,26 +79,28 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
   return (
     <>
-      <div className={`w-full max-w-6xl mx-auto p-2 ${className}`}>
-        <div className="bg-gray-50 dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-lg p-3 flex flex-col lg:flex-row gap-3 lg:gap-3">
+      <div className={`w-full max-w-6xl mx-auto p-3 sm:p-4 ${className}`}>
+        <div className="bg-gray-50 dark:bg-[#121413] dark:border dark:border-[#2F2F2F] rounded-lg p-6 sm:p-6 flex flex-col lg:flex-row gap-6 lg:gap-6">
           {/* Shield Section */}
-          <div className="flex flex-col items-center text-center w-full lg:w-auto lg:min-w-[180px] lg:mr-2">
-            <div className="mb-2">
-              <div className="w-12 h-12 flex items-center justify-center mb-1">
+          <div className="flex flex-col items-center text-center w-full lg:w-auto lg:min-w-[280px] lg:mr-4">
+            <div className="mb-4">
+              <div className="w-16 h-16 sm:w-20 sm:h-18 flex items-center justify-center mb-1">
                 <img 
                   src="/Shield.png" 
                   alt="Shield"
-                  className="w-10 h-10 object-contain"
+                  className="w-12 h-12 sm:w-16 sm:h-16 object-contain"
                 />
+
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-6 sm:space-y-6">
               <h2
-                className="text-gray-900 dark:text-[#EBEEF5] text-[13px]"
+                className="text-gray-900 dark:text-[#EBEEF5] text-base sm:text-base"
                 style={{
                   fontFamily: "Inter",
                   fontWeight: 500,
+
                   lineHeight: "100%",
                   letterSpacing: "-0.43px",
                   textAlign: "center",
@@ -107,11 +109,12 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 Protect your account
               </h2>
               <p
-                className="text-[#666666] dark:text-[#C9CACC] leading-relaxed max-w-[200px] text-xs"
+                className="text-[#666666] dark:text-[#C9CACC] leading-relaxed max-w-[300px] text-sm sm:text-sm"
                 style={{
                   fontFamily: "Inter",
                   fontWeight: 400,
                   lineHeight: "120%",
+
                   letterSpacing: "-0.43px",
                   textAlign: "center",
                 }}
@@ -123,12 +126,13 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
           </div>
 
           {/* Verification Options Section */}
-          <div className="flex-1 w-full lg:min-w-[220px]">
+          <div className="flex-1 w-full lg:min-w-[400px]">
             <h2
-              className="text-gray-900 dark:text-[#EBEEF5] mb-3 text-[13px]"
+              className="text-gray-900 dark:text-[#EBEEF5] mb-6 sm:mb-6 text-base sm:text-base"
               style={{
                 fontFamily: "Inter",
                 fontWeight: 500,
+
                 lineHeight: "100%",
                 letterSpacing: "0%",
               }}
@@ -139,16 +143,17 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
             <div className="bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded-lg overflow-hidden">
               {/* Text Option */}
               <div
-                className="p-2 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] border-b border-gray-200 dark:border-[#2F2F2F]"
+                className="p-4 sm:p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a] border-b border-gray-200 dark:border-[#2F2F2F]"
                 onClick={() => handleMethodClick("text")}
               >
                 <div className="flex flex-col flex-1 min-w-0">
-                  <div className="flex items-center gap-1 mb-1">
+                  <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-[#1A1A1A] dark:text-[#EBEEF5] text-[13px]"
+                      className="text-[#1A1A1A] dark:text-[#EBEEF5] text-base sm:text-base"
                       style={{
                         fontFamily: "Inter",
                         fontWeight: 400,
+
                         lineHeight: "100%",
                         letterSpacing: "-0.43px",
                       }}
@@ -157,7 +162,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     </span>
                     {selectedMethod === "text" && (
                       <svg
-                        className="w-3 h-3 text-green-500 flex-shrink-0"
+                        className="w-4 h-4 text-green-500 flex-shrink-0"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -166,10 +171,11 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     )}
                   </div>
                   <span
-                    className="text-[#666666] dark:text-[#C9CACC] text-xs"
+                    className="text-[#666666] dark:text-[#C9CACC] text-sm sm:text-sm"
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 300,
+
                       lineHeight: "100%",
                       letterSpacing: "-0.43px",
                     }}
@@ -179,7 +185,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 </div>
                 <div className="flex items-center ml-2">
                   <svg
-                    className="w-3 h-3 text-gray-400 dark:text-[#C9CACC]"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 dark:text-[#C9CACC]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -196,16 +202,17 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
 
               {/* Authentication App Option */}
               <div
-                className="p-2 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
+                className="p-4 sm:p-4 flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
                 onClick={() => handleMethodClick("app")}
               >
                 <div className="flex flex-col flex-1 min-w-0">
-                  <div className="flex items-center gap-1 mb-1">
+                  <div className="flex items-center gap-2 mb-1">
                     <span
-                      className="text-[#1A1A1A] dark:text-[#EBEEF5] text-[13px]"
+                      className="text-[#1A1A1A] dark:text-[#EBEEF5] text-base sm:text-base"
                       style={{
                         fontFamily: "Inter",
                         fontWeight: 400,
+
                         lineHeight: "100%",
                         letterSpacing: "-0.43px",
                       }}
@@ -214,7 +221,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     </span>
                     {selectedMethod === "app" && (
                       <svg
-                        className="w-3 h-3 text-green-500 flex-shrink-0"
+                        className="w-4 h-4 text-green-500 flex-shrink-0"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -223,10 +230,11 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     )}
                   </div>
                   <span
-                    className="text-[#666666] dark:text-[#C9CACC] text-xs"
+                    className="text-[#666666] dark:text-[#C9CACC] text-sm sm:text-sm"
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 300,
+
                       lineHeight: "100%",
                       letterSpacing: "-0.43px",
                     }}
@@ -236,7 +244,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 </div>
                 <div className="flex items-center ml-2">
                   <svg
-                    className="w-3 h-3 text-gray-400 dark:text-[#C9CACC]"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 dark:text-[#C9CACC]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -261,6 +269,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
           <div
             className="bg-white dark:bg-[#121413] shadow-2xl flex flex-col border border-gray-200 dark:border-[#2F2F2F] w-full max-w-md sm:max-w-lg"
             style={{
+
               minHeight: "275px",
               borderTopLeftRadius: "4px",
               borderTopRightRadius: "4px",
@@ -276,6 +285,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 style={{
                   fontFamily: "Inter",
                   fontWeight: 600,
+
                   lineHeight: "100%",
                   letterSpacing: "0%",
                 }}
@@ -323,6 +333,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                         fontFamily: "Inter",
                         fontWeight: 400,
                         lineHeight: "120%",
+
                         letterSpacing: "0%",
                       }}
                     >
@@ -340,6 +351,7 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 400,
+
                       lineHeight: "100%",
                       letterSpacing: "0%",
                     }}
@@ -428,6 +440,14 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 <div className="flex items-center gap-3">
                   <div
                     className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#C9CACC] bg-[#F8F8FB] dark:bg-[#23232399] border border-gray-300 dark:border-[#2F2F2F] rounded-full px-2 py-1"
+
+
+
+
+
+
+
+
                   >
                     Step 1
                   </div>
@@ -631,8 +651,16 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                         onClick={copyToClipboard}
                         className="inline-flex items-center gap-1 text-[#1A1A1A] dark:text-[#EBEEF5] hover:text-blue-700 dark:hover:text-blue-400 transition-colors bg-white dark:bg-[#121413] border border-gray-200 dark:border-[#2F2F2F] rounded-md px-2 py-1 text-xs"
                         style={{
+
+
+
+
+
+
                           fontFamily: "Inter, sans-serif",
                           fontWeight: "500",
+
+
                         }}
                       >
                         <svg
@@ -660,6 +688,14 @@ const VerificationMethod: React.FC<VerificationMethodProps> = ({
                 <div className="flex items-center gap-3">
                   <div
                     className="inline-flex items-center justify-center text-xs font-medium text-gray-700 dark:text-[#C9CACC] bg-[#F8F8FB] dark:bg-[#23232399] border border-gray-300 dark:border-[#2F2F2F] rounded-full px-2 py-1"
+
+
+
+
+
+
+
+
                   >
                     Step 2
                   </div>

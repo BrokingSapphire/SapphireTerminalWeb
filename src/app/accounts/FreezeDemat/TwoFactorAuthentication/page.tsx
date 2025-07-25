@@ -15,7 +15,7 @@ const Home = () => {
     <div className=" ">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-          <div className="px-1 py-2">
+          <div className="xsm:px-14">
             <div className="flex items-center gap-1">
               <button
                 onClick={handleGoBack}
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
       
       {/* Main content with proper spacing */}
-      <div className="px-1 py-4">
+      <div className="xsm:pl-14 xsm:py-6 xsm:pr-9 pl-5">
         <TwoFactorAuthentication />
       </div>
     </div>

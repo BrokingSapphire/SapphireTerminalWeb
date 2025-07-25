@@ -43,7 +43,8 @@ const TradeCard: React.FC<TradeCardProps> = ({
   const [showGainInfo, setShowGainInfo] = React.useState(false);
 
   return (
-    <div className="border border-border dark:border-dark-border rounded-lg bg-surface dark:bg-[#121413] w-[1050px] p-6 max-[550px]:w-full max-[550px]:p-4">
+    <div className="dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0 pt-7 xsm:pt-10" style={{ margin: '0 auto' }}>
+      <div className="bg-white dark:bg-[#121413] w-full xsm:w-[1050px] mx-auto border border-gray-300 dark:border-[#444] rounded-lg p-6 max-[550px]:w-full max-[550px]:p-4 mb-4 xsm:mb-6" style={{ borderRadius: '8px' }}>
       {/* Header Section */}
       <div className="h-[30px] mb-[26px] max-[550px]:h-auto max-[550px]:mb-4">
         <div className="float-left max-[550px]:float-none max-[550px]:w-full max-[550px]:mb-2">
@@ -201,6 +202,7 @@ const TradeCard: React.FC<TradeCardProps> = ({
             </span>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

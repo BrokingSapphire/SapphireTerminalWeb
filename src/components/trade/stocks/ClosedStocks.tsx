@@ -143,58 +143,60 @@ export default function ClosedTradesList() {
   const uniqueDurations = Array.from(new Set(closedTradesData.map(trade => trade.duration)));
 
   return (
-    <div className="mx-auto w-[1050px] max-[550px]:w-full px-4 max-[550px]:px-2">
-      <SearchFilterControls
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handleSearchChange={handleSearchChange}
-        showFilters={showFilters}
-        setShowFilters={setShowFilters}
-        filterType={filterType}
-        setFilterType={setFilterType}
-        filterDuration={filterDuration}
-        setFilterDuration={setFilterDuration}
-        uniqueDurations={uniqueDurations}
-        resetFilters={resetFilters}
-        getActiveFiltersCount={getActiveFiltersCount}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-      />
+    <div className="dark:bg-[#121212] w-full xsm:w-[1100px] px-2 xsm:px-0 pt-7 xsm:pt-10" style={{ margin: '0 auto' }}>
+      <div className="bg-white dark:bg-[#121413] w-full xsm:w-[1050px] mx-auto rounded-lg p-6 max-[550px]:w-full max-[550px]:p-4 mb-4 xsm:mb-6">
+        <SearchFilterControls
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          handleSearchChange={handleSearchChange}
+          showFilters={showFilters}
+          setShowFilters={setShowFilters}
+          filterType={filterType}
+          setFilterType={setFilterType}
+          filterDuration={filterDuration}
+          setFilterDuration={setFilterDuration}
+          uniqueDurations={uniqueDurations}
+          resetFilters={resetFilters}
+          getActiveFiltersCount={getActiveFiltersCount}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+        />
 
-      {filteredTrades.length === 0 ? (
-        <div className="w-[1030px] max-[550px]:w-full bg-white p-6 text-center rounded-lg border mx-auto">
-          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No trades found</h3>
-          <p className="mt-1 text-sm text-gray-500">Try adjusting your search parameters.</p>
-          <div className="mt-3">
-            <button
-              type="button"
-              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
-              onClick={() => {
-                setSearchQuery('');
-                resetFilters();
-              }}
-            >
-              Clear all filters
-            </button>
+        {filteredTrades.length === 0 ? (
+          <div className="w-full bg-white dark:bg-[#121413] p-6 text-center rounded-lg mx-auto">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">No trades found</h3>
+            <p className="mt-1 text-sm text-gray-500">Try adjusting your search parameters.</p>
+            <div className="mt-3">
+              <button
+                type="button"
+                className="inline-flex items-center px-3 py-2 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-[#C9CACC] bg-white dark:bg-[#121413] hover:bg-gray-50 dark:hover:bg-[#232323] focus:outline-none"
+                onClick={() => {
+                  setSearchQuery('');
+                  resetFilters();
+                }}
+              >
+                Clear all filters
+              </button>
+            </div>
           </div>
-        </div>
-      ) : viewMode === 'list' ? (
-        <div className="w-[1px] max-[550px]:w-full mx-auto">
-          <FixedColumnTable filteredTrades={filteredTrades} />
-        </div>
-      ) : (
-        <div className="w-[1030px] max-[550px]:w-full mx-auto">
-          <GridViewTable trades={filteredTrades.map(trade => ({
-            ...trade,
-            status: trade.status,
-            postedBy: trade.postedBy,
-            marginReq: trade.marginReq,
-          }))} />
-        </div>
-      )}
+        ) : viewMode === 'list' ? (
+          <div className="w-full mx-auto">
+            <FixedColumnTable filteredTrades={filteredTrades} />
+          </div>
+        ) : (
+          <div className="w-full mx-auto">
+            <GridViewTable trades={filteredTrades.map(trade => ({
+              ...trade,
+              status: trade.status,
+              postedBy: trade.postedBy,
+              marginReq: trade.marginReq,
+            }))} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

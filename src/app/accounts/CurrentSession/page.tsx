@@ -15,7 +15,7 @@ const Home = () => {
     <div className=" ">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121212] ">
-        <div className="px- py-2">
+        <div className="xsm:px-14">
           <div className="flex items-center gap-1">
             <button 
               onClick={handleGoBack}
@@ -31,7 +31,7 @@ const Home = () => {
       </div>
 
       {/* Main content with proper spacing */}
-      <div className="px-1 py-4 bg-white dark:bg-[#121212] text-gray-900 dark:text-[#F4F4F9]">
+      <div className="xsm:pl-16 xsm:py-10 xsm:pr-9 pl-5 pt-6  bg-white dark:bg-[#121212] text-gray-900 dark:text-[#F4F4F9]">
         <SessionManagement />
       </div>
     </div>

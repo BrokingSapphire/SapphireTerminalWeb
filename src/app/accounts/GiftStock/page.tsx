@@ -12,27 +12,25 @@ const Home = () => {
   };
 
   return (
-    <div className=" ">
+    <div className="w-full min-h-screen bg-white dark:bg-[#121212] pl-4 xsm:pl-0">
       {/* Header with back arrow and title */}
-      <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-          <div className="px-1 py-2">
-            <div className="flex items-center gap-1">
-              <button
-                onClick={handleGoBack}
-                className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-[#C9CACC]" />
-              </button>
-              <h1 className="text-lg font-medium text-gray-900 dark:text-[#EBEEF5]">
-                Gift Stock
-              </h1>
-            </div>
-          </div>
+      <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212] xsm:px-8 pb-2 xsm:ml-6">
+        <div className="flex items-center gap-1 xsm:gap-2">
+          <button
+            onClick={handleGoBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-[#C9CACC]" />
+          </button>
+          <h1 className="text-lg font-medium text-gray-900 dark:text-[#EBEEF5]">
+            Gift Stock
+          </h1>
         </div>
-      
+      </div>
+
 
       {/* Main content with proper spacing */}
-      <div className="px-1 py-4">
+      <div className="xsm:pl-12  py-4 xsm:pr-10">
         <ChooseGiftStockUI />
       </div>
     </div>

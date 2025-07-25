@@ -14,8 +14,8 @@ const Home = () => {
   return (
     <div className=" ">
       {/* Header with back arrow and title */}
-      <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-          <div className="px-1 py-2">
+      <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212] xsm:ml-12 ml-4  xsm:mt-0 mt-4">
+          <div className="xsm:px-3 xsm:pb-3 ">
             <div className="flex items-center gap-1">
               <button
                 onClick={handleGoBack}
@@ -32,7 +32,7 @@ const Home = () => {
       
 
       {/* Main content with proper spacing */}
-      <div className="px-1 py-4">
+      <div className="xsm:px-8 py-6 ml-8 pr-2 xsm:pr-14">
         <SendGift />
       </div>
     </div>

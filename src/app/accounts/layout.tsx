@@ -19,19 +19,15 @@ export default function RootLayout({
   return (
     <div className={inter.className}>
       <Navbar />
-      <div className="flex w-full pt-[60px]">
-        <div className="hidden lg:block w-[27vw]">
+      <div className="flex w-full pt-[60px] xsm:flex-row flex-col">
+        {/* Sidebar: hidden on mobile */}
+        <div className="w-[30%] hidden xsm:block">
           <Sidebar />
         </div>
-        <div
-          className="h-auto w-[0.5px] my-[28px] z-100 bg-gray-200 dark:bg-gray-700"
-          style={{ overflow: "hidden" }}
-        ></div>
-        <main className="w-full lg:w-[75%] p-[28px] bg-white dark:bg-[#121212]">
-          <div className="bg-white dark:bg-[#121212] w-full">
-            
-            {children}
-          </div>
+        {/* Main content: full width on mobile, 80% on desktop */}
+        <main className="w-full  p-2 xsm:mt-7 -ml-3 bg-white dark:bg-[#121212]">
+          
+          {children}
         </main>
       </div>
     </div>

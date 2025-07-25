@@ -29,8 +29,8 @@ const Home = () => {
     <div className="bg-white dark:bg-[#121212]">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121212] border-0 dark:border-b dark:border-[#121212]">
-        <div className="px-3 py-2">
-          <div className="flex items-center gap-2">
+        <div className="xsm:px-14 ">
+          <div className="flex items-center gap-1">
             <button
               onClick={handleGoBack}
               className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-gray-100 dark:hover:bg-[#1a1a1a] transition-colors"
@@ -45,7 +45,7 @@ const Home = () => {
       </div>
 
       {/* Main content with proper spacing */}
-      <div className="px-3 py-3">
+      <div className="xsm:pl-14 xsm:py-8 xsm:pr-9 pl-5">
         <FreezeDemat />
 
         {/* Action buttons */}

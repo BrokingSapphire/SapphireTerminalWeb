@@ -15,7 +15,7 @@ const Home = () => {
     <div className=" ">
       {/* Header with back arrow and title */}
       <div className="bg-white dark:bg-[#121413]">
-        <div className="px-3 py-2">
+        <div className="xsm:px-14 py-2 pl-3 xsm:py-0">
           <div className="flex items-center gap-2">
             <button 
               onClick={handleGoBack}
@@ -31,7 +31,7 @@ const Home = () => {
       </div>
 
       {/* Main content with proper spacing */}
-      <div className="px-3 py-3 mt-2 mb-0">
+      <div className="xsm:pl-16 xsm:py-11 xsm:pr-10 pl-5  py-4">
         <ActiveSegments />
       </div>
     </div>
